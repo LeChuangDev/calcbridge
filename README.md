@@ -1,5 +1,10 @@
 # 樂創 LeChuang · calcbridge — 面板式工程计算器
 
+[在线使用](https://calc.zhangwenle.com) ·
+[下载安装包](https://github.com/LeChuangDev/calcbridge/releases) ·
+[开源仓库](https://github.com/LeChuangDev/calcbridge) ·
+[Apache-2.0](LICENSE)
+
 > 面板式工程计算工具：左侧分类树 + 右侧计算面板（电路/截面示意、计算公式、输入与结果）。
 > 所有结论尽量可追溯到公式、标准条款与假设；输出为工程估算，非认证依据。
 
@@ -47,6 +52,15 @@ apps/
    └─ styles/      # 令牌 → 基础 → 外壳 → 面板 → 控件 → 首页 → 响应式
 ```
 
+仓库根目录还包含：
+
+```
+deploy/              # 部署与打包：Nginx 配置、Windows 安装包（Inno Setup）、Linux deb 脚本
+.github/workflows/   # CI（push/PR 校验）与 Release（打标签自动出安装包）
+edgeone.json         # EdgeOne Pages 构建配置（构建命令、输出目录、Node 版本）
+offline/             # 离线启动器与安装脚本（start.py / install.bat / install.sh）
+```
+
 分层约束与新增计算器的步骤见 `docs/architecture.md`，且由 `npm run lint` 强制检查。
 
 设计文件、稳压器参数文件与安全审查说明分别见 `apps/web/src/designFile.ts`、
@@ -80,6 +94,7 @@ $env:CALCBRIDGE_DEV_HOST='0.0.0.0'; npm run dev
 ## 部署与安全
 
 - 构建：`npm run build:web`，产物在 `apps/web/dist`。
+- EdgeOne Pages：仓库根目录的 `edgeone.json` 已声明构建命令、输出目录与 Node 版本，导入仓库即可部署；线上地址 <https://calc.zhangwenle.com>。
 - Netlify / Cloudflare Pages：`apps/web/public/_headers` 会随构建复制到 `dist/_headers`。
 - Nginx：参考 `deploy/nginx-calcbridge.conf`。
 - Vercel：参考 `deploy/README.md` 中的 headers / rewrites 配置。
@@ -97,7 +112,26 @@ $env:CALCBRIDGE_DEV_HOST='0.0.0.0'; npm run dev
 - Linux 安装：`bash offline/install.sh`（默认 `~/.local`）；`sudo bash offline/install.sh --system` 安装到 `/usr/local`。
 - 卸载：Windows 在「设置 → 应用」中卸载，或运行安装目录下的 `uninstall.bat`；Linux 运行 `~/.local/share/calcbridge/uninstall.sh`。
 - 端口默认从 8787 起自动选择空闲端口，可用 `--port` 指定；数据保存在浏览器 localStorage。
-- 预编译安装包：每次打 `v*` 标签会自动构建并发布到 [Releases](https://github.com/LeChuangDev/calcbridge/releases)，包含 Windows 安装包（`.exe`）、Windows 便携包（`.zip`）、Debian/Ubuntu 安装包（`.deb`）与 Linux 便携包（`.tar.gz`）。
+
+## 发布流程
+
+版本号取自 `package.json` 的 `version`。打标签并推送即触发自动发布：
+
+```bash
+git tag -a v0.5.1 -m "calcbridge v0.5.1"
+git push origin v0.5.1
+```
+
+`.github/workflows/release.yml` 会并行构建四类产物，并自动创建 Release：
+
+| 平台            | 产物                                      |
+| --------------- | ----------------------------------------- |
+| Windows 安装    | `calcbridge-<版本>-windows-setup.exe`     |
+| Windows 便携    | `calcbridge-<版本>-windows-portable.zip`  |
+| Debian / Ubuntu | `calcbridge_<版本>_all.deb`               |
+| Linux 便携      | `calcbridge-<版本>-linux-portable.tar.gz` |
+
+也可以在 Actions 页面手动运行 Release 工作流并填写版本号（不带 `v` 前缀）。
 
 ## 设计约定
 
