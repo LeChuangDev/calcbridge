@@ -97,7 +97,7 @@ $env:CALCBRIDGE_DEV_HOST='0.0.0.0'; npm run dev
 - Linux 安装：`bash offline/install.sh`（默认 `~/.local`）；`sudo bash offline/install.sh --system` 安装到 `/usr/local`。
 - 卸载：Windows 在「设置 → 应用」中卸载，或运行安装目录下的 `uninstall.bat`；Linux 运行 `~/.local/share/calcbridge/uninstall.sh`。
 - 端口默认从 8787 起自动选择空闲端口，可用 `--port` 指定；数据保存在浏览器 localStorage。
-- 预编译安装包：每次打 `v*` 标签会自动构建并发布到仓库 Releases 页面，包含 Windows 安装包（`.exe`）、Windows 便携包（`.zip`）、Debian/Ubuntu 安装包（`.deb`）与 Linux 便携包（`.tar.gz`）。
+- 预编译安装包：每次打 `v*` 标签会自动构建并发布到 [Releases](https://github.com/LeChuangDev/calcbridge/releases)，包含 Windows 安装包（`.exe`）、Windows 便携包（`.zip`）、Debian/Ubuntu 安装包（`.deb`）与 Linux 便携包（`.tar.gz`）。
 
 ## 设计约定
 
