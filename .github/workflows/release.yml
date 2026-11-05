@@ -1,0 +1,100 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '版本号（不含 v，例如 0.5.0）'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.value }}
+    steps:
+      - id: version
+        run: |
+          raw="${{ inputs.version || github.ref_name }}"
+          echo "value=${raw#v}" >> "$GITHUB_OUTPUT"
+
+  linux:
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run build:offline
+
+      - name: 便携包（tar.gz）
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: tar -czf "calcbridge-${VERSION}-linux-portable.tar.gz" -C offline .
+
+      - name: Debian 安装包（deb）
+        run: bash deploy/linux/build-deb.sh "${{ needs.prepare.outputs.version }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-packages
+          if-no-files-found: error
+          path: |
+            calcbridge-*-linux-portable.tar.gz
+            build/calcbridge_*.deb
+
+  windows:
+    needs: prepare
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run build:offline
+
+      - name: 安装 Inno Setup
+        run: choco install innosetup --no-progress -y
+
+      - name: 构建安装包（exe）
+        run: |
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "/DMyAppVersion=${{ needs.prepare.outputs.version }}" "deploy\windows\calcbridge.iss"
+
+      - name: 便携包（zip）
+        run: |
+          Compress-Archive -Path offline -DestinationPath "calcbridge-${{ needs.prepare.outputs.version }}-windows-portable.zip" -Force
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-packages
+          if-no-files-found: error
+          path: |
+            build\installer\*.exe
+            calcbridge-*-windows-portable.zip
+
+  release:
+    needs: [prepare, linux, windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.prepare.outputs.version }}
+          name: calcbridge v${{ needs.prepare.outputs.version }}
+          generate_release_notes: true
+          files: release-assets/*

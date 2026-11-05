@@ -1,0 +1,92 @@
+/* ═══════════════════════════════════════════════════════════
+   设计令牌（Design Tokens）
+   全局唯一的颜色 / 圆角 / 字体 / 动效来源；组件样式只允许引用变量，
+   禁止再写死色值。切换主题只需替换本文件的取值。
+   风格：纯色分层 / 无渐变 / 无发光 / 8px 间距节奏
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  color-scheme: dark;
+
+  /* 表面与文字：三级表面 + 三级文字 */
+  --bg: #121518;
+  --panel: #1a1e23;
+  --input: #22272e;
+  --input-hover: #2a3039;
+  --surface-3: #1e242a;
+  --border: #2d333b;
+  --border-strong: #4a525c;
+  --text: #e4e7eb;
+  --text-2: #8b949e;
+  --text-3: #5c636b;
+
+  /* 语义色：强调 / 通过 / 告警 / 失败，含淡底与描边派生色 */
+  --accent: #4dabf7;
+  --accent-hover: #6fbcf9;
+  --on-accent: #0b0f14;
+  --ok: #69db7c;
+  --warn: #ffb86b;
+  --bad: #ff8787;
+  --accent-soft: rgba(77, 171, 247, 0.06);
+  --accent-line: rgba(77, 171, 247, 0.35);
+  --ok-soft: rgba(105, 219, 124, 0.12);
+  --ok-line: rgba(105, 219, 124, 0.4);
+  --warn-soft: rgba(255, 184, 107, 0.12);
+  --warn-line: rgba(255, 184, 107, 0.45);
+  --bad-soft: rgba(255, 135, 135, 0.1);
+  --bad-line: rgba(255, 135, 135, 0.4);
+
+  --mask: rgba(9, 11, 13, 0.72);
+  --shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  --focus-ring: rgba(77, 171, 247, 0.7);
+
+  --r-card: 8px;
+  --r-ctl: 6px;
+  --r-tag: 6px;
+
+  --font-ui:
+    'Source Han Sans SC', 'Noto Sans CJK SC', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Segoe UI',
+    system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Mono', Consolas, 'Courier New', monospace;
+
+  --ease: ease;
+
+  /* 依赖主题色的图标：随主题整体替换，避免在组件里写死 SVG 描边色 */
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%238b949e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f5f7f9;
+  --panel: #ffffff;
+  --input: #f1f3f6;
+  --input-hover: #e7ebf0;
+  --surface-3: #eceff3;
+  --border: #dde2e8;
+  --border-strong: #b9c1cb;
+  --text: #14181c;
+  --text-2: #5a636e;
+  --text-3: #8a939f;
+
+  --accent: #0b6bcb;
+  --accent-hover: #1a7de0;
+  --on-accent: #ffffff;
+  --ok: #1a7f37;
+  --warn: #a35a00;
+  --bad: #c92a2a;
+  --accent-soft: rgba(11, 107, 203, 0.07);
+  --accent-line: rgba(11, 107, 203, 0.35);
+  --ok-soft: rgba(26, 127, 55, 0.1);
+  --ok-line: rgba(26, 127, 55, 0.35);
+  --warn-soft: rgba(163, 90, 0, 0.1);
+  --warn-line: rgba(163, 90, 0, 0.35);
+  --bad-soft: rgba(201, 42, 42, 0.08);
+  --bad-line: rgba(201, 42, 42, 0.35);
+
+  --mask: rgba(24, 28, 33, 0.35);
+  --shadow: 0 12px 32px rgba(15, 20, 25, 0.14);
+  --focus-ring: rgba(11, 107, 203, 0.65);
+
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235a636e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}

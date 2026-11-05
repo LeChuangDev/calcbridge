@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="LeChuang">
+  <defs>
+    <linearGradient id="lc-icon-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4dabf7" />
+      <stop offset="1" stop-color="#1c63c4" />
+    </linearGradient>
+  </defs>
+  <!-- 抽象工程节点标记：六边形（工程/结构）+ 中心节点（计算精度），不含任何文字元素 -->
+  <rect width="32" height="32" rx="7" fill="url(#lc-icon-bg)" />
+  <polygon
+    points="16,5 25.5,10.5 25.5,21.5 16,27 6.5,21.5 6.5,10.5"
+    fill="none"
+    stroke="#f4f9ff"
+    stroke-width="1.7"
+    stroke-linejoin="round"
+  />
+  <circle cx="16" cy="16" r="2.4" fill="#f4f9ff" />
+</svg>

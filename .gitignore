@@ -1,0 +1,16 @@
+node_modules/
+dist/
+apps/web/dist/
+apps/web/offline-build/
+offline/app/
+build/
+*.tsbuildinfo
+.vitest/
+coverage/
+*.log
+.DS_Store
+
+# 本地开发/工具产物，不随仓库分发
+.screenshots/
+.workbuddy/
+.trae-html-share-packages/

@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      # 锁文件可复现安装；禁止 npm install 在 CI 中漂移依赖树。
+      - name: Install (lockfile)
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # 分层依赖与代码规范同为阻断项，防止架构约束只停留在文档里
+      - name: Lint
+        run: npm run lint
+
+      - name: Format check
+        run: npm run format:check
+
+      - name: Unit tests & regression
+        run: npm test
+
+      - name: Production build
+        run: npm run build:web
+
+      # 生产依赖必须无高危；当前为 0 漏洞。
+      - name: Audit production dependencies
+        run: npm run audit:prod
+
+      # 工具链已升级到 vitest 5 / vite 8；完整审计也作为强制门禁。
+      - name: Audit all dependencies
+        run: npm run audit:all

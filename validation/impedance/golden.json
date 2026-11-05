@@ -1,0 +1,47 @@
+{
+  "cases": [
+    {
+      "id": "rounded-design-54ohm",
+      "source": "published",
+      "sourceVersion": "rounded textbook/design target, harness smoke test",
+      "date": "2026-10-29",
+      "mode": "z0",
+      "wMm": 0.3,
+      "hMm": 0.2,
+      "tMm": 0.035,
+      "er": 4.2,
+      "expected": 54.0,
+      "tolerancePct": 2,
+      "notes": "用于校验框架冒烟测试的四舍五入设计目标；不是 Polar/Sigrity 实测数据。"
+    },
+    {
+      "id": "rounded-design-50ohm",
+      "source": "published",
+      "sourceVersion": "rounded textbook/design target, harness smoke test",
+      "date": "2026-10-29",
+      "mode": "z0",
+      "wMm": 0.34,
+      "hMm": 0.2,
+      "tMm": 0.035,
+      "er": 4.2,
+      "expected": 50.0,
+      "tolerancePct": 3,
+      "notes": "用于校验框架冒烟测试的四舍五入设计目标（50Ω 取整，按 ±3% 容差）；不是 Polar/Sigrity 实测数据。"
+    },
+    {
+      "id": "rounded-width-50ohm",
+      "source": "published",
+      "sourceVersion": "rounded textbook/design target, harness smoke test",
+      "date": "2026-10-29",
+      "mode": "width",
+      "wMm": 0.34,
+      "hMm": 0.2,
+      "tMm": 0.035,
+      "er": 4.2,
+      "targetOhm": 50,
+      "expected": 0.34,
+      "tolerancePct": 5,
+      "notes": "用于校验框架反向求解冒烟；不是 Polar/Sigrity 实测数据。"
+    }
+  ]
+}

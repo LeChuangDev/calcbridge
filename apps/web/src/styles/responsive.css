@@ -1,0 +1,135 @@
+/* ── 自适应 ───────────────────────────────────────────── */
+
+@media (max-width: 1240px) {
+  .calc-body {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+}
+
+/* 1100px 以下优先保证表格与输入区宽度，输出栏下沉而不是挤压主列 */
+@media (max-width: 1100px) {
+  .calc-body {
+    grid-template-columns: 1fr;
+  }
+  .calc-main {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .calc-side {
+    grid-column: 1;
+    grid-row: 2;
+    position: static;
+  }
+  .pane {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 760px) {
+  .settings {
+    grid-template-columns: 1fr;
+  }
+  .via-panel .settings {
+    grid-template-columns: 1fr;
+  }
+  .grid,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+  .section-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .output-picker {
+    width: 100%;
+  }
+  .output-picker .inp {
+    width: 100%;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .actions-right {
+    align-self: flex-end;
+  }
+
+  /* 窄屏：稳压器数据/编辑器行改为纵向，避免 150px 标签挤压输入框 */
+  .reg-datarow {
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+  .row-label {
+    width: 100%;
+  }
+  .reg-datarow .inp {
+    width: 100%;
+  }
+  .triple {
+    flex-wrap: wrap;
+  }
+  .triple .inp {
+    width: 100%;
+  }
+
+  .data-file-head {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .data-file-grid {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+  .file-control {
+    flex-wrap: wrap;
+  }
+  .file-control .inp {
+    flex-basis: 100%;
+  }
+  .file-control .btn {
+    width: 100%;
+  }
+  .data-file-actions .btn {
+    flex: 1;
+  }
+  .toast {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    max-width: none;
+  }
+
+  /* 窄屏：导航改为顶部可滚动区，避免 180px 侧栏挤压计算区 */
+  .apphead {
+    grid-template-columns: auto 1fr;
+    padding: 0 8px;
+  }
+  .head-right {
+    display: none;
+  }
+  .tb-ver {
+    display: none;
+  }
+  .menubar {
+    justify-self: end;
+  }
+  .win-body {
+    flex-direction: column;
+  }
+  .tree {
+    width: 100%;
+    max-height: 200px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .pane {
+    flex: 1;
+    min-height: 0;
+    padding: 16px;
+  }
+  .calc-panel {
+    gap: 16px;
+  }
+  .output-pair {
+    gap: 24px;
+  }
+}
