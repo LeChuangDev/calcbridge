@@ -17,6 +17,9 @@ export default tseslint.config(
       '**/node_modules/**',
       '**/dist/**',
       'apps/web/dist/**',
+      'apps/web/offline-build/**',
+      'offline/app/**',
+      'build/**',
       'restructure.mjs',
       'split.mjs',
       'fiximports.mjs',
@@ -110,6 +113,16 @@ export default tseslint.config(
   {
     // CLI 的输出就是产品行为
     files: ['packages/cli/**/*.ts'],
+    rules: { 'no-console': 'off' },
+  },
+  {
+    // 构建脚本运行在 Node，输出进度属于脚本行为
+    files: ['scripts/**/*.mjs'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: { ...globals.node },
+    },
     rules: { 'no-console': 'off' },
   },
   prettier,
