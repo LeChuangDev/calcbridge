@@ -1,6 +1,7 @@
 ﻿import { useLayoutEffect, useRef, useState } from 'react';
 import { OutputDisplay } from '@/shared/ui/OutputDisplay';
-import { checkEngineeringLimits, type VariableSpec } from '@calcbridge/core';
+import { FieldWarn } from '@/shared/ui/FieldWarn';
+import type { VariableSpec } from '@calcbridge/core';
 import { fmtNum } from '@/shared/lib/bridge';
 import { useDraft, useDraftData } from '@/entities/draft/model/draftStore';
 import { solveCable, type CableMaterial } from '@/features/calculator-cable/model/cableSolver';
@@ -36,16 +37,6 @@ const CABLE_LIMITS = {
     limits: { min: 0.01, max: 100, note: '常见 0.1–20 A' },
   },
 } satisfies Record<string, VariableSpec>;
-
-function FieldWarn({ value, spec }: { value: string; spec: VariableSpec }) {
-  const issue = checkEngineeringLimits(Number(value), spec);
-  if (!issue) return null;
-  return (
-    <p className={`field-warn ${issue.level}`} role="status">
-      {issue.message}
-    </p>
-  );
-}
 
 function CableArt({
   area,

@@ -1,5 +1,7 @@
 ﻿import { useLayoutEffect, useRef, useState } from 'react';
 import { OutputDisplay } from '@/shared/ui/OutputDisplay';
+import { FieldWarn } from '@/shared/ui/FieldWarn';
+import type { VariableSpec } from '@calcbridge/core';
 import { fmtNum } from '@/shared/lib/bridge';
 import { mergeStringDraft, useDraft, useDraftData } from '@/entities/draft/model/draftStore';
 import { solveFuse } from '@/features/calculator-fuse/model/fuseSolver';
@@ -12,6 +14,22 @@ import {
   toMillimetres,
   type UnitSystem,
 } from '@/shared/lib/unitSystem';
+
+/** 工程建议范围：超出时提示，不阻断计算。 */
+const FUSE_LIMITS = {
+  ambient: {
+    id: 'ambient',
+    unit: '°C',
+    label: '环境温度',
+    limits: { min: -40, max: 150, note: '常见 -40–85 °C' },
+  },
+  current: {
+    id: 'current',
+    unit: 'A',
+    label: '电流',
+    limits: { min: 0.01, max: 100, note: '常见 0.1–20 A' },
+  },
+} satisfies Record<string, VariableSpec>;
 
 interface Form {
   ambient: string;
@@ -259,6 +277,7 @@ export function FusePanel({ group }: { group?: string }) {
                   />
                   <span className="uc-unit">°C</span>
                 </div>
+                <FieldWarn value={form.ambient} spec={FUSE_LIMITS.ambient} />
               </div>
               <div className="field">
                 <label htmlFor="fu-melt">铜熔点</label>
@@ -311,6 +330,7 @@ export function FusePanel({ group }: { group?: string }) {
                   />
                   <span className="uc-unit">A</span>
                 </div>
+                <FieldWarn value={form.current} spec={FUSE_LIMITS.current} />
               </div>
               <div className="field">
                 <label htmlFor="fu-time">熔断时间</label>

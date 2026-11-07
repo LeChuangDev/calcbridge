@@ -3,6 +3,7 @@
  * 只导出无业务语义的展示组件；业务面板一律放在 features/ 下。
  */
 export { InputField } from '@/shared/ui/InputField';
+export { FieldWarn } from '@/shared/ui/FieldWarn';
 export { VerdictBadge } from '@/shared/ui/VerdictBadge';
 export { OutputDisplay } from '@/shared/ui/OutputDisplay';
 export { ResultCard } from '@/shared/ui/ResultCard';

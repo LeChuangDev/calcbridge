@@ -1,5 +1,7 @@
 ﻿import { useLayoutEffect, useRef, useState } from 'react';
 import { OutputDisplay } from '@/shared/ui/OutputDisplay';
+import { FieldWarn } from '@/shared/ui/FieldWarn';
+import type { VariableSpec } from '@calcbridge/core';
 import { fmtNum } from '@/shared/lib/bridge';
 import { useUnitSystem } from '@/shared/lib/providers/UnitSystemProvider';
 import { useReport } from '@/entities/report/model/reportStore';
@@ -233,6 +235,46 @@ function ViaFigure({
     </svg>
   );
 }
+
+/** 工程建议范围：只覆盖显示单位固定的参数，长度类随单位切换不在此列。 */
+const VIA_LIMITS: Partial<Record<string, VariableSpec>> = {
+  z0: {
+    id: 'z0',
+    unit: 'Ω',
+    label: '目标阻抗 Z0',
+    limits: { min: 20, max: 200, note: '常见 40–100 Ω' },
+  },
+  current: {
+    id: 'current',
+    unit: 'A',
+    label: '应用电流',
+    limits: { min: 0.01, max: 20, note: '常见 0.1–5 A' },
+  },
+  er: {
+    id: 'er',
+    unit: '—',
+    label: '相对介电常数 εr',
+    limits: { min: 1, max: 20, note: 'FR-4 常见 4.0–4.8' },
+  },
+  dT: {
+    id: 'dT',
+    unit: '°C',
+    label: '允许温升 ΔT',
+    limits: { min: 1, max: 100, note: '工程常用 10–20 °C' },
+  },
+  rise: {
+    id: 'rise',
+    unit: 'ns',
+    label: '输入上升时间',
+    limits: { min: 0.001, max: 100, note: '数字信号常见 0.1–5 ns' },
+  },
+  freq: {
+    id: 'freq',
+    unit: 'MHz',
+    label: '评估频率',
+    limits: { min: 0.1, max: 10000, note: '常见 1–1000 MHz' },
+  },
+};
 
 export function ViaPanel({ group }: { group?: string }) {
   const { system } = useUnitSystem();
@@ -492,6 +534,7 @@ export function ViaPanel({ group }: { group?: string }) {
                     />
                     <span className="uc-unit">{fieldUnit(f, system)}</span>
                   </div>
+                  {VIA_LIMITS[f.key] && <FieldWarn value={form[f.key]} spec={VIA_LIMITS[f.key]!} />}
                 </div>
               ))}
             </div>

@@ -1,5 +1,7 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { runCalculation, type NamedInputs } from '@calcbridge/core';
+import { FieldWarn } from '@/shared/ui/FieldWarn';
+import type { VariableSpec } from '@calcbridge/core';
 import { REGULATOR_SPEC } from '@calcbridge/calculators';
 import {
   BUILTIN_REGULATORS,
@@ -52,6 +54,40 @@ const CELL_ROWS: { id: CellRow; label: string; unit: string; selectable: boolean
   { id: 'Vref', label: 'Vref', unit: 'V', selectable: false },
   { id: 'Iadj', label: 'Iadj', unit: 'µA', selectable: false },
 ];
+
+/** 工程建议范围：按典型值列提示，不阻断计算。 */
+const REG_LIMITS: Record<string, VariableSpec> = {
+  R1: {
+    id: 'R1',
+    unit: 'kΩ',
+    label: 'R1',
+    limits: { min: 0.05, max: 10000, note: '常见 0.1–10 kΩ' },
+  },
+  R2: {
+    id: 'R2',
+    unit: 'kΩ',
+    label: 'R2',
+    limits: { min: 0.05, max: 10000, note: '常见 0.1–10 kΩ' },
+  },
+  Vout: {
+    id: 'Vout',
+    unit: 'V',
+    label: 'Vout',
+    limits: { min: 0.5, max: 60, note: '常见 1.2–30 V' },
+  },
+  Vref: {
+    id: 'Vref',
+    unit: 'V',
+    label: 'Vref',
+    limits: { min: 0.5, max: 5, note: '常见 1.2–2.5 V' },
+  },
+  Iadj: {
+    id: 'Iadj',
+    unit: 'µA',
+    label: 'Iadj',
+    limits: { min: 0, max: 500, note: '常见 10–100 µA' },
+  },
+};
 
 function initialCells(): Record<CellRow, Cell> {
   return {
@@ -785,6 +821,9 @@ export function RegulatorPanel({ group }: { group?: string }) {
                 );
               })}
             </div>
+            {CELL_ROWS.map((row) => (
+              <FieldWarn key={row.id} value={cells[row.id].typ} spec={REG_LIMITS[row.id]!} />
+            ))}
           </section>
 
           {solveError && <div className="error">计算错误：{solveError}</div>}

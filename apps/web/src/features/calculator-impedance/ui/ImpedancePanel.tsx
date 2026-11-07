@@ -1,6 +1,8 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { impedanceMicrostripSpec } from '@calcbridge/calculators';
 import { OutputDisplay } from '@/shared/ui/OutputDisplay';
+import { FieldWarn } from '@/shared/ui/FieldWarn';
+import type { VariableSpec } from '@calcbridge/core';
 import { fmtNum } from '@/shared/lib/bridge';
 import { useDraft, useDraftData } from '@/entities/draft/model/draftStore';
 import { useUnitSystem } from '@/shared/lib/providers/UnitSystemProvider';
@@ -106,6 +108,22 @@ function StackupArt({
     </svg>
   );
 }
+
+/** 工程建议范围：超出时提示，不阻断计算。 */
+const IMP_LIMITS = {
+  er: {
+    id: 'er',
+    unit: '—',
+    label: '介电常数 εr',
+    limits: { min: 1, max: 20, note: 'FR-4 常见 4.0–4.8' },
+  },
+  target: {
+    id: 'target',
+    unit: 'Ω',
+    label: '目标阻抗 Z0',
+    limits: { min: 20, max: 200, note: '常见 40–100 Ω' },
+  },
+} satisfies Record<string, VariableSpec>;
 
 export function ImpedancePanel({ group }: { group?: string }) {
   const { system } = useUnitSystem();
@@ -484,6 +502,7 @@ export function ImpedancePanel({ group }: { group?: string }) {
                     />
                     <span className="uc-unit">—</span>
                   </div>
+                  <FieldWarn value={fields.er} spec={IMP_LIMITS.er} />
                 </div>
               </div>
               <p className="card-note">
@@ -525,6 +544,7 @@ export function ImpedancePanel({ group }: { group?: string }) {
                   />
                   <span className="uc-unit">Ω</span>
                 </div>
+                <FieldWarn value={target} spec={IMP_LIMITS.target} />
               </div>
               <div className="field">
                 <label htmlFor="imp-min">工厂最小线宽</label>

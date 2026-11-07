@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { OutputDisplay } from '@/shared/ui/OutputDisplay';
-import { checkEngineeringLimits, type EngineeringLimit } from '@calcbridge/core';
+import { FieldWarn } from '@/shared/ui/FieldWarn';
+import { type EngineeringLimit } from '@calcbridge/core';
 import { fmtNum } from '@/shared/lib/bridge';
 import { mergeStringDraft, useDraft, useDraftData } from '@/entities/draft/model/draftStore';
 import { useReport } from '@/entities/report/model/reportStore';
@@ -254,12 +255,6 @@ export function LedResistorPanel({ group }: { group?: string }) {
                 ] as const
               ).map(([key, label, unit]) => {
                 const limits: EngineeringLimit | undefined = LED_LIMITS[key];
-                const warn = checkEngineeringLimits(Number(form[key]), {
-                  id: key,
-                  unit,
-                  label,
-                  limits,
-                });
                 return (
                   <div className="field" key={key}>
                     <label htmlFor={`led-${key}`}>{label}</label>
@@ -273,11 +268,7 @@ export function LedResistorPanel({ group }: { group?: string }) {
                       />
                       <span className="uc-unit">{unit}</span>
                     </div>
-                    {warn && (
-                      <p className={`field-warn ${warn.level}`} role="status">
-                        {warn.message}
-                      </p>
-                    )}
+                    <FieldWarn value={form[key]} spec={{ id: key, unit, label, limits }} />
                   </div>
                 );
               })}

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { OutputDisplay } from '@/shared/ui/OutputDisplay';
+import { FieldWarn } from '@/shared/ui/FieldWarn';
+import type { VariableSpec } from '@calcbridge/core';
 import { fmtNum } from '@/shared/lib/bridge';
 import { useDraft, useDraftData } from '@/entities/draft/model/draftStore';
 import {
@@ -115,6 +117,28 @@ interface RfDraft {
   zin: string;
   zout: string;
 }
+
+/** 工程建议范围：超出时提示，不阻断计算。 */
+const RF_LIMITS = {
+  db: {
+    id: 'db',
+    unit: 'dB',
+    label: '衰减量',
+    limits: { min: 0.1, max: 60, note: '常用 1–30 dB' },
+  },
+  zin: {
+    id: 'zin',
+    unit: 'Ω',
+    label: '输入阻抗 Zin',
+    limits: { min: 10, max: 200, note: '射频常用 50 Ω' },
+  },
+  zout: {
+    id: 'zout',
+    unit: 'Ω',
+    label: '输出阻抗 Zout',
+    limits: { min: 10, max: 200, note: '射频常用 50 Ω' },
+  },
+} satisfies Record<string, VariableSpec>;
 
 export function RfAttenuatorPanel({ group }: { group?: string }) {
   const draft = useDraftData<RfDraft>('rf_attenuator');
@@ -275,6 +299,7 @@ export function RfAttenuatorPanel({ group }: { group?: string }) {
                   />
                   <span className="uc-unit">dB</span>
                 </div>
+                <FieldWarn value={db} spec={RF_LIMITS.db} />
               </div>
               <div className="field">
                 <label htmlFor="rf-zin">输入阻抗 Zin</label>
@@ -288,6 +313,7 @@ export function RfAttenuatorPanel({ group }: { group?: string }) {
                   />
                   <span className="uc-unit">Ω</span>
                 </div>
+                <FieldWarn value={zin} spec={RF_LIMITS.zin} />
               </div>
               <div className="field">
                 <label htmlFor="rf-zout">输出阻抗 Zout</label>
@@ -301,6 +327,7 @@ export function RfAttenuatorPanel({ group }: { group?: string }) {
                   />
                   <span className="uc-unit">Ω</span>
                 </div>
+                <FieldWarn value={zout} spec={RF_LIMITS.zout} />
               </div>
             </div>
             {error && <div className="error">{error}</div>}
