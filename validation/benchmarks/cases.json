@@ -1,3 +1,150 @@
 {
-  "cases": []
+  "cases": [
+    {
+      "moduleId": "trace_current",
+      "id": "ipc2221-ext-3a-10k-1oz",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 公式 I = k·ΔT^0.44·A^0.725",
+      "date": "2026-11-07",
+      "inputs": { "I": 3, "dT": 10, "cu": 1 },
+      "expected": { "wMm": 1.368 },
+      "tolerancePct": 2,
+      "notes": "外层 k=0.048，1 oz=1.378 mil；按公开公式复算，非商业工具导出。"
+    },
+    {
+      "moduleId": "trace_current",
+      "id": "ipc2221-ext-1a-10k-1oz",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 公式 I = k·ΔT^0.44·A^0.725",
+      "date": "2026-11-07",
+      "inputs": { "I": 1, "dT": 10, "cu": 1 },
+      "expected": { "wMm": 0.3 },
+      "tolerancePct": 2,
+      "notes": "外层 k=0.048；按公开公式复算，非商业工具导出。"
+    },
+    {
+      "moduleId": "trace_current",
+      "id": "ipc2221-int-3a-10k-1oz",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 公式（内层 k=0.024）",
+      "date": "2026-11-07",
+      "inputs": { "I": 3, "dT": 10, "cu": 1 },
+      "expected": { "wMm": 3.554 },
+      "tolerancePct": 2,
+      "notes": "内层系数减半，线宽约为外层 2.6 倍；按公开公式复算。"
+    },
+    {
+      "moduleId": "trace_current",
+      "id": "ipc2221-ext-10a-10k-1oz",
+      "source": "published",
+      "sourceVersion": "rftools IPC-2221 计算示例",
+      "sourceUrl": "https://rftools.io/blog/pcb-trace-width-current-capacity/",
+      "date": "2026-11-07",
+      "inputs": { "I": 10, "dT": 10, "cu": 1 },
+      "expected": { "wMm": 7.19 },
+      "tolerancePct": 5,
+      "notes": "第三方公开计算示例；同一文章指出无参考平面时图表法可能需要更大线宽。"
+    },
+    {
+      "moduleId": "buck_inductor",
+      "id": "ti-an1192-12v-5v-2a-500k",
+      "source": "published",
+      "sourceVersion": "TI AN-1192 Buck 电感选型公式（复算）",
+      "date": "2026-11-07",
+      "inputs": { "Vin": 12, "Vout": 5, "Iout": 2, "fsw": 500, "r": 0.3, "derate": 1.2 },
+      "expected": {
+        "LMh": 9.722,
+        "deltaIA": 0.6,
+        "iPeakA": 2.3,
+        "iRmsA": 2.0075,
+        "isatReqA": 2.76
+      },
+      "tolerancePct": 2,
+      "notes": "按公开公式复算，非 TI 工具导出；用于固定典型工况。"
+    },
+    {
+      "moduleId": "buck_inductor",
+      "id": "ti-an1192-12v-3v3-1a-400k",
+      "source": "published",
+      "sourceVersion": "TI AN-1192 Buck 电感选型公式（复算）",
+      "date": "2026-11-07",
+      "inputs": { "Vin": 12, "Vout": 3.3, "Iout": 1, "fsw": 400, "r": 0.25, "derate": 1.2 },
+      "expected": {
+        "LMh": 23.925,
+        "deltaIA": 0.25,
+        "iPeakA": 1.125,
+        "isatReqA": 1.35
+      },
+      "tolerancePct": 2,
+      "notes": "按公开公式复算，非 TI 工具导出。"
+    },
+    {
+      "moduleId": "regulator_3term",
+      "id": "lm317-240-720-5v",
+      "source": "published",
+      "sourceVersion": "TI LM317 数据手册典型应用（Vref=1.25V，R1=240Ω，R2=720Ω）",
+      "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm317.pdf",
+      "date": "2026-11-07",
+      "inputs": { "Vref": 1.25, "R1": 0.24, "R2": 0.72, "Iadj": 50 },
+      "expected": { "VoutV": 5.036 },
+      "tolerancePct": 1,
+      "notes": "按数据手册公式复算，Iadj 取典型 50 µA；非厂商工具导出。"
+    },
+    {
+      "moduleId": "regulator_3term",
+      "id": "lm317-240-1000-6v5",
+      "source": "published",
+      "sourceVersion": "TI LM317 数据手册典型应用（R2=1kΩ）",
+      "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm317.pdf",
+      "date": "2026-11-07",
+      "inputs": { "Vref": 1.25, "R1": 0.24, "R2": 1.0, "Iadj": 50 },
+      "expected": { "VoutV": 6.5083 },
+      "tolerancePct": 1,
+      "notes": "按数据手册公式复算，Iadj 取典型 50 µA。"
+    },
+    {
+      "moduleId": "clearance",
+      "id": "ipc2221-100v-b1",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1（仓库转录）",
+      "date": "2026-11-07",
+      "inputs": { "voltageV": 100, "column": "B1" },
+      "expected": { "gapMm": 0.1 },
+      "tolerancePct": 0,
+      "notes": "表值一致性校验；用于防止查表实现漂移，不代表独立第三方复现。"
+    },
+    {
+      "moduleId": "clearance",
+      "id": "ipc2221-100v-b2",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1（仓库转录）",
+      "date": "2026-11-07",
+      "inputs": { "voltageV": 100, "column": "B2" },
+      "expected": { "gapMm": 0.6 },
+      "tolerancePct": 0,
+      "notes": "表值一致性校验；外部无浸渍、≤3050 m。"
+    },
+    {
+      "moduleId": "clearance",
+      "id": "ipc2221-250v-b4",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1（仓库转录）",
+      "date": "2026-11-07",
+      "inputs": { "voltageV": 250, "column": "B4" },
+      "expected": { "gapMm": 0.4 },
+      "tolerancePct": 0,
+      "notes": "表值一致性校验；外部永久浸渍。"
+    },
+    {
+      "moduleId": "clearance",
+      "id": "ipc2221-500v-b3",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1（仓库转录）",
+      "date": "2026-11-07",
+      "inputs": { "voltageV": 500, "column": "B3" },
+      "expected": { "gapMm": 12.5 },
+      "tolerancePct": 0,
+      "notes": "表值一致性校验；外部无浸渍、>3050 m。"
+    }
+  ]
 }
