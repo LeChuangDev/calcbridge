@@ -48,6 +48,10 @@ jobs:
       - name: Bundle size gate
         run: npm run size
 
+      # 外部基准覆盖率报告：默认只输出报告，不阻断；数据补齐后可切到 strict
+      - name: Benchmark coverage report
+        run: npm run benchmark:coverage
+
       # 生产依赖必须无高危；当前为 0 漏洞。
       - name: Audit production dependencies
         run: npm run audit:prod

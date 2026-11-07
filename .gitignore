@@ -10,6 +10,9 @@ coverage/
 *.log
 .DS_Store
 
+# 基准覆盖率报告为生成物
+validation/benchmarks/coverage.md
+
 # 本地开发/工具产物，不随仓库分发
 .screenshots/
 .workbuddy/

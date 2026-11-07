@@ -20,6 +20,8 @@
     "build:web": "npm run build -w @calcbridge/web",
     "build:offline": "node scripts/build-offline.mjs",
     "size": "node scripts/check-size.mjs",
+    "benchmark:coverage": "tsx scripts/benchmark-coverage.ts",
+    "benchmark:coverage:strict": "tsx scripts/benchmark-coverage.ts --strict",
     "typecheck": "tsc -p tsconfig.base.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

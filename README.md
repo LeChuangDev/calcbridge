@@ -76,6 +76,8 @@ npm run coverage     # 覆盖率门禁（core/求解器 lines≥80%、branches�
 npm run typecheck    # TypeScript 类型检查
 npm run build:web    # 生产构建（面板按需分包）
 npm run size         # 首屏 JS/CSS gzip 体积门禁
+npm run benchmark:coverage        # 外部基准覆盖率报告（不阻断）
+npm run benchmark:coverage:strict # 任一模块无外部用例时非零退出
 npm run lint         # ESLint：类型规范 + React 规则 + 分层依赖约束
 npm run format       # Prettier 统一格式
 npm run regression   # 仅跑算例回归

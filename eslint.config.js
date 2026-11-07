@@ -166,7 +166,7 @@ export default tseslint.config(
   },
   {
     // 构建脚本运行在 Node，输出进度属于脚本行为
-    files: ['scripts/**/*.mjs'],
+    files: ['scripts/**/*.{mjs,ts}'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
