@@ -8,7 +8,7 @@
 
 <p>
   <a href="https://github.com/LeChuangDev/calcbridge/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/LeChuangDev/calcbridge/ci.yml?branch=main&amp;style=flat-square&amp;label=CI" alt="CI"></a>
-  <a href="https://github.com/LeChuangDev/calcbridge/releases"><img src="https://img.shields.io/badge/version-0.5.0-2563eb?style=flat-square" alt="version 0.5.0"></a>
+  <a href="https://github.com/LeChuangDev/calcbridge/releases"><img src="https://img.shields.io/badge/version-0.6.0-2563eb?style=flat-square" alt="version 0.6.0"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-0f766e?style=flat-square" alt="Apache-2.0"></a>
 </p>
 

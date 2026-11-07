@@ -15,7 +15,7 @@ if (-not $python) {
 }
 
 $versionFile = Join-Path $Source 'app\VERSION'
-$version = if (Test-Path $versionFile) { (Get-Content $versionFile -Raw).Trim() } else { '0.5.0' }
+$version = if (Test-Path $versionFile) { (Get-Content $versionFile -Raw).Trim() } else { '0.6.0' }
 
 Write-Host "正在安装 calcbridge 离线版到：$InstallDir"
 if (Test-Path $InstallDir) { Remove-Item -Recurse -Force $InstallDir }

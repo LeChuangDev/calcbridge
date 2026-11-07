@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: '版本号（不含 v，例如 0.5.0）'
+        description: '版本号（不含 v，例如 0.6.0）'
         required: true
 
 permissions:

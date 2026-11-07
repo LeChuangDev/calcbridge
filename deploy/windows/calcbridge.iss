@@ -1,6 +1,6 @@
 ﻿; calcbridge 离线版 Windows 安装脚本（Inno Setup 6）
 ; 由 GitHub Actions 在 windows-latest 上使用，也可本地安装 Inno Setup 后编译：
-;   ISCC.exe /DMyAppVersion=0.5.0 deploy\windows\calcbridge.iss
+;   ISCC.exe /DMyAppVersion=0.6.0 deploy\windows\calcbridge.iss
 #ifndef MyAppVersion
   #define MyAppVersion "0.0.0"
 #endif
