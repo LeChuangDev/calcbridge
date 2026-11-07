@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { solveWaveguide } from '@/features/calculator-waveguide/model/waveguideSolver';
+import { solveWaveguide } from '../src/waveguide/solver';
 
 describe('矩形波导 TE10', () => {
   it('WR-90 / 10GHz 的截止与导波波长', () => {

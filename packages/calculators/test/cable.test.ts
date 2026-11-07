@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { solveCable } from '@/features/calculator-cable/model/cableSolver';
+import { solveCable } from '../src/cable/solver';
 
 describe('线缆电压降选型', () => {
   it('12V / 5% / 1A / 10m 铜线应选 0.75mm²', () => {

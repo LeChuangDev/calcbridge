@@ -1,8 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  nearestStandard,
-  solveLedResistor,
-} from '@/features/calculator-led-resistor/model/ledSolver';
+import { nearestStandard, solveLedResistor } from '../src/led_resistor/solver';
 
 const base = { vin: 12, vf: 2.1, ifMa: 20, count: 3, series: 'E24' as const };
 

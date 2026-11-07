@@ -13,7 +13,7 @@ import {
   toMillimetres,
   type UnitSystem,
 } from '@/shared/lib/unitSystem';
-import { solveSkinDepth } from '@/features/calculator-skin-depth/model/skinDepthSolver';
+import { solveSkinDepth } from '@calcbridge/calculators/skin_depth';
 
 interface Form {
   freq: string;

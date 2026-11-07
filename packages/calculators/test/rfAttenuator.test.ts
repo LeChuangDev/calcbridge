@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { designRf, rfResponse } from '@/features/calculator-rf-attenuator/model/rfSolver';
+import { designRf, rfResponse } from '../src/rf_attenuator/solver';
 
 describe('RF 无源衰减器设计', () => {
   it('50Ω / 6dB Pi 网络应为 150.5 / 37.35 / 150.5 Ω', () => {

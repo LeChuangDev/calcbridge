@@ -6,10 +6,7 @@ import { fmtNum } from '@/shared/lib/bridge';
 import { mergeStringDraft, useDraft, useDraftData } from '@/entities/draft/model/draftStore';
 import { useReport } from '@/entities/report/model/reportStore';
 import type { ReportSection } from '@/entities/report/model/report';
-import {
-  solveLedResistor,
-  type LedSeriesId,
-} from '@/features/calculator-led-resistor/model/ledSolver';
+import { solveLedResistor, type LedSeriesId } from '@calcbridge/calculators/led_resistor';
 
 interface Form {
   vin: string;

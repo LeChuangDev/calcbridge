@@ -6,7 +6,21 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./solvers": "./src/solvers.ts",
+    "./cable": "./src/cable/solver.ts",
+    "./clearance": "./src/clearance/table.ts",
+    "./e_series": "./src/e_series/solver.ts",
+    "./fuse": "./src/fuse/solver.ts",
+    "./galvanic": "./src/galvanic/solver.ts",
+    "./led_resistor": "./src/led_resistor/solver.ts",
+    "./rf_attenuator": "./src/rf_attenuator/solver.ts",
+    "./skin_depth": "./src/skin_depth/solver.ts",
+    "./via": "./src/via/solver.ts",
+    "./waveguide": "./src/waveguide/solver.ts",
+    "./trace_extras": "./src/trace_extras/solver.ts",
+    "./unit_converter": "./src/unit_converter/units.ts",
+    "./color_code": "./src/color_code/colors.ts"
   },
   "dependencies": {
     "@calcbridge/core": "*"

@@ -13,7 +13,7 @@ import type { ReportSection } from '@/entities/report/model/report';
 import {
   CLEARANCE_COLUMNS as COLUMNS,
   CLEARANCE_ROWS as ROWS,
-} from '@/features/calculator-clearance/model/clearanceTable';
+} from '@calcbridge/calculators/clearance';
 
 function ClearanceArt({ gap, system }: { gap: number; system: UnitSystem }) {
   return (

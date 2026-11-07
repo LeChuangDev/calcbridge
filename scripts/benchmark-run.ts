@@ -25,25 +25,25 @@ import {
   RESISTOR_SPEC,
   traceCurrentSpec,
 } from '@calcbridge/calculators';
-import { clearanceGap } from '../apps/web/src/features/calculator-clearance/model/clearanceTable';
-import { solveSkinDepth } from '../apps/web/src/features/calculator-skin-depth/model/skinDepthSolver';
-import { solveWaveguide } from '../apps/web/src/features/calculator-waveguide/model/waveguideSolver';
 import {
+  clearanceGap,
+  convertUnit,
+  decodeColorCode,
   designRf,
-  type RfType,
-} from '../apps/web/src/features/calculator-rf-attenuator/model/rfSolver';
-import { solveCable } from '../apps/web/src/features/calculator-cable/model/cableSolver';
-import { solveLedResistor } from '../apps/web/src/features/calculator-led-resistor/model/ledSolver';
-import {
+  findCategory,
+  findUnit,
+  solveCable,
   solveESeries,
-  type ESeriesId,
-} from '../apps/web/src/features/calculator-e-series/model/eSeriesSolver';
-import {
+  solveFuse,
   solveGalvanic,
+  solveLedResistor,
+  solveSkinDepth,
+  solveVia,
+  solveWaveguide,
   type Environment,
-} from '../apps/web/src/features/calculator-galvanic/model/galvanicSolver';
-import { solveVia } from '../apps/web/src/features/calculator-via/model/viaSolver';
-import { solveFuse } from '../apps/web/src/features/calculator-fuse/model/fuseSolver';
+  type ESeriesId,
+  type RfType,
+} from '@calcbridge/calculators/solvers';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const casesFile = join(root, 'validation', 'benchmarks', 'cases.json');
@@ -356,14 +356,38 @@ const RUNNERS: Record<string, (item: BenchmarkCase) => Check[]> = {
       resistancePerMm: result.resistancePerMm,
     });
   },
+  unit_converter: (item) => {
+    const category = findCategory(str(item, 'category'));
+    if (!category) throw new Error(`未知换算类别 ${str(item, 'category')}`);
+    const from = findUnit(category, str(item, 'from'));
+    const to = findUnit(category, str(item, 'to'));
+    if (!from || !to) throw new Error(`用例 ${item.id} 的源/目标单位无效`);
+    return numericChecks(item, {
+      result: convertUnit(num(item, 'value'), from, to),
+    });
+  },
+  color_code: (item) => {
+    const decoded = decodeColorCode({
+      bands: num(item, 'bands') as 4 | 5,
+      d1: str(item, 'd1'),
+      d2: str(item, 'd2'),
+      d3: str(item, 'd3', 'black'),
+      mult: str(item, 'mult'),
+      tol: str(item, 'tol'),
+    });
+    return numericChecks(item, {
+      resistance: decoded.resistance,
+      tolerancePct: decoded.tolerancePct,
+      min: decoded.min,
+      max: decoded.max,
+    });
+  },
 };
 
 const SKIPPED_MODULES: Record<string, string> = {
   impedance_microstrip: '由 validation/impedance/golden.json 统一执行，请勿在 cases.json 重复录入',
   pcb_class: '规范参考类，无数值求解器可执行',
   substrate: '材料典型值参考类，无数值求解器可执行',
-  unit_converter: '精确 SI 换算，当前由面板实现，未接入基准执行器',
-  color_code: 'IEC 60062 查表，当前由面板实现，未接入基准执行器',
 };
 
 function errorPct(actual: number, expected: number): number {

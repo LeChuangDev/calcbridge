@@ -1,5 +1,6 @@
 import { Suspense, useCallback, useEffect, useRef, useState, type ChangeEvent } from 'react';
 import { CALCULATOR_REGISTRY } from '@calcbridge/calculators';
+import { ErrorBoundary } from '@/shared/ui/ErrorBoundary';
 import { AboutDialog } from '@/widgets/about-dialog';
 import { CommandPalette } from '@/widgets/command-palette';
 import { MenuBar } from '@/widgets/menu-bar';
@@ -8,7 +9,7 @@ import { TitleBar } from '@/widgets/title-bar';
 import { TreeNav } from '@/widgets/side-nav';
 import { useUnitSystem } from '@/shared/lib/providers/UnitSystemProvider';
 import { ResultConfidenceProvider } from '@/shared/lib/providers/ResultConfidenceProvider';
-import { CONFIDENCE_LABEL, HOME_ID, groupOf, standardOf } from '@/entities/calculator';
+import { CONFIDENCE_LABEL, HOME_ID, groupOf, standardOf, toolOf } from '@/entities/calculator';
 import {
   CalculationBasis,
   FALLBACK_PANEL,
@@ -273,19 +274,29 @@ export function App() {
           onPrefetch={prefetchPanel}
         />
         <main className="pane" key={`${active}:${resetKey}`}>
-          <CalculationBasis moduleId={active} />
-          <ResultConfidenceProvider value={confidence}>
-            <Suspense
-              fallback={
-                <div className="pane-loading" role="status" aria-live="polite">
-                  <i aria-hidden="true" />
-                  正在加载计算面板…
-                </div>
-              }
-            >
-              {panel}
-            </Suspense>
-          </ResultConfidenceProvider>
+          <ErrorBoundary
+            title={toolOf(active)?.label}
+            onRetry={() => setResetKey((key) => key + 1)}
+            onResetDraft={() => {
+              clearPanelDrafts(active);
+              setResetKey((key) => key + 1);
+            }}
+            onHome={() => go(HOME_ID)}
+          >
+            <CalculationBasis moduleId={active} />
+            <ResultConfidenceProvider value={confidence}>
+              <Suspense
+                fallback={
+                  <div className="pane-loading" role="status" aria-live="polite">
+                    <i aria-hidden="true" />
+                    正在加载计算面板…
+                  </div>
+                }
+              >
+                {panel}
+              </Suspense>
+            </ResultConfidenceProvider>
+          </ErrorBoundary>
         </main>
       </div>
       <input

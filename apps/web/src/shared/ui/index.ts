@@ -9,6 +9,7 @@ export { OutputDisplay } from '@/shared/ui/OutputDisplay';
 export { ResultCard } from '@/shared/ui/ResultCard';
 export { MonteCarloPanel } from '@/shared/ui/MonteCarloPanel';
 export { AssumptionsPanel } from '@/shared/ui/AssumptionsPanel';
+export { ErrorBoundary } from '@/shared/ui/ErrorBoundary';
 
 // 截面 / 电路示意图
 export { MicrostripFigure } from '@/shared/ui/figures/MicrostripFigure';

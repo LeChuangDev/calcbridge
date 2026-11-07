@@ -1993,6 +1993,309 @@
       },
       "tolerancePct": 15,
       "notes": "IPC-2152 附录 A Onderdonk 常数；0.1 s 熔断。"
+    },
+    {
+      "moduleId": "unit_converter",
+      "id": "nist-in-mm",
+      "source": "published",
+      "sourceVersion": "NIST SP 811 附录 B.8 换算系数（精确值）",
+      "sourceUrl": "https://www.nist.gov/pubs/sp/811/final",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "category": "length",
+        "from": "in",
+        "to": "mm",
+        "value": 1
+      },
+      "expected": {
+        "result": 25.4
+      },
+      "tolerancePct": 0.01,
+      "notes": "1 英寸 = 25.4 mm（精确值）。"
+    },
+    {
+      "moduleId": "unit_converter",
+      "id": "nist-mil-mm",
+      "source": "published",
+      "sourceVersion": "NIST SP 811 附录 B.8 换算系数（精确值）",
+      "sourceUrl": "https://www.nist.gov/pubs/sp/811/final",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "category": "length",
+        "from": "mil",
+        "to": "mm",
+        "value": 1
+      },
+      "expected": {
+        "result": 0.0254
+      },
+      "tolerancePct": 0.01,
+      "notes": "1 mil = 0.001 in = 0.0254 mm（精确值）。"
+    },
+    {
+      "moduleId": "unit_converter",
+      "id": "nist-oz-g",
+      "source": "published",
+      "sourceVersion": "NIST SP 811 附录 B.8 换算系数（精确值）",
+      "sourceUrl": "https://www.nist.gov/pubs/sp/811/final",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "category": "mass",
+        "from": "oz",
+        "to": "g",
+        "value": 1
+      },
+      "expected": {
+        "result": 28.349523125
+      },
+      "tolerancePct": 0.01,
+      "notes": "1 常衡盎司 = 28.349523125 g（精确值）。"
+    },
+    {
+      "moduleId": "unit_converter",
+      "id": "nist-atm-pa",
+      "source": "published",
+      "sourceVersion": "NIST SP 811 附录 B.8 换算系数（精确值）",
+      "sourceUrl": "https://www.nist.gov/pubs/sp/811/final",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "category": "pressure",
+        "from": "atm",
+        "to": "Pa",
+        "value": 1
+      },
+      "expected": {
+        "result": 101325
+      },
+      "tolerancePct": 0.01,
+      "notes": "1 标准大气压 = 101325 Pa（精确值）。"
+    },
+    {
+      "moduleId": "unit_converter",
+      "id": "nist-kgf-n",
+      "source": "published",
+      "sourceVersion": "NIST SP 811 附录 B.1/B.8 国际单位制定义（精确值）",
+      "sourceUrl": "https://www.nist.gov/pubs/sp/811/final",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "category": "force",
+        "from": "kgf",
+        "to": "N",
+        "value": 1
+      },
+      "expected": {
+        "result": 9.80665
+      },
+      "tolerancePct": 0.01,
+      "notes": "1 kgf = 9.80665 N（精确值）。"
+    },
+    {
+      "moduleId": "unit_converter",
+      "id": "nist-f-c",
+      "source": "published",
+      "sourceVersion": "NIST SP 811 附录 B.1/B.8 国际单位制定义（精确值）",
+      "sourceUrl": "https://www.nist.gov/pubs/sp/811/final",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "category": "temperature",
+        "from": "fahrenheit",
+        "to": "celsius",
+        "value": 32
+      },
+      "expected": {
+        "result": 0
+      },
+      "tolerancePct": 0.01,
+      "notes": "32 °F = 0 °C。"
+    },
+    {
+      "moduleId": "unit_converter",
+      "id": "nist-gal-l",
+      "source": "published",
+      "sourceVersion": "NIST SP 811 附录 B.1/B.8 国际单位制定义（精确值）",
+      "sourceUrl": "https://www.nist.gov/pubs/sp/811/final",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "category": "volume",
+        "from": "gal",
+        "to": "L",
+        "value": 1
+      },
+      "expected": {
+        "result": 3.785411784
+      },
+      "tolerancePct": 0.01,
+      "notes": "1 US gal = 3.785411784 L（精确值）。"
+    },
+    {
+      "moduleId": "unit_converter",
+      "id": "nist-kwh-j",
+      "source": "published",
+      "sourceVersion": "NIST SP 811 附录 B.1/B.8 国际单位制定义（精确值）",
+      "sourceUrl": "https://www.nist.gov/pubs/sp/811/final",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "category": "energy",
+        "from": "kWh",
+        "to": "J",
+        "value": 1
+      },
+      "expected": {
+        "result": 3600000
+      },
+      "tolerancePct": 0.01,
+      "notes": "1 kWh = 3.6×10^6 J（精确值）。"
+    },
+    {
+      "moduleId": "color_code",
+      "id": "iec60062-4band-1k",
+      "source": "published",
+      "sourceVersion": "IEC 60062:2016 色环编码表（4 环）",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "bands": 4,
+        "d1": "brown",
+        "d2": "black",
+        "mult": "red",
+        "tol": "gold"
+      },
+      "expected": {
+        "resistance": 1000,
+        "tolerancePct": 5,
+        "min": 950,
+        "max": 1050
+      },
+      "tolerancePct": 0.01,
+      "notes": "棕-黑-红-金 = 1 kΩ ±5%。"
+    },
+    {
+      "moduleId": "color_code",
+      "id": "iec60062-4band-470",
+      "source": "published",
+      "sourceVersion": "IEC 60062:2016 色环编码表（4 环）",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "bands": 4,
+        "d1": "yellow",
+        "d2": "violet",
+        "mult": "brown",
+        "tol": "gold"
+      },
+      "expected": {
+        "resistance": 470,
+        "tolerancePct": 5,
+        "min": 446.5,
+        "max": 493.5
+      },
+      "tolerancePct": 0.01,
+      "notes": "黄-紫-棕-金 = 470 Ω ±5%。"
+    },
+    {
+      "moduleId": "color_code",
+      "id": "iec60062-4band-56",
+      "source": "published",
+      "sourceVersion": "IEC 60062:2016 色环编码表（4 环）",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "bands": 4,
+        "d1": "green",
+        "d2": "blue",
+        "mult": "black",
+        "tol": "gold"
+      },
+      "expected": {
+        "resistance": 56,
+        "tolerancePct": 5,
+        "min": 53.2,
+        "max": 58.8
+      },
+      "tolerancePct": 0.01,
+      "notes": "绿-蓝-黑-金 = 56 Ω ±5%。"
+    },
+    {
+      "moduleId": "color_code",
+      "id": "panasonic-5band-1k",
+      "source": "published",
+      "sourceVersion": "Panasonic 色环/标准值目录（5 环，IEC 60062）",
+      "sourceUrl": "https://industrial.panasonic.com/cdbs/www-data/pdf/AFA0000/AFA0000COS3.pdf",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "bands": 5,
+        "d1": "brown",
+        "d2": "black",
+        "d3": "black",
+        "mult": "brown",
+        "tol": "brown"
+      },
+      "expected": {
+        "resistance": 1000,
+        "tolerancePct": 1,
+        "min": 990,
+        "max": 1010
+      },
+      "tolerancePct": 0.01,
+      "notes": "5 环 棕-黑-黑-棕-棕 = 1 kΩ ±1%。"
+    },
+    {
+      "moduleId": "color_code",
+      "id": "panasonic-5band-10r",
+      "source": "published",
+      "sourceVersion": "Panasonic 色环/标准值目录（5 环，IEC 60062）",
+      "sourceUrl": "https://industrial.panasonic.com/cdbs/www-data/pdf/AFA0000/AFA0000COS3.pdf",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "bands": 5,
+        "d1": "brown",
+        "d2": "black",
+        "d3": "black",
+        "mult": "gold",
+        "tol": "gold"
+      },
+      "expected": {
+        "resistance": 10,
+        "tolerancePct": 5,
+        "min": 9.5,
+        "max": 10.5
+      },
+      "tolerancePct": 0.01,
+      "notes": "5 环 棕-黑-黑-金-金 = 10 Ω ±5%。"
+    },
+    {
+      "moduleId": "color_code",
+      "id": "panasonic-4band-33k",
+      "source": "published",
+      "sourceVersion": "Panasonic 色环/标准值目录（5 环，IEC 60062）",
+      "sourceUrl": "https://industrial.panasonic.com/cdbs/www-data/pdf/AFA0000/AFA0000COS3.pdf",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "bands": 4,
+        "d1": "orange",
+        "d2": "orange",
+        "mult": "orange",
+        "tol": "silver"
+      },
+      "expected": {
+        "resistance": 33000,
+        "tolerancePct": 10,
+        "min": 29700,
+        "max": 36300
+      },
+      "tolerancePct": 0.01,
+      "notes": "橙-橙-橙-银 = 33 kΩ ±10%。"
     }
   ]
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { solveFuse } from '@/features/calculator-fuse/model/fuseSolver';
+import { solveFuse } from '../src/fuse/solver';
 
 const base = {
   ambientC: 25,

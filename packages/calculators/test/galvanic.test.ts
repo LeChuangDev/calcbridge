@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { solveGalvanic } from '@/features/calculator-galvanic/model/galvanicSolver';
+import { solveGalvanic } from '../src/galvanic/solver';
 
 describe('电偶腐蚀阳极指数评估', () => {
   it('铜/金在受控环境为低风险', () => {

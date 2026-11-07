@@ -12,7 +12,7 @@ import {
   type ESeriesId,
   type ESeriesResult,
   type ESeriesSolution,
-} from '@/features/calculator-e-series/model/eSeriesSolver';
+} from '@calcbridge/calculators/e_series';
 
 function ohmParts(v: number): { value: string; unit: string } {
   if (v >= 1e6) return { value: fmtNum(v / 1e6), unit: 'MΩ' };

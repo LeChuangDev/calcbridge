@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { solveVia, type ViaInput } from '@/features/calculator-via/model/viaSolver';
+import { solveVia, type ViaInput } from '../src/via/solver';
 
 const base: ViaInput = {
   holeMm: 0.4,

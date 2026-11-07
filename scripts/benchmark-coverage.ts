@@ -131,6 +131,8 @@ const GATED_MODULES = new Set([
   'e_series',
   'galvanic',
   'resistor_calc',
+  'unit_converter',
+  'color_code',
 ]);
 
 const stats = new Map<string, Stats>();

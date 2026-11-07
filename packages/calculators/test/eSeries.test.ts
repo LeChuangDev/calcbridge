@@ -1,9 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  solveESeries,
-  type ESeriesResult,
-  type ESeriesSolution,
-} from '@/features/calculator-e-series/model/eSeriesSolver';
+import { solveESeries, type ESeriesResult, type ESeriesSolution } from '../src/e_series/solver';
 
 function best(result: ESeriesResult): ESeriesSolution {
   const list = [result.simple, result.three, result.four].filter(

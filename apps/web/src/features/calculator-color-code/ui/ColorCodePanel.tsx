@@ -3,57 +3,17 @@ import { OutputDisplay } from '@/shared/ui/OutputDisplay';
 import { fmtNum } from '@/shared/lib/bridge';
 import { useDraft, useDraftData } from '@/entities/draft/model/draftStore';
 import { useReport } from '@/entities/report/model/reportStore';
-
-/* ── 色环定义（IEC 60062） ────────────────────────────── */
-
-interface ColorDef {
-  id: string;
-  name: string;
-  en: string;
-  hex: string;
-  digit?: number;
-  mult?: number;
-  tol?: number;
-}
-
-const COLORS: ColorDef[] = [
-  { id: 'black', name: '黑', en: 'Black', hex: '#20242a', digit: 0, mult: 1 },
-  { id: 'brown', name: '棕', en: 'Brown', hex: '#7a4a21', digit: 1, mult: 10, tol: 1 },
-  { id: 'red', name: '红', en: 'Red', hex: '#d0342c', digit: 2, mult: 100, tol: 2 },
-  { id: 'orange', name: '橙', en: 'Orange', hex: '#e07b1a', digit: 3, mult: 1e3 },
-  { id: 'yellow', name: '黄', en: 'Yellow', hex: '#f2d33b', digit: 4, mult: 1e4 },
-  { id: 'green', name: '绿', en: 'Green', hex: '#2e9e5b', digit: 5, mult: 1e5, tol: 0.5 },
-  { id: 'blue', name: '蓝', en: 'Blue', hex: '#2f6fd0', digit: 6, mult: 1e6, tol: 0.25 },
-  { id: 'violet', name: '紫', en: 'Violet', hex: '#7b4bc4', digit: 7, mult: 1e7, tol: 0.1 },
-  { id: 'gray', name: '灰', en: 'Gray', hex: '#8b949e', digit: 8, mult: 1e8, tol: 0.05 },
-  { id: 'white', name: '白', en: 'White', hex: '#f2f4f6', digit: 9, mult: 1e9 },
-  { id: 'gold', name: '金', en: 'Gold', hex: '#c9a227', mult: 0.1, tol: 5 },
-  { id: 'silver', name: '银', en: 'Silver', hex: '#b8bec4', mult: 0.01, tol: 10 },
-];
-
-const MULT_LABEL: Record<string, string> = {
-  black: '1',
-  brown: '10',
-  red: '100',
-  orange: '1k',
-  yellow: '10k',
-  green: '100k',
-  blue: '1M',
-  violet: '10M',
-  gray: '100M',
-  white: '1G',
-  gold: '0.1',
-  silver: '0.01',
-};
-
-const DIGIT_COLORS = COLORS.filter((c) => c.digit !== undefined);
-const MULT_COLORS = COLORS.filter((c) => c.mult !== undefined);
-const TOL_STD = ['gold', 'silver'];
-const TOL_PREC = ['brown', 'red', 'green', 'blue', 'violet', 'gray'];
-
-function colorById(id: string): ColorDef {
-  return COLORS.find((c) => c.id === id) ?? COLORS[0]!;
-}
+import {
+  COLORS,
+  DIGIT_COLORS,
+  MULT_COLORS,
+  MULT_LABEL,
+  TOL_PREC,
+  TOL_STD,
+  colorById,
+  decodeColorCode,
+  type ColorDef,
+} from '@calcbridge/calculators/color_code';
 
 function ohmParts(v: number): { value: string; unit: string } {
   if (v >= 1e6) return { value: fmtNum(v / 1e6), unit: 'MΩ' };
@@ -175,14 +135,8 @@ export function ColorCodePanel({ group }: { group?: string }) {
   const cm = colorById(mult);
   const ct = colorById(tol);
 
-  const base =
-    bands === 4
-      ? (c1.digit ?? 0) * 10 + (c2.digit ?? 0)
-      : (c1.digit ?? 0) * 100 + (c2.digit ?? 0) * 10 + (c3.digit ?? 0);
-  const resistance = base * (cm.mult ?? 1);
-  const tolPct = ct.tol ?? 20;
-  const min = resistance * (1 - tolPct / 100);
-  const max = resistance * (1 + tolPct / 100);
+  const decoded = decodeColorCode({ bands, d1, d2, d3, mult, tol });
+  const { resistance, tolerancePct: tolPct, min, max } = decoded;
   const parts = ohmParts(resistance);
 
   const allowed = filter === 'std' ? TOL_STD : TOL_PREC;

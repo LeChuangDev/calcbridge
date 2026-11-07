@@ -4,7 +4,7 @@ import { FieldWarn } from '@/shared/ui/FieldWarn';
 import type { VariableSpec } from '@calcbridge/core';
 import { fmtNum } from '@/shared/lib/bridge';
 import { useDraft, useDraftData } from '@/entities/draft/model/draftStore';
-import { solveWaveguide } from '@/features/calculator-waveguide/model/waveguideSolver';
+import { solveWaveguide } from '@calcbridge/calculators/waveguide';
 import { useUnitSystem } from '@/shared/lib/providers/UnitSystemProvider';
 import { useReport } from '@/entities/report/model/reportStore';
 import type { ReportSection } from '@/entities/report/model/report';

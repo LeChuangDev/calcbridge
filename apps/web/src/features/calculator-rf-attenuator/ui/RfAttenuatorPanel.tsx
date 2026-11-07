@@ -9,7 +9,7 @@ import {
   rfResponse,
   type RfType,
   type RfValues,
-} from '@/features/calculator-rf-attenuator/model/rfSolver';
+} from '@calcbridge/calculators/rf_attenuator';
 import { useReport } from '@/entities/report/model/reportStore';
 import type { ReportSection } from '@/entities/report/model/report';
 

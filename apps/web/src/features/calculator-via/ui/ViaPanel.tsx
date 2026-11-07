@@ -7,7 +7,7 @@ import { useUnitSystem } from '@/shared/lib/providers/UnitSystemProvider';
 import { useReport } from '@/entities/report/model/reportStore';
 import type { ReportSection } from '@/entities/report/model/report';
 import { mergeStringDraft, useDraft, useDraftData } from '@/entities/draft/model/draftStore';
-import { solveVia } from '@/features/calculator-via/model/viaSolver';
+import { solveVia } from '@calcbridge/calculators/via';
 import {
   buildViaChecks,
   buildViaFigureGeometry,

@@ -13,10 +13,7 @@ import {
   type UnitSystem,
 } from '@/shared/lib/unitSystem';
 
-import {
-  MM_PER_OZ,
-  computeTraceExtras,
-} from '@/features/calculator-generic/model/traceExtrasSolver';
+import { MM_PER_OZ, computeTraceExtras } from '@calcbridge/calculators/trace_extras';
 
 interface TraceExtrasDraft {
   length: string;

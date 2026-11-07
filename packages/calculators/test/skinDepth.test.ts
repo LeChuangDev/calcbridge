@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { solveSkinDepth } from '@/features/calculator-skin-depth/model/skinDepthSolver';
+import { solveSkinDepth } from '../src/skin_depth/solver';
 
 describe('趋肤深度求解', () => {
   it('铜在 20°C / 1 GHz 的趋肤深度约为 2.09 µm', () => {

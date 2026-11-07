@@ -4,7 +4,7 @@ import { FieldWarn } from '@/shared/ui/FieldWarn';
 import type { VariableSpec } from '@calcbridge/core';
 import { fmtNum } from '@/shared/lib/bridge';
 import { useDraft, useDraftData } from '@/entities/draft/model/draftStore';
-import { solveCable, type CableMaterial } from '@/features/calculator-cable/model/cableSolver';
+import { solveCable, type CableMaterial } from '@calcbridge/calculators/cable';
 import { useUnitSystem } from '@/shared/lib/providers/UnitSystemProvider';
 import { useReport } from '@/entities/report/model/reportStore';
 import type { ReportSection } from '@/entities/report/model/report';

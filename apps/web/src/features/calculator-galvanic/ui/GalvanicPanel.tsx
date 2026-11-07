@@ -3,11 +3,7 @@ import { OutputDisplay } from '@/shared/ui/OutputDisplay';
 import { fmtNum } from '@/shared/lib/bridge';
 import { useDraft, useDraftData } from '@/entities/draft/model/draftStore';
 import { useReport } from '@/entities/report/model/reportStore';
-import {
-  METALS,
-  solveGalvanic,
-  type Environment,
-} from '@/features/calculator-galvanic/model/galvanicSolver';
+import { METALS, solveGalvanic, type Environment } from '@calcbridge/calculators/galvanic';
 
 const ENV_LABEL: Record<Environment, string> = {
   controlled: '室内 / 受控',

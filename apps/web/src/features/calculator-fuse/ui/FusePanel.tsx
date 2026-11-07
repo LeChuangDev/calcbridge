@@ -4,7 +4,7 @@ import { FieldWarn } from '@/shared/ui/FieldWarn';
 import type { VariableSpec } from '@calcbridge/core';
 import { fmtNum } from '@/shared/lib/bridge';
 import { mergeStringDraft, useDraft, useDraftData } from '@/entities/draft/model/draftStore';
-import { solveFuse } from '@/features/calculator-fuse/model/fuseSolver';
+import { solveFuse } from '@calcbridge/calculators/fuse';
 import { useUnitSystem } from '@/shared/lib/providers/UnitSystemProvider';
 import { useReport } from '@/entities/report/model/reportStore';
 import type { ReportSection } from '@/entities/report/model/report';

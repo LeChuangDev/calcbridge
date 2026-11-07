@@ -3,7 +3,7 @@
  * 纯函数，便于单元测试；ViaPanel 只负责布局与渲染。
  */
 import { fmtNum } from '@/shared/lib/bridge';
-import type { ViaResult } from '@/features/calculator-via/model/viaSolver';
+import type { ViaResult } from '@calcbridge/calculators/via';
 import type { ViaRuleSet } from '@/features/calculator-via/model/viaRules';
 import {
   formatMeasurement,

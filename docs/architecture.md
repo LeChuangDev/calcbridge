@@ -19,7 +19,7 @@ apps/web/src/
 │  ├─ about-dialog/  display-controls/
 │  └─ 每个切片 = ui/ + index.ts
 ├─ features/            功能层：一次用户动作对应的业务切片
-│  ├─ calculator-*/     19 个计算器（ui/ 面板 + model/ 求解器与测试 + index.ts）
+│  ├─ calculator-*/     19 个计算器（ui/ 面板 + 可选 model/ 视图模型 + index.ts）
 │  └─ design-file/      设计文件导入导出
 ├─ entities/            实体层：领域数据与状态
 │  ├─ calculator/       工具目录元数据（navModel）
@@ -58,15 +58,15 @@ app → pages → widgets → features → entities → shared
 
 ## 约定
 
-| 主题       | 约定                                                                                                                                                                  |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 文件命名   | 组件 `PascalCase.tsx`；逻辑与数据 `camelCase.ts`；目录 `kebab-case`                                                                                                   |
-| 计算位置   | 纯函数放在 `<feature>/model/xxxSolver.ts`，`ui/` 只做输入收集与结果渲染                                                                                               |
-| 状态派生   | 能由输入推导的结果一律用 `useMemo` 派生，不写回 state（避免双向数据源）                                                                                               |
-| 持久化     | localStorage 键名统一在 `shared/config/storageKeys.ts`，禁止散落字符串                                                                                                |
-| 样式       | 颜色/圆角/字体一律引用 `app/styles/tokens.css` 的变量，禁止写死色值                                                                                                   |
-| 测试       | 求解器必须带 `*.test.ts`，与实现同目录；跨切片冒烟测试放 `pages/calculator/ui/`                                                                                       |
-| 新增计算器 | ① `entities/calculator/model/navModel.ts` 登记 ② `features/calculator-xx/` 建 model+ui ③ 加 index.ts 并在 `pages/calculator/model/registry.ts` 登记（仅定制交互需要） |
+| 主题       | 约定                                                                                                                                                                                                                 |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 文件命名   | 组件 `PascalCase.tsx`；逻辑与数据 `camelCase.ts`；目录 `kebab-case`                                                                                                                                                  |
+| 计算位置   | 可复用纯求解器放在 `packages/calculators/src/<module>/`，`ui/` 只做输入收集与结果渲染；仅 UI 专用的视图模型留在 `<feature>/model/`                                                                                   |
+| 状态派生   | 能由输入推导的结果一律用 `useMemo` 派生，不写回 state（避免双向数据源）                                                                                                                                              |
+| 持久化     | localStorage 键名统一在 `shared/config/storageKeys.ts`，禁止散落字符串                                                                                                                                               |
+| 样式       | 颜色/圆角/字体一律引用 `app/styles/tokens.css` 的变量，禁止写死色值                                                                                                                                                  |
+| 测试       | 求解器必须带 `*.test.ts`，统一放 `packages/calculators/test/`；跨切片冒烟测试放 `pages/calculator/ui/`                                                                                                               |
+| 新增计算器 | ① `entities/calculator/model/navModel.ts` 登记 ② 纯求解器放 `packages/calculators/src/xx/` 并补测试 ③ `features/calculator-xx/` 建 ui ④ 加 index.ts 并在 `pages/calculator/model/registry.ts` 登记（仅定制交互需要） |
 
 ## 性能设计
 

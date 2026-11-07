@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { clearanceGap, clearanceRow } from './clearanceTable';
+import { clearanceGap, clearanceRow } from '../src/clearance/table';
 
 describe('IPC-2221B 电气间隙查表', () => {
   it('按电压档位查询典型间隙', () => {

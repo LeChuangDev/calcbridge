@@ -103,7 +103,7 @@ $env:CALCBRIDGE_DEV_HOST='0.0.0.0'; npm run dev
 - `recompute`：按公开公式独立复算（如 TI AN-1192、LM317 数据手册、Onderdonk 熔断公式）。
 - `tool`：工具导出或在线计算器查询（当前仅阻抗 golden 中的嘉立创叠层）。
 
-当前来源包括 IPC-2221B / IPC-2152、IEC 60228 / IEC 60063、EIA-261、TI LM317 / LM1117 / AN-1192 / SLVA477B / SNVA766、Electronics Notes 衰减器速查表、ElectroCalc / NextPCB 趋肤深度表、MIL-STD-889 / AZOM 阳极指数表。商业工具 Polar / Sigrity 数据仍未导入，因此覆盖率报告不会把公开数据标成“工具对标”。
+当前来源包括 IPC-2221B / IPC-2152、IEC 60228 / IEC 60063 / IEC 60062、NIST SP 811、EIA-261、TI LM317 / LM1117 / AN-1192 / SLVA477B / SNVA766、Electronics Notes 衰减器速查表、ElectroCalc / NextPCB 趋肤深度表、MIL-STD-889 / AZOM 阳极指数表。商业工具 Polar / Sigrity 数据仍未导入，因此覆盖率报告不会把公开数据标成“工具对标”。
 
 ## 部署与安全
 
@@ -209,7 +209,7 @@ TPS7A47,1.0,1.25,1.5,10,20,30
 
 - IPC-2152 曲线为近似数据，尚未完成人工校准，页面会明确标注。
 - 阻抗页为微带线准静态多模型估算，不含阻焊、铜箔粗糙度、频变 Dk/Df、差分/带状线/共面波导与 2D 场解算；示例叠层不是板厂官方叠层，生产前必须用实际叠层与阻抗 coupon 复核。
-- Polar/Sigrity 对照数据尚未导入；当前已有 15 个数值模块通过公开标准/厂商手册验证（94 条用例 + 6 条阻抗 golden），但“标准验证”不等同于商业工具对标；`validate:impedance:strict` 会因缺少 Polar/Sigrity 数据阻断。
+- Polar/Sigrity 对照数据尚未导入；当前已有 17 个数值模块通过公开标准/厂商手册验证（108 条用例 + 6 条阻抗 golden），但“标准验证”不等同于商业工具对标；`validate:impedance:strict` 会因缺少 Polar/Sigrity 数据阻断。
 - 熔断、过孔载流、电偶腐蚀为工程估算模型，不含散热、镀层体系、实际介质与试验修正；电偶腐蚀按 MIL-STD-889 常用阈值（受控 0.50 V / 一般 0.25 V / 海洋 0.15 V）筛选，不同来源的阳极指数表可能略有差异。
 - 过孔页的「常规板 / 高密度板」工艺规则为示例阈值，必须按目标板厂能力表修改；自定义规则按 mm 输入。1 oz 铜厚按 35 µm 换算。
 - 线缆尺寸仅按电压降选型，不含载流量、绝缘耐压、敷设与温度校正。

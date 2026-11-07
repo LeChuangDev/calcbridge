@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { computeTraceExtras } from '@/features/calculator-generic/model/traceExtrasSolver';
+import { computeTraceExtras } from '../src/trace_extras/solver';
 
 describe('走线电阻与压降扩展', () => {
   it('外层 0.300387mm / 0.035mm 铜厚 / 20mm 的电阻与截图一致', () => {

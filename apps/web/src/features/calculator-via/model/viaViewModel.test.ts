@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { fmtNum } from '@/shared/lib/bridge';
 import { VIA_RULE_PRESETS, type ViaRuleSet } from '@/features/calculator-via/model/viaRules';
-import { solveVia, type ViaInput } from '@/features/calculator-via/model/viaSolver';
+import { solveVia, type ViaInput } from '@calcbridge/calculators/via';
 import {
   buildViaChecks,
   buildViaFigureGeometry,
