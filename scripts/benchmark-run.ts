@@ -11,12 +11,20 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { Quantity, solveForward, type CalcSpec, type NamedInputs } from '@calcbridge/core';
+import {
+  Quantity,
+  parseImpedanceJson,
+  solveForward,
+  validateImpedanceDataset,
+  type CalcSpec,
+  type NamedInputs,
+} from '@calcbridge/core';
 import { BUCK_INDUCTOR_SPEC, REGULATOR_SPEC, traceCurrentSpec } from '@calcbridge/calculators';
 import { clearanceGap } from '../apps/web/src/features/calculator-clearance/model/clearanceTable';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const casesFile = join(root, 'validation', 'benchmarks', 'cases.json');
+const impedanceFile = join(root, 'validation', 'impedance', 'golden.json');
 const reportFile = join(root, 'validation', 'benchmarks', 'run-report.md');
 const reportOnly = process.argv.includes('--report-only');
 
@@ -35,6 +43,12 @@ interface Check {
   expected: number;
   actual: number;
   tolPct: number;
+}
+
+interface ImpedanceSummary {
+  cases: number;
+  checks: number;
+  failures: number;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -133,11 +147,44 @@ const RUNNERS: Record<string, (item: BenchmarkCase) => Check[]> = {
 };
 
 const SKIPPED_MODULES: Record<string, string> = {
-  impedance_microstrip: '由 npm run validate:impedance 执行（golden.json）',
+  impedance_microstrip: '由 validation/impedance/golden.json 统一执行，请勿在 cases.json 重复录入',
 };
 
 function errorPct(actual: number, expected: number): number {
   return (Math.abs(actual - expected) / Math.max(Math.abs(expected), 1e-12)) * 100;
+}
+
+/** 执行微带阻抗 golden 数据集，把每个模型的结果并入同一份报告。 */
+function runImpedanceGolden(): ImpedanceSummary {
+  if (!existsSync(impedanceFile)) return { cases: 0, checks: 0, failures: 0 };
+  const goldenCases = parseImpedanceJson(readFileSync(impedanceFile, 'utf8'));
+  const validation = validateImpedanceDataset(goldenCases);
+  let checks = 0;
+  let failures = 0;
+
+  for (const result of validation.cases) {
+    const applicable = result.models.filter((model) => model.applicable && model.value !== null);
+    if (applicable.length === 0) {
+      skipped.push(`impedance_microstrip（${result.case.id} 无适用模型）`);
+      continue;
+    }
+    for (const model of applicable) {
+      checks += 1;
+      const actual = model.value ?? Number.NaN;
+      const err = model.errorPct ?? errorPct(actual, result.case.expected);
+      const pass = model.passed;
+      if (!pass) failures += 1;
+      rows.push(
+        `| impedance_microstrip | ${result.case.id} | ${
+          result.case.mode === 'z0' ? 'Z0' : 'width'
+        }·${model.modelId} | ${result.case.expected} | ${
+          Number.isFinite(actual) ? actual.toPrecision(6) : 'NaN'
+        } | ${err.toFixed(3)}% | ${result.case.tolerancePct}% | ${pass ? '通过' : '失败'} |`,
+      );
+    }
+  }
+
+  return { cases: goldenCases.length, checks, failures };
 }
 
 const cases = parseCases();
@@ -180,6 +227,10 @@ for (const item of cases) {
   }
 }
 
+const impedance = runImpedanceGolden();
+totalChecks += impedance.checks;
+failedChecks += impedance.failures;
+
 const passedChecks = totalChecks - failedChecks;
 const now = new Date();
 const stamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(
@@ -193,7 +244,8 @@ const markdown = [
   '# 外部基准执行报告',
   '',
   `- 生成时间：${stamp}`,
-  `- 执行用例：${cases.length}（校验项 ${totalChecks}）`,
+  `- 执行用例：${cases.length + impedance.cases}（校验项 ${totalChecks}）`,
+  `- 其中阻抗 golden：${impedance.cases} 例 / ${impedance.checks} 项`,
   `- 结果：通过 ${passedChecks}，失败 ${failedChecks}`,
   skipped.length > 0 ? `- 跳过：${skipped.join('；')}` : '',
   '',
