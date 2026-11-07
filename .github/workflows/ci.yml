@@ -48,9 +48,9 @@ jobs:
       - name: Bundle size gate
         run: npm run size
 
-      # 外部基准覆盖率报告：默认只输出报告，不阻断；数据补齐后可切到 strict
-      - name: Benchmark coverage report
-        run: npm run benchmark:coverage
+      # 外部基准覆盖率门禁：15 个数值模块均需 ≥6 用例且 ≥2 份可追溯依据
+      - name: Benchmark coverage gate
+        run: npm run benchmark:coverage:strict
 
       # 执行已录入的外部基准用例；任何一项超出容差即阻断
       - name: Benchmark execution

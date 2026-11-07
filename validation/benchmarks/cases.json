@@ -7,10 +7,17 @@
       "source": "published",
       "sourceVersion": "IPC-2221B 表 6-1 公式 I = k·ΔT^0.44·A^0.725",
       "date": "2026-11-07",
-      "inputs": { "I": 3, "dT": 10, "cu": 1 },
-      "expected": { "wMm": 1.368 },
+      "inputs": {
+        "I": 3,
+        "dT": 10,
+        "cu": 1
+      },
+      "expected": {
+        "wMm": 1.368
+      },
       "tolerancePct": 2,
-      "notes": "外层 k=0.048，1 oz=1.378 mil；按公开公式复算，非商业工具导出。"
+      "notes": "外层 k=0.048，1 oz=1.378 mil；按公开公式复算，非商业工具导出。",
+      "evidence": "recompute"
     },
     {
       "moduleId": "trace_current",
@@ -19,10 +26,17 @@
       "source": "published",
       "sourceVersion": "IPC-2221B 表 6-1 公式 I = k·ΔT^0.44·A^0.725",
       "date": "2026-11-07",
-      "inputs": { "I": 1, "dT": 10, "cu": 1 },
-      "expected": { "wMm": 0.3 },
+      "inputs": {
+        "I": 1,
+        "dT": 10,
+        "cu": 1
+      },
+      "expected": {
+        "wMm": 0.3
+      },
       "tolerancePct": 2,
-      "notes": "外层 k=0.048；按公开公式复算，非商业工具导出。"
+      "notes": "外层 k=0.048；按公开公式复算，非商业工具导出。",
+      "evidence": "recompute"
     },
     {
       "moduleId": "trace_current",
@@ -31,10 +45,17 @@
       "source": "published",
       "sourceVersion": "IPC-2221B 表 6-1 公式（内层 k=0.024）",
       "date": "2026-11-07",
-      "inputs": { "I": 3, "dT": 10, "cu": 1 },
-      "expected": { "wMm": 3.554 },
+      "inputs": {
+        "I": 3,
+        "dT": 10,
+        "cu": 1
+      },
+      "expected": {
+        "wMm": 3.554
+      },
       "tolerancePct": 2,
-      "notes": "内层系数减半，线宽约为外层 2.6 倍；按公开公式复算。"
+      "notes": "内层系数减半，线宽约为外层 2.6 倍；按公开公式复算。",
+      "evidence": "recompute"
     },
     {
       "moduleId": "trace_current",
@@ -44,10 +65,17 @@
       "sourceVersion": "rftools IPC-2221 计算示例",
       "sourceUrl": "https://rftools.io/blog/pcb-trace-width-current-capacity/",
       "date": "2026-11-07",
-      "inputs": { "I": 10, "dT": 10, "cu": 1 },
-      "expected": { "wMm": 7.19 },
+      "inputs": {
+        "I": 10,
+        "dT": 10,
+        "cu": 1
+      },
+      "expected": {
+        "wMm": 7.19
+      },
       "tolerancePct": 5,
-      "notes": "第三方公开计算示例；同一文章指出无参考平面时图表法可能需要更大线宽。"
+      "notes": "第三方公开计算示例；同一文章指出无参考平面时图表法可能需要更大线宽。",
+      "evidence": "table"
     },
     {
       "moduleId": "buck_inductor",
@@ -55,7 +83,14 @@
       "source": "published",
       "sourceVersion": "TI AN-1192 Buck 电感选型公式（复算）",
       "date": "2026-11-07",
-      "inputs": { "Vin": 12, "Vout": 5, "Iout": 2, "fsw": 500, "r": 0.3, "derate": 1.2 },
+      "inputs": {
+        "Vin": 12,
+        "Vout": 5,
+        "Iout": 2,
+        "fsw": 500,
+        "r": 0.3,
+        "derate": 1.2
+      },
       "expected": {
         "LMh": 9.722,
         "deltaIA": 0.6,
@@ -64,7 +99,8 @@
         "isatReqA": 2.76
       },
       "tolerancePct": 2,
-      "notes": "按公开公式复算，非 TI 工具导出；用于固定典型工况。"
+      "notes": "按公开公式复算，非 TI 工具导出；用于固定典型工况。",
+      "evidence": "recompute"
     },
     {
       "moduleId": "buck_inductor",
@@ -72,7 +108,14 @@
       "source": "published",
       "sourceVersion": "TI AN-1192 Buck 电感选型公式（复算）",
       "date": "2026-11-07",
-      "inputs": { "Vin": 12, "Vout": 3.3, "Iout": 1, "fsw": 400, "r": 0.25, "derate": 1.2 },
+      "inputs": {
+        "Vin": 12,
+        "Vout": 3.3,
+        "Iout": 1,
+        "fsw": 400,
+        "r": 0.25,
+        "derate": 1.2
+      },
       "expected": {
         "LMh": 23.925,
         "deltaIA": 0.25,
@@ -80,7 +123,8 @@
         "isatReqA": 1.35
       },
       "tolerancePct": 2,
-      "notes": "按公开公式复算，非 TI 工具导出。"
+      "notes": "按公开公式复算，非 TI 工具导出。",
+      "evidence": "recompute"
     },
     {
       "moduleId": "regulator_3term",
@@ -89,10 +133,18 @@
       "sourceVersion": "TI LM317 数据手册典型应用（Vref=1.25V，R1=240Ω，R2=720Ω）",
       "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm317.pdf",
       "date": "2026-11-07",
-      "inputs": { "Vref": 1.25, "R1": 0.24, "R2": 0.72, "Iadj": 50 },
-      "expected": { "VoutV": 5.036 },
+      "inputs": {
+        "Vref": 1.25,
+        "R1": 0.24,
+        "R2": 0.72,
+        "Iadj": 50
+      },
+      "expected": {
+        "VoutV": 5.036
+      },
       "tolerancePct": 1,
-      "notes": "按数据手册公式复算，Iadj 取典型 50 µA；非厂商工具导出。"
+      "notes": "按数据手册公式复算，Iadj 取典型 50 µA；非厂商工具导出。",
+      "evidence": "recompute"
     },
     {
       "moduleId": "regulator_3term",
@@ -101,10 +153,18 @@
       "sourceVersion": "TI LM317 数据手册典型应用（R2=1kΩ）",
       "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm317.pdf",
       "date": "2026-11-07",
-      "inputs": { "Vref": 1.25, "R1": 0.24, "R2": 1.0, "Iadj": 50 },
-      "expected": { "VoutV": 6.5083 },
+      "inputs": {
+        "Vref": 1.25,
+        "R1": 0.24,
+        "R2": 1,
+        "Iadj": 50
+      },
+      "expected": {
+        "VoutV": 6.5083
+      },
       "tolerancePct": 1,
-      "notes": "按数据手册公式复算，Iadj 取典型 50 µA。"
+      "notes": "按数据手册公式复算，Iadj 取典型 50 µA。",
+      "evidence": "recompute"
     },
     {
       "moduleId": "clearance",
@@ -112,10 +172,16 @@
       "source": "published",
       "sourceVersion": "IPC-2221B 表 6-1（仓库转录）",
       "date": "2026-11-07",
-      "inputs": { "voltageV": 100, "column": "B1" },
-      "expected": { "gapMm": 0.1 },
+      "inputs": {
+        "voltageV": 100,
+        "column": "B1"
+      },
+      "expected": {
+        "gapMm": 0.1
+      },
       "tolerancePct": 0,
-      "notes": "表值一致性校验；用于防止查表实现漂移，不代表独立第三方复现。"
+      "notes": "表值一致性校验；用于防止查表实现漂移，不代表独立第三方复现。",
+      "evidence": "table"
     },
     {
       "moduleId": "clearance",
@@ -123,10 +189,16 @@
       "source": "published",
       "sourceVersion": "IPC-2221B 表 6-1（仓库转录）",
       "date": "2026-11-07",
-      "inputs": { "voltageV": 100, "column": "B2" },
-      "expected": { "gapMm": 0.6 },
+      "inputs": {
+        "voltageV": 100,
+        "column": "B2"
+      },
+      "expected": {
+        "gapMm": 0.6
+      },
       "tolerancePct": 0,
-      "notes": "表值一致性校验；外部无浸渍、≤3050 m。"
+      "notes": "表值一致性校验；外部无浸渍、≤3050 m。",
+      "evidence": "table"
     },
     {
       "moduleId": "clearance",
@@ -134,10 +206,16 @@
       "source": "published",
       "sourceVersion": "IPC-2221B 表 6-1（仓库转录）",
       "date": "2026-11-07",
-      "inputs": { "voltageV": 250, "column": "B4" },
-      "expected": { "gapMm": 0.4 },
+      "inputs": {
+        "voltageV": 250,
+        "column": "B4"
+      },
+      "expected": {
+        "gapMm": 0.4
+      },
       "tolerancePct": 0,
-      "notes": "表值一致性校验；外部永久浸渍。"
+      "notes": "表值一致性校验；外部永久浸渍。",
+      "evidence": "table"
     },
     {
       "moduleId": "clearance",
@@ -145,10 +223,1776 @@
       "source": "published",
       "sourceVersion": "IPC-2221B 表 6-1（仓库转录）",
       "date": "2026-11-07",
-      "inputs": { "voltageV": 500, "column": "B3" },
-      "expected": { "gapMm": 12.5 },
+      "inputs": {
+        "voltageV": 500,
+        "column": "B3"
+      },
+      "expected": {
+        "gapMm": 12.5
+      },
       "tolerancePct": 0,
-      "notes": "表值一致性校验；外部无浸渍、>3050 m。"
+      "notes": "表值一致性校验；外部无浸渍、>3050 m。",
+      "evidence": "table"
+    },
+    {
+      "moduleId": "trace_current",
+      "id": "ipc2221-ext-2a-10k-1oz",
+      "model": "ipc2221_external",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 公式 I = k·ΔT^0.44·A^0.725",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "I": 2,
+        "dT": 10,
+        "cu": 1
+      },
+      "expected": {
+        "wMm": 0.781412
+      },
+      "tolerancePct": 2,
+      "notes": "外层 k=0.048，1 oz；按公开公式独立复算。"
+    },
+    {
+      "moduleId": "trace_current",
+      "id": "ipc2221-ext-5a-20k-1oz",
+      "model": "ipc2221_external",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 公式 I = k·ΔT^0.44·A^0.725",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "I": 5,
+        "dT": 20,
+        "cu": 1
+      },
+      "expected": {
+        "wMm": 1.815804
+      },
+      "tolerancePct": 2,
+      "notes": "外层 k=0.048，20 K 温升；按公开公式独立复算。"
+    },
+    {
+      "moduleId": "trace_current",
+      "id": "ipc2221-ext-3a-10k-2oz",
+      "model": "ipc2221_external",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 公式 I = k·ΔT^0.44·A^0.725",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "I": 3,
+        "dT": 10,
+        "cu": 2
+      },
+      "expected": {
+        "wMm": 0.683494
+      },
+      "tolerancePct": 2,
+      "notes": "外层 k=0.048，2 oz 铜厚；按公开公式独立复算。"
+    },
+    {
+      "moduleId": "trace_current",
+      "id": "ipc2221-ext-5a-20k-2oz",
+      "model": "ipc2221_external",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 公式 I = k·ΔT^0.44·A^0.725",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "I": 5,
+        "dT": 20,
+        "cu": 2
+      },
+      "expected": {
+        "wMm": 0.907902
+      },
+      "tolerancePct": 2,
+      "notes": "外层 k=0.048，20 K 温升、2 oz；按公开公式独立复算。"
+    },
+    {
+      "moduleId": "trace_current",
+      "id": "ipc2221-ext-10a-30k-1oz",
+      "model": "ipc2221_external",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 公式 I = k·ΔT^0.44·A^0.725",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "I": 10,
+        "dT": 30,
+        "cu": 1
+      },
+      "expected": {
+        "wMm": 3.693291
+      },
+      "tolerancePct": 3,
+      "notes": "外层 k=0.048，30 K 温升；按公开公式独立复算。"
+    },
+    {
+      "moduleId": "trace_current",
+      "id": "ipc2221-int-2a-10k-1oz",
+      "model": "ipc2221_internal",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 公式（内层 k=0.024）",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "I": 2,
+        "dT": 10,
+        "cu": 1
+      },
+      "expected": {
+        "wMm": 2.032797
+      },
+      "tolerancePct": 2,
+      "notes": "内层 k=0.024，1 oz；按公开公式独立复算。"
+    },
+    {
+      "moduleId": "clearance",
+      "id": "ipc2221-30v-a6",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 · A5–A7 涂覆/引线档",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "voltageV": 30,
+        "column": "A6"
+      },
+      "expected": {
+        "gapMm": 0.25
+      },
+      "tolerancePct": 0,
+      "notes": "表值一致性校验；外部组件引线/缠绕、无浸渍。"
+    },
+    {
+      "moduleId": "clearance",
+      "id": "ipc2221-100v-a5",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 · A5–A7 涂覆/引线档",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "voltageV": 100,
+        "column": "A5"
+      },
+      "expected": {
+        "gapMm": 0.13
+      },
+      "tolerancePct": 0,
+      "notes": "表值一致性校验；外部导体 conformal 涂覆。"
+    },
+    {
+      "moduleId": "clearance",
+      "id": "ipc2221-250v-a5",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 · A5–A7 涂覆/引线档",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "voltageV": 250,
+        "column": "A5"
+      },
+      "expected": {
+        "gapMm": 0.4
+      },
+      "tolerancePct": 0,
+      "notes": "表值一致性校验；外部导体 conformal 涂覆。"
+    },
+    {
+      "moduleId": "clearance",
+      "id": "ipc2221-500v-a7",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 · A5–A7 涂覆/引线档",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "voltageV": 500,
+        "column": "A7"
+      },
+      "expected": {
+        "gapMm": 0.8
+      },
+      "tolerancePct": 0,
+      "notes": "表值一致性校验；外部引线/缠绕 conformal 涂覆。"
+    },
+    {
+      "moduleId": "regulator_3term",
+      "id": "lm317-240-1500-9v",
+      "source": "published",
+      "sourceVersion": "TI LM317 数据手册典型应用",
+      "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm317.pdf",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "Vref": 1.25,
+        "R1": 0.24,
+        "R2": 1.5,
+        "Iadj": 50
+      },
+      "expected": {
+        "VoutV": 9.1375
+      },
+      "tolerancePct": 1,
+      "notes": "按数据手册公式复算；Iadj 取典型 50 µA。"
+    },
+    {
+      "moduleId": "regulator_3term",
+      "id": "lm317-240-2200-12v",
+      "source": "published",
+      "sourceVersion": "TI LM317 数据手册典型应用",
+      "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm317.pdf",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "Vref": 1.25,
+        "R1": 0.24,
+        "R2": 2.2,
+        "Iadj": 50
+      },
+      "expected": {
+        "VoutV": 12.8183
+      },
+      "tolerancePct": 1,
+      "notes": "按数据手册公式复算；Iadj 取典型 50 µA。"
+    },
+    {
+      "moduleId": "regulator_3term",
+      "id": "lm317-240-1000-100ua",
+      "source": "published",
+      "sourceVersion": "TI LM317 数据手册典型应用",
+      "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm317.pdf",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "Vref": 1.25,
+        "R1": 0.24,
+        "R2": 1,
+        "Iadj": 100
+      },
+      "expected": {
+        "VoutV": 6.55833
+      },
+      "tolerancePct": 1,
+      "notes": "Iadj 取数据手册最大值 100 µA，用于覆盖最坏情况。"
+    },
+    {
+      "moduleId": "regulator_3term",
+      "id": "lm1117-240-390-3v3",
+      "source": "published",
+      "sourceVersion": "TI LM1117-ADJ 数据手册典型应用",
+      "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm1117.pdf",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "Vref": 1.25,
+        "R1": 0.24,
+        "R2": 0.39,
+        "Iadj": 60
+      },
+      "expected": {
+        "VoutV": 3.30465
+      },
+      "tolerancePct": 1,
+      "notes": "LM1117-ADJ 3.3 V 典型电路；Iadj 取典型 60 µA。"
+    },
+    {
+      "moduleId": "buck_inductor",
+      "id": "slva477-12v-1v8-3a-300k",
+      "source": "published",
+      "sourceVersion": "TI SLVA477B Buck 功率级计算（CCM 复算）",
+      "sourceUrl": "https://www.ti.com/lit/an/slva477b/slva477b.pdf",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "Vin": 12,
+        "Vout": 1.8,
+        "Iout": 3,
+        "fsw": 300,
+        "r": 0.3,
+        "derate": 1.2
+      },
+      "expected": {
+        "LMh": 5.666667,
+        "deltaIA": 0.9,
+        "iPeakA": 3.45,
+        "iRmsA": 3.011229,
+        "isatReqA": 4.14
+      },
+      "tolerancePct": 2,
+      "notes": "按 SLVA477B CCM 公式独立复算。"
+    },
+    {
+      "moduleId": "buck_inductor",
+      "id": "slva477-24v-5v-5a-250k",
+      "source": "published",
+      "sourceVersion": "TI SLVA477B Buck 功率级计算（CCM 复算）",
+      "sourceUrl": "https://www.ti.com/lit/an/slva477b/slva477b.pdf",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "Vin": 24,
+        "Vout": 5,
+        "Iout": 5,
+        "fsw": 250,
+        "r": 0.4,
+        "derate": 1.3
+      },
+      "expected": {
+        "LMh": 7.916667,
+        "deltaIA": 2,
+        "iPeakA": 6,
+        "iRmsA": 5.033223,
+        "isatReqA": 7.8
+      },
+      "tolerancePct": 2,
+      "notes": "按 SLVA477B CCM 公式独立复算。"
+    },
+    {
+      "moduleId": "buck_inductor",
+      "id": "an1192-5v-3v3-2a-1m",
+      "source": "published",
+      "sourceVersion": "TI AN-1192 Buck 电感选型公式（复算）",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "Vin": 5,
+        "Vout": 3.3,
+        "Iout": 2,
+        "fsw": 1000,
+        "r": 0.2,
+        "derate": 1.5
+      },
+      "expected": {
+        "LMh": 2.805,
+        "deltaIA": 0.4,
+        "iPeakA": 2.2,
+        "iRmsA": 2.003331,
+        "isatReqA": 3.3
+      },
+      "tolerancePct": 2,
+      "notes": "按 AN-1192 CCM 公式独立复算。"
+    },
+    {
+      "moduleId": "buck_inductor",
+      "id": "an1192-12v-5v-10a-500k",
+      "source": "published",
+      "sourceVersion": "TI AN-1192 Buck 电感选型公式（复算）",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "Vin": 12,
+        "Vout": 5,
+        "Iout": 10,
+        "fsw": 500,
+        "r": 0.3,
+        "derate": 1.2
+      },
+      "expected": {
+        "LMh": 1.944444,
+        "deltaIA": 3,
+        "iPeakA": 11.5,
+        "iRmsA": 10.03743,
+        "isatReqA": 13.8
+      },
+      "tolerancePct": 2,
+      "notes": "按 AN-1192 CCM 公式独立复算。"
+    },
+    {
+      "moduleId": "resistor_calc",
+      "id": "ohm-series-1k-2k",
+      "model": "series",
+      "source": "published",
+      "sourceVersion": "欧姆定律串联/并联（复算）",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "R1": 1000,
+        "R2": 2000
+      },
+      "expected": {
+        "seriesOhm": 3000
+      },
+      "tolerancePct": 0.1,
+      "notes": "理想串联，按欧姆定律复算。"
+    },
+    {
+      "moduleId": "resistor_calc",
+      "id": "ohm-parallel-1k-2k",
+      "model": "parallel",
+      "source": "published",
+      "sourceVersion": "欧姆定律串联/并联（复算）",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "R1": 1000,
+        "R2": 2000
+      },
+      "expected": {
+        "parallelOhm": 666.6667
+      },
+      "tolerancePct": 0.1,
+      "notes": "理想并联，按欧姆定律复算。"
+    },
+    {
+      "moduleId": "resistor_calc",
+      "id": "ohm-divider-12v-1k-2k",
+      "model": "divider",
+      "source": "published",
+      "sourceVersion": "欧姆定律串联/并联（复算）",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "Vin": 12,
+        "R1": 1000,
+        "R2": 2000
+      },
+      "expected": {
+        "vdivV": 8
+      },
+      "tolerancePct": 0.1,
+      "notes": "空载分压，按欧姆定律复算。"
+    },
+    {
+      "moduleId": "resistor_calc",
+      "id": "e24-divider-5v-27k-1k",
+      "model": "divider",
+      "source": "published",
+      "sourceVersion": "IEC 60063 E24 标准值分压示例（复算）",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "Vin": 5,
+        "R1": 2700,
+        "R2": 1000
+      },
+      "expected": {
+        "vdivV": 1.351351
+      },
+      "tolerancePct": 1,
+      "notes": "E24 标准值 2.7 kΩ / 1 kΩ，空载分压复算。"
+    },
+    {
+      "moduleId": "resistor_calc",
+      "id": "e24-divider-3v3-1k-470",
+      "model": "divider",
+      "source": "published",
+      "sourceVersion": "IEC 60063 E24 标准值分压示例（复算）",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "Vin": 3.3,
+        "R1": 1000,
+        "R2": 470
+      },
+      "expected": {
+        "vdivV": 1.055102
+      },
+      "tolerancePct": 1,
+      "notes": "E24 标准值 1 kΩ / 470 Ω，空载分压复算。"
+    },
+    {
+      "moduleId": "resistor_calc",
+      "id": "e24-parallel-100-150",
+      "model": "parallel",
+      "source": "published",
+      "sourceVersion": "IEC 60063 E24 标准值分压示例（复算）",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "R1": 100,
+        "R2": 150
+      },
+      "expected": {
+        "parallelOhm": 60
+      },
+      "tolerancePct": 1,
+      "notes": "E24 标准值 100 Ω / 150 Ω 并联复算。"
+    },
+    {
+      "moduleId": "skin_depth",
+      "id": "copper-1khz",
+      "source": "published",
+      "sourceVersion": "NextPCB 铜趋肤深度表（1 kHz–100 kHz）",
+      "sourceUrl": "https://www.nextpcb.com/pcb-skin-effect-depth-calculator",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "freqHz": 1000,
+        "thicknessMm": 0.035,
+        "widthMm": 1,
+        "tempC": 20
+      },
+      "expected": {
+        "skinDepthMm": 2.0629
+      },
+      "tolerancePct": 2,
+      "notes": "NextPCB 公开表值 2062.9 µm；与本实现 20°C 铜参数复算结果差约 1.2%。"
+    },
+    {
+      "moduleId": "skin_depth",
+      "id": "copper-10khz",
+      "source": "published",
+      "sourceVersion": "NextPCB 铜趋肤深度表（1 kHz–100 kHz）",
+      "sourceUrl": "https://www.nextpcb.com/pcb-skin-effect-depth-calculator",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "freqHz": 10000,
+        "thicknessMm": 0.035,
+        "widthMm": 1,
+        "tempC": 20
+      },
+      "expected": {
+        "skinDepthMm": 0.6523
+      },
+      "tolerancePct": 2,
+      "notes": "NextPCB 公开表值 652.3 µm。"
+    },
+    {
+      "moduleId": "skin_depth",
+      "id": "copper-100khz",
+      "source": "published",
+      "sourceVersion": "NextPCB 铜趋肤深度表（1 kHz–100 kHz）",
+      "sourceUrl": "https://www.nextpcb.com/pcb-skin-effect-depth-calculator",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "freqHz": 100000,
+        "thicknessMm": 0.035,
+        "widthMm": 1,
+        "tempC": 20
+      },
+      "expected": {
+        "skinDepthMm": 0.2063
+      },
+      "tolerancePct": 2,
+      "notes": "NextPCB 公开表值 206.3 µm。"
+    },
+    {
+      "moduleId": "skin_depth",
+      "id": "copper-1mhz",
+      "source": "published",
+      "sourceVersion": "ElectroCalc 铜趋肤深度表（1 MHz–1 GHz，20°C）",
+      "sourceUrl": "https://www.electrocalc.dev/skin-effect",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "freqHz": 1000000,
+        "thicknessMm": 0.035,
+        "widthMm": 1,
+        "tempC": 20
+      },
+      "expected": {
+        "skinDepthMm": 0.06601
+      },
+      "tolerancePct": 2,
+      "notes": "ElectroCalc 公开表值 66.01 µm。"
+    },
+    {
+      "moduleId": "skin_depth",
+      "id": "copper-10mhz",
+      "source": "published",
+      "sourceVersion": "ElectroCalc 铜趋肤深度表（1 MHz–1 GHz，20°C）",
+      "sourceUrl": "https://www.electrocalc.dev/skin-effect",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "freqHz": 10000000,
+        "thicknessMm": 0.035,
+        "widthMm": 1,
+        "tempC": 20
+      },
+      "expected": {
+        "skinDepthMm": 0.02087
+      },
+      "tolerancePct": 2,
+      "notes": "按 ElectroCalc 同表规律（δ ∝ 1/√f）复算 20.87 µm。"
+    },
+    {
+      "moduleId": "skin_depth",
+      "id": "copper-1ghz",
+      "source": "published",
+      "sourceVersion": "ElectroCalc 铜趋肤深度表（1 MHz–1 GHz，20°C）",
+      "sourceUrl": "https://www.electrocalc.dev/skin-effect",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "freqHz": 1000000000,
+        "thicknessMm": 0.035,
+        "widthMm": 1,
+        "tempC": 20
+      },
+      "expected": {
+        "skinDepthMm": 0.002087
+      },
+      "tolerancePct": 2,
+      "notes": "按 ElectroCalc 同表规律（δ ∝ 1/√f）复算 2.087 µm。"
+    },
+    {
+      "moduleId": "waveguide",
+      "id": "wr90-10ghz",
+      "source": "published",
+      "sourceVersion": "EIA-261 WR 标准尺寸 + Dolph Microwave 波导频率表",
+      "sourceUrl": "https://dolphmicrowave.com/news/waveguide-frequency-bands-chart-wr-sizes-cutoff-frequency-applications/",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "aMm": 22.86,
+        "freqGHz": 10
+      },
+      "expected": {
+        "fcGHz": 6.55714,
+        "lambdaGMm": 39.707119,
+        "zteOhm": 498.974376,
+        "te20GHz": 13.114281
+      },
+      "tolerancePct": 1,
+      "notes": "WR-90（a=22.86 mm）X 波段；fc 与厂表 6.56 GHz 一致。"
+    },
+    {
+      "moduleId": "waveguide",
+      "id": "wr62-15ghz",
+      "source": "published",
+      "sourceVersion": "EIA-261 WR 标准尺寸 + Dolph Microwave 波导频率表",
+      "sourceUrl": "https://dolphmicrowave.com/news/waveguide-frequency-bands-chart-wr-sizes-cutoff-frequency-applications/",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "aMm": 15.798,
+        "freqGHz": 15
+      },
+      "expected": {
+        "fcGHz": 9.488304,
+        "lambdaGMm": 25.804695,
+        "zteOhm": 486.407037,
+        "te20GHz": 18.976608
+      },
+      "tolerancePct": 1,
+      "notes": "WR-62（a=15.798 mm）Ku 波段；fc 与厂表 9.49 GHz 一致。"
+    },
+    {
+      "moduleId": "waveguide",
+      "id": "wr284-3ghz",
+      "source": "published",
+      "sourceVersion": "EIA-261 WR 标准尺寸 + Dolph Microwave 波导频率表",
+      "sourceUrl": "https://dolphmicrowave.com/news/waveguide-frequency-bands-chart-wr-sizes-cutoff-frequency-applications/",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "aMm": 72.136,
+        "freqGHz": 3
+      },
+      "expected": {
+        "fcGHz": 2.077967,
+        "lambdaGMm": 138.548726,
+        "zteOhm": 522.316393,
+        "te20GHz": 4.155934
+      },
+      "tolerancePct": 1,
+      "notes": "WR-284（a=72.136 mm）S 波段；fc 与厂表 2.08 GHz 一致。"
+    },
+    {
+      "moduleId": "waveguide",
+      "id": "wr187-5ghz",
+      "source": "published",
+      "sourceVersion": "EIA-261 WR 标准尺寸 + Dolph Microwave 波导频率表",
+      "sourceUrl": "https://dolphmicrowave.com/news/waveguide-frequency-bands-chart-wr-sizes-cutoff-frequency-applications/",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "aMm": 47.549,
+        "freqGHz": 5
+      },
+      "expected": {
+        "fcGHz": 3.152458,
+        "lambdaGMm": 77.246581,
+        "zteOhm": 485.354581,
+        "te20GHz": 6.304916
+      },
+      "tolerancePct": 1,
+      "notes": "WR-187（a=47.549 mm）；fc 与厂表 3.15 GHz 一致。"
+    },
+    {
+      "moduleId": "waveguide",
+      "id": "wr42-20ghz",
+      "source": "published",
+      "sourceVersion": "EIA-261 WR 标准尺寸 + Dolph Microwave 波导频率表",
+      "sourceUrl": "https://dolphmicrowave.com/news/waveguide-frequency-bands-chart-wr-sizes-cutoff-frequency-applications/",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "aMm": 10.668,
+        "freqGHz": 20
+      },
+      "expected": {
+        "fcGHz": 14.051015,
+        "lambdaGMm": 21.063679,
+        "zteOhm": 529.388006,
+        "te20GHz": 28.10203
+      },
+      "tolerancePct": 1,
+      "notes": "WR-42（a=10.668 mm）K 波段；fc 与厂表 14.05 GHz 一致。"
+    },
+    {
+      "moduleId": "waveguide",
+      "id": "wr28-30ghz",
+      "source": "published",
+      "sourceVersion": "EIA-261 WR-28 标准尺寸（TE10 复算）",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "aMm": 7.112,
+        "freqGHz": 30
+      },
+      "expected": {
+        "fcGHz": 21.076523,
+        "lambdaGMm": 14.042453,
+        "zteOhm": 529.388006,
+        "te20GHz": 42.153045
+      },
+      "tolerancePct": 1,
+      "notes": "WR-28（a=7.112 mm）Ka 波段；按 EIA 标准尺寸复算。"
+    },
+    {
+      "moduleId": "rf_attenuator",
+      "id": "pi-3db-50ohm",
+      "source": "published",
+      "sourceVersion": "Electronics Notes RF 衰减器速查表（50Ω）",
+      "sourceUrl": "https://www.electronics-notes.com/articles/summary-infographics/rf-attenuators/rf-attenuator-infographic.pdf",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "type": "pi",
+        "attenuationDb": 3,
+        "zin": 50,
+        "zout": 50
+      },
+      "expected": {
+        "r1": 292,
+        "r2": 17.6,
+        "r3": 292
+      },
+      "tolerancePct": 2,
+      "notes": "公开速查表 Π 型 3 dB：并联 292 Ω、串联 17.6 Ω。"
+    },
+    {
+      "moduleId": "rf_attenuator",
+      "id": "pi-6db-50ohm",
+      "source": "published",
+      "sourceVersion": "Electronics Notes RF 衰减器速查表（50Ω）",
+      "sourceUrl": "https://www.electronics-notes.com/articles/summary-infographics/rf-attenuators/rf-attenuator-infographic.pdf",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "type": "pi",
+        "attenuationDb": 6,
+        "zin": 50,
+        "zout": 50
+      },
+      "expected": {
+        "r1": 151,
+        "r2": 37.3,
+        "r3": 151
+      },
+      "tolerancePct": 2,
+      "notes": "公开速查表 Π 型 6 dB：并联 151 Ω、串联 37.3 Ω。"
+    },
+    {
+      "moduleId": "rf_attenuator",
+      "id": "pi-10db-50ohm",
+      "source": "published",
+      "sourceVersion": "rftools.io RF Attenuator Designer（10 dB / 50Ω 示例）",
+      "sourceUrl": "https://rftools.io/calculators/rf/attenuator-designer/",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "type": "pi",
+        "attenuationDb": 10,
+        "zin": 50,
+        "zout": 50
+      },
+      "expected": {
+        "r1": 96.2,
+        "r2": 71.2,
+        "r3": 96.2
+      },
+      "tolerancePct": 1,
+      "notes": "rftools 公开示例：10 dB / 50 Ω Π 型 96.2 Ω 并联、71.2 Ω 串联。"
+    },
+    {
+      "moduleId": "rf_attenuator",
+      "id": "pi-20db-50ohm",
+      "source": "published",
+      "sourceVersion": "Electronics Notes RF 衰减器速查表（50Ω）",
+      "sourceUrl": "https://www.electronics-notes.com/articles/summary-infographics/rf-attenuators/rf-attenuator-infographic.pdf",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "type": "pi",
+        "attenuationDb": 20,
+        "zin": 50,
+        "zout": 50
+      },
+      "expected": {
+        "r1": 61.1,
+        "r2": 248,
+        "r3": 61.1
+      },
+      "tolerancePct": 2,
+      "notes": "公开速查表 Π 型 20 dB：并联 61.1 Ω、串联 248 Ω。"
+    },
+    {
+      "moduleId": "rf_attenuator",
+      "id": "t-3db-50ohm",
+      "source": "published",
+      "sourceVersion": "Electronics Notes RF 衰减器速查表（50Ω）",
+      "sourceUrl": "https://www.electronics-notes.com/articles/summary-infographics/rf-attenuators/rf-attenuator-infographic.pdf",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "type": "t",
+        "attenuationDb": 3,
+        "zin": 50,
+        "zout": 50
+      },
+      "expected": {
+        "r1": 8.5,
+        "r2": 142,
+        "r3": 8.5
+      },
+      "tolerancePct": 2,
+      "notes": "公开速查表 T 型 3 dB：串联 8.5 Ω、并联 142 Ω。"
+    },
+    {
+      "moduleId": "rf_attenuator",
+      "id": "t-6db-50ohm",
+      "source": "published",
+      "sourceVersion": "Electronics Notes RF 衰减器速查表（50Ω）",
+      "sourceUrl": "https://www.electronics-notes.com/articles/summary-infographics/rf-attenuators/rf-attenuator-infographic.pdf",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "type": "t",
+        "attenuationDb": 6,
+        "zin": 50,
+        "zout": 50
+      },
+      "expected": {
+        "r1": 16.6,
+        "r2": 66.9,
+        "r3": 16.6
+      },
+      "tolerancePct": 2,
+      "notes": "公开速查表 T 型 6 dB：串联 16.6 Ω、并联 66.9 Ω。"
+    },
+    {
+      "moduleId": "rf_attenuator",
+      "id": "t-10db-50ohm",
+      "source": "published",
+      "sourceVersion": "Electronics Notes RF 衰减器速查表（50Ω）",
+      "sourceUrl": "https://www.electronics-notes.com/articles/summary-infographics/rf-attenuators/rf-attenuator-infographic.pdf",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "type": "t",
+        "attenuationDb": 10,
+        "zin": 50,
+        "zout": 50
+      },
+      "expected": {
+        "r1": 26,
+        "r2": 35.1,
+        "r3": 26
+      },
+      "tolerancePct": 2,
+      "notes": "公开速查表 T 型 10 dB：串联 26 Ω、并联 35.1 Ω。"
+    },
+    {
+      "moduleId": "rf_attenuator",
+      "id": "t-20db-50ohm",
+      "source": "published",
+      "sourceVersion": "Electronics Notes RF 衰减器速查表（50Ω）",
+      "sourceUrl": "https://www.electronics-notes.com/articles/summary-infographics/rf-attenuators/rf-attenuator-infographic.pdf",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "type": "t",
+        "attenuationDb": 20,
+        "zin": 50,
+        "zout": 50
+      },
+      "expected": {
+        "r1": 40.9,
+        "r2": 10.1,
+        "r3": 40.9
+      },
+      "tolerancePct": 2,
+      "notes": "公开速查表 T 型 20 dB：串联 40.9 Ω、并联 10.1 Ω。"
+    },
+    {
+      "moduleId": "cable_size",
+      "id": "iec-1p5mm2-10m",
+      "source": "published",
+      "sourceVersion": "IEC 60228:2004 表 2 第 2 类铜导体 20°C 最大电阻",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "voltageV": 24,
+        "dropPct": 10,
+        "currentA": 10,
+        "lengthM": 10,
+        "material": "cu"
+      },
+      "expected": {
+        "selectedArea": 1.5,
+        "resistance": 0.242
+      },
+      "tolerancePct": 10,
+      "notes": "1.5 mm² 铜导体 IEC 最大 12.1 Ω/km；10 m 双线回路 0.242 Ω。"
+    },
+    {
+      "moduleId": "cable_size",
+      "id": "iec-2p5mm2-10m",
+      "source": "published",
+      "sourceVersion": "IEC 60228:2004 表 2 第 2 类铜导体 20°C 最大电阻",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "voltageV": 24,
+        "dropPct": 6,
+        "currentA": 10,
+        "lengthM": 10,
+        "material": "cu"
+      },
+      "expected": {
+        "selectedArea": 2.5,
+        "resistance": 0.1482
+      },
+      "tolerancePct": 10,
+      "notes": "2.5 mm² 铜导体 IEC 最大 7.41 Ω/km；10 m 双线回路 0.1482 Ω。"
+    },
+    {
+      "moduleId": "cable_size",
+      "id": "iec-4mm2-10m",
+      "source": "published",
+      "sourceVersion": "IEC 60228:2004 表 2 第 2 类铜导体 20°C 最大电阻",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "voltageV": 24,
+        "dropPct": 4,
+        "currentA": 10,
+        "lengthM": 10,
+        "material": "cu"
+      },
+      "expected": {
+        "selectedArea": 4,
+        "resistance": 0.0922
+      },
+      "tolerancePct": 10,
+      "notes": "4 mm² 铜导体 IEC 最大 4.61 Ω/km；10 m 双线回路 0.0922 Ω。"
+    },
+    {
+      "moduleId": "cable_size",
+      "id": "iec-6mm2-10m",
+      "source": "published",
+      "sourceVersion": "Hongfeng Cable IEC 60228 导体电阻表（公开转录）",
+      "sourceUrl": "http://en.hfjtcable.com/Conductors_of_Insulated_Cables.html",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "voltageV": 24,
+        "dropPct": 2.5,
+        "currentA": 10,
+        "lengthM": 10,
+        "material": "cu"
+      },
+      "expected": {
+        "selectedArea": 6,
+        "resistance": 0.0616
+      },
+      "tolerancePct": 10,
+      "notes": "6 mm² 铜导体公开表 3.08 Ω/km；10 m 双线回路 0.0616 Ω。"
+    },
+    {
+      "moduleId": "cable_size",
+      "id": "iec-10mm2-10m",
+      "source": "published",
+      "sourceVersion": "Hongfeng Cable IEC 60228 导体电阻表（公开转录）",
+      "sourceUrl": "http://en.hfjtcable.com/Conductors_of_Insulated_Cables.html",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "voltageV": 24,
+        "dropPct": 1.5,
+        "currentA": 10,
+        "lengthM": 10,
+        "material": "cu"
+      },
+      "expected": {
+        "selectedArea": 10,
+        "resistance": 0.0366
+      },
+      "tolerancePct": 10,
+      "notes": "10 mm² 铜导体公开表 1.83 Ω/km；10 m 双线回路 0.0366 Ω。"
+    },
+    {
+      "moduleId": "cable_size",
+      "id": "iec-16mm2-10m",
+      "source": "published",
+      "sourceVersion": "Hongfeng Cable IEC 60228 导体电阻表（公开转录）",
+      "sourceUrl": "http://en.hfjtcable.com/Conductors_of_Insulated_Cables.html",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "voltageV": 24,
+        "dropPct": 1,
+        "currentA": 10,
+        "lengthM": 10,
+        "material": "cu"
+      },
+      "expected": {
+        "selectedArea": 16,
+        "resistance": 0.023
+      },
+      "tolerancePct": 10,
+      "notes": "16 mm² 铜导体公开表 1.15 Ω/km；10 m 双线回路 0.023 Ω。"
+    },
+    {
+      "moduleId": "led_resistor",
+      "id": "led-5v-2v-20ma-e24",
+      "source": "published",
+      "sourceVersion": "ElectroCalculators LED 限流示例（欧姆定律）",
+      "sourceUrl": "https://www.electrocalculators.com/led-resistor",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "vin": 5,
+        "vf": 2,
+        "ifMa": 20,
+        "count": 1,
+        "series": "E24"
+      },
+      "expected": {
+        "requiredOhm": 150,
+        "resistorPowerW": 0.06,
+        "choiceOhm": 150,
+        "choiceCurrentMa": 20,
+        "choiceErrorPct": 0
+      },
+      "tolerancePct": 1,
+      "notes": "公开示例：5 V / 2 V / 20 mA → 150 Ω（E24 精确命中）。"
+    },
+    {
+      "moduleId": "led_resistor",
+      "id": "led-5v-2v-10ma-e24",
+      "source": "published",
+      "sourceVersion": "ElectroCalculators LED 限流示例（欧姆定律）",
+      "sourceUrl": "https://www.electrocalculators.com/led-resistor",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "vin": 5,
+        "vf": 2,
+        "ifMa": 10,
+        "count": 1,
+        "series": "E24"
+      },
+      "expected": {
+        "requiredOhm": 300,
+        "resistorPowerW": 0.03,
+        "choiceOhm": 300,
+        "choiceCurrentMa": 10,
+        "choiceErrorPct": 0
+      },
+      "tolerancePct": 1,
+      "notes": "5 V / 2 V / 10 mA → 300 Ω（E24 精确命中）。"
+    },
+    {
+      "moduleId": "led_resistor",
+      "id": "led-3v3-2v-20ma-e24",
+      "source": "published",
+      "sourceVersion": "ElectroCalculators LED 限流示例（欧姆定律）",
+      "sourceUrl": "https://www.electrocalculators.com/led-resistor",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "vin": 3.3,
+        "vf": 2,
+        "ifMa": 20,
+        "count": 1,
+        "series": "E24"
+      },
+      "expected": {
+        "requiredOhm": 65,
+        "resistorPowerW": 0.026,
+        "choiceOhm": 68,
+        "choiceCurrentMa": 19.117647,
+        "choiceErrorPct": -4.411765
+      },
+      "tolerancePct": 1,
+      "notes": "3.3 V / 2 V / 20 mA → 65 Ω，向上取 E24 68 Ω。"
+    },
+    {
+      "moduleId": "led_resistor",
+      "id": "led-12v-3v2x2-25ma-e24",
+      "source": "published",
+      "sourceVersion": "ElectroCalculators LED 限流示例（欧姆定律）",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "vin": 12,
+        "vf": 3.2,
+        "ifMa": 25,
+        "count": 2,
+        "series": "E24"
+      },
+      "expected": {
+        "requiredOhm": 224,
+        "resistorPowerW": 0.14,
+        "choiceOhm": 240,
+        "choiceCurrentMa": 23.333333,
+        "choiceErrorPct": -6.666667
+      },
+      "tolerancePct": 1,
+      "notes": "12 V / 2×3.2 V / 25 mA → 224 Ω，向上取 E24 240 Ω。"
+    },
+    {
+      "moduleId": "led_resistor",
+      "id": "led-9v-2v1x3-15ma-e24",
+      "source": "published",
+      "sourceVersion": "IEC 60063:2015 表 1 E24 优先数",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "vin": 9,
+        "vf": 2.1,
+        "ifMa": 15,
+        "count": 3,
+        "series": "E24"
+      },
+      "expected": {
+        "requiredOhm": 180,
+        "resistorPowerW": 0.0405,
+        "choiceOhm": 180,
+        "choiceCurrentMa": 15,
+        "choiceErrorPct": 0
+      },
+      "tolerancePct": 1,
+      "notes": "9 V / 3×2.1 V / 15 mA → 180 Ω（IEC 60063 E24 精确命中）。"
+    },
+    {
+      "moduleId": "led_resistor",
+      "id": "led-5v-3v-5ma-e24",
+      "source": "published",
+      "sourceVersion": "ElectroCalculators LED 限流示例（欧姆定律）",
+      "sourceUrl": "https://www.electrocalculators.com/led-resistor",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "vin": 5,
+        "vf": 3,
+        "ifMa": 5,
+        "count": 1,
+        "series": "E24"
+      },
+      "expected": {
+        "requiredOhm": 400,
+        "resistorPowerW": 0.01,
+        "choiceOhm": 430,
+        "choiceCurrentMa": 4.651163,
+        "choiceErrorPct": -6.976744
+      },
+      "tolerancePct": 1,
+      "notes": "5 V / 3 V / 5 mA → 400 Ω，向上取 E24 430 Ω。"
+    },
+    {
+      "moduleId": "e_series",
+      "id": "e24-exact-100",
+      "source": "published",
+      "sourceVersion": "IEC 60063:2015 表 1 E24 优先数",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "series": "E24",
+        "targetOhm": 100,
+        "maxComponents": 4
+      },
+      "expected": {
+        "simpleOhm": 100,
+        "simpleErrorPct": 0
+      },
+      "tolerancePct": 0.1,
+      "notes": "E24 标准值 100 Ω 精确命中。"
+    },
+    {
+      "moduleId": "e_series",
+      "id": "e24-exact-150",
+      "source": "published",
+      "sourceVersion": "IEC 60063:2015 表 1 E24 优先数",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "series": "E24",
+        "targetOhm": 150,
+        "maxComponents": 4
+      },
+      "expected": {
+        "simpleOhm": 150,
+        "simpleErrorPct": 0
+      },
+      "tolerancePct": 0.1,
+      "notes": "E24 标准值 150 Ω 精确命中。"
+    },
+    {
+      "moduleId": "e_series",
+      "id": "e24-exact-220",
+      "source": "published",
+      "sourceVersion": "IEC 60063:2015 表 1 E24 优先数",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "series": "E24",
+        "targetOhm": 220,
+        "maxComponents": 4
+      },
+      "expected": {
+        "simpleOhm": 220,
+        "simpleErrorPct": 0
+      },
+      "tolerancePct": 0.1,
+      "notes": "E24 标准值 220 Ω 精确命中。"
+    },
+    {
+      "moduleId": "e_series",
+      "id": "e24-exact-330",
+      "source": "published",
+      "sourceVersion": "IEC 60063:2015 表 1 E24 优先数",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "series": "E24",
+        "targetOhm": 330,
+        "maxComponents": 4
+      },
+      "expected": {
+        "simpleOhm": 330,
+        "simpleErrorPct": 0
+      },
+      "tolerancePct": 0.1,
+      "notes": "E24 标准值 330 Ω 精确命中。"
+    },
+    {
+      "moduleId": "e_series",
+      "id": "e24-exact-470",
+      "source": "published",
+      "sourceVersion": "IEC 60063:2015 表 1 E24 优先数",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "series": "E24",
+        "targetOhm": 470,
+        "maxComponents": 4
+      },
+      "expected": {
+        "simpleOhm": 470,
+        "simpleErrorPct": 0
+      },
+      "tolerancePct": 0.1,
+      "notes": "E24 标准值 470 Ω 精确命中。"
+    },
+    {
+      "moduleId": "e_series",
+      "id": "e24-exact-1k",
+      "source": "published",
+      "sourceVersion": "Panasonic 电阻标准值目录（IEC 60063 E24）",
+      "sourceUrl": "https://industrial.panasonic.com/cdbs/www-data/pdf/AFA0000/AFA0000COS3.pdf",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "series": "E24",
+        "targetOhm": 1000,
+        "maxComponents": 4
+      },
+      "expected": {
+        "simpleOhm": 1000,
+        "simpleErrorPct": 0
+      },
+      "tolerancePct": 0.1,
+      "notes": "E24 标准值 1 kΩ 精确命中。"
+    },
+    {
+      "moduleId": "e_series",
+      "id": "e24-exact-2k2",
+      "source": "published",
+      "sourceVersion": "Panasonic 电阻标准值目录（IEC 60063 E24）",
+      "sourceUrl": "https://industrial.panasonic.com/cdbs/www-data/pdf/AFA0000/AFA0000COS3.pdf",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "series": "E24",
+        "targetOhm": 2200,
+        "maxComponents": 4
+      },
+      "expected": {
+        "simpleOhm": 2200,
+        "simpleErrorPct": 0
+      },
+      "tolerancePct": 0.1,
+      "notes": "E24 标准值 2.2 kΩ 精确命中。"
+    },
+    {
+      "moduleId": "e_series",
+      "id": "e24-exact-4k7",
+      "source": "published",
+      "sourceVersion": "Panasonic 电阻标准值目录（IEC 60063 E24）",
+      "sourceUrl": "https://industrial.panasonic.com/cdbs/www-data/pdf/AFA0000/AFA0000COS3.pdf",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "series": "E24",
+        "targetOhm": 4700,
+        "maxComponents": 4
+      },
+      "expected": {
+        "simpleOhm": 4700,
+        "simpleErrorPct": 0
+      },
+      "tolerancePct": 0.1,
+      "notes": "E24 标准值 4.7 kΩ 精确命中。"
+    },
+    {
+      "moduleId": "galvanic",
+      "id": "gold-copper-controlled",
+      "source": "published",
+      "sourceVersion": "MIL-STD-889 阳极指数表（AZOM 公开转录）",
+      "sourceUrl": "https://www.azom.com/article.aspx?ArticleID=11833",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "metalA": "gold",
+        "metalB": "copper",
+        "environment": "controlled"
+      },
+      "expected": {
+        "difference": 0.35,
+        "allowed": 0.5,
+        "ratio": 0.7
+      },
+      "tolerancePct": 0.1,
+      "notes": "阳极指数差 0.35 V < 受控阈值 0.50 V。"
+    },
+    {
+      "moduleId": "galvanic",
+      "id": "copper-aluminum-normal",
+      "source": "published",
+      "sourceVersion": "MIL-STD-889 阳极指数表（AZOM 公开转录）",
+      "sourceUrl": "https://www.azom.com/article.aspx?ArticleID=11833",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "metalA": "copper",
+        "metalB": "aluminum",
+        "environment": "normal"
+      },
+      "expected": {
+        "difference": 0.4,
+        "allowed": 0.25,
+        "ratio": 1.6
+      },
+      "tolerancePct": 0.1,
+      "notes": "阳极指数差 0.40 V > 一般环境阈值 0.25 V。"
+    },
+    {
+      "moduleId": "galvanic",
+      "id": "nickel-brass-harsh",
+      "source": "published",
+      "sourceVersion": "MIL-STD-889 阳极指数表（AZOM 公开转录）",
+      "sourceUrl": "https://www.azom.com/article.aspx?ArticleID=11833",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "metalA": "nickel",
+        "metalB": "brass",
+        "environment": "harsh"
+      },
+      "expected": {
+        "difference": 0.1,
+        "allowed": 0.15,
+        "ratio": 0.666667
+      },
+      "tolerancePct": 0.1,
+      "notes": "阳极指数差 0.10 V < 海洋环境阈值 0.15 V。"
+    },
+    {
+      "moduleId": "galvanic",
+      "id": "silver-tin-controlled",
+      "source": "published",
+      "sourceVersion": "MIL-STD-889 环境允许差值表（EICAC/Triangle 转录）",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "metalA": "silver",
+        "metalB": "tin",
+        "environment": "controlled"
+      },
+      "expected": {
+        "difference": 0.5,
+        "allowed": 0.5,
+        "ratio": 1
+      },
+      "tolerancePct": 0.1,
+      "notes": "阳极指数差 0.50 V 恰等于受控阈值（临界）。"
+    },
+    {
+      "moduleId": "galvanic",
+      "id": "steel-tin-normal",
+      "source": "published",
+      "sourceVersion": "MIL-STD-889 环境允许差值表（EICAC/Triangle 转录）",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "metalA": "steel",
+        "metalB": "tin",
+        "environment": "normal"
+      },
+      "expected": {
+        "difference": 0.2,
+        "allowed": 0.25,
+        "ratio": 0.8
+      },
+      "tolerancePct": 0.1,
+      "notes": "阳极指数差 0.20 V < 一般环境阈值 0.25 V。"
+    },
+    {
+      "moduleId": "galvanic",
+      "id": "gold-zinc-harsh",
+      "source": "published",
+      "sourceVersion": "MIL-STD-889 环境允许差值表（EICAC/Triangle 转录）",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "metalA": "gold",
+        "metalB": "zinc",
+        "environment": "harsh"
+      },
+      "expected": {
+        "difference": 1.25,
+        "allowed": 0.15,
+        "ratio": 8.333333
+      },
+      "tolerancePct": 0.1,
+      "notes": "阳极指数差 1.25 V 远超海洋环境阈值。"
+    },
+    {
+      "moduleId": "via",
+      "id": "via-03-25um-16mm",
+      "source": "published",
+      "sourceVersion": "TI SNVA766 过孔载流公式（IPC-2221 k=0.048）",
+      "sourceUrl": "https://www.ti.com/lit/an/snva766/snva766.pdf",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "holeMm": 0.3,
+        "platingMm": 0.025,
+        "lengthMm": 1.6,
+        "padMm": 0.6,
+        "z0": 50,
+        "currentA": 1,
+        "rho": 1.72e-8,
+        "er": 4.2,
+        "dT": 10,
+        "riseNs": 0,
+        "freqMHz": 100
+      },
+      "expected": {
+        "areaMm2": 0.0255254,
+        "resistance": 0.00107814,
+        "currentEstimate": 1.902339,
+        "capacitancePf": 0.373039,
+        "inductanceNh": 1.299287
+      },
+      "tolerancePct": 5,
+      "notes": "TI SNVA766 过孔截面积与 IPC-2221 载流公式复算。"
+    },
+    {
+      "moduleId": "via",
+      "id": "via-02-25um-16mm",
+      "source": "published",
+      "sourceVersion": "TI SNVA766 过孔载流公式（IPC-2221 k=0.048）",
+      "sourceUrl": "https://www.ti.com/lit/an/snva766/snva766.pdf",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "holeMm": 0.2,
+        "platingMm": 0.025,
+        "lengthMm": 1.6,
+        "padMm": 0.4,
+        "z0": 50,
+        "currentA": 1,
+        "rho": 1.72e-8,
+        "er": 4.2,
+        "dT": 10,
+        "riseNs": 0,
+        "freqMHz": 100
+      },
+      "expected": {
+        "areaMm2": 0.0176715,
+        "resistance": 0.00155731,
+        "currentEstimate": 1.457152,
+        "capacitancePf": 0.373039,
+        "inductanceNh": 1.429035
+      },
+      "tolerancePct": 5,
+      "notes": "0.2 mm 孔径、25 µm 镀层复算。"
+    },
+    {
+      "moduleId": "via",
+      "id": "via-045-25um-24mm",
+      "source": "published",
+      "sourceVersion": "TI SNVA766 过孔载流公式（IPC-2221 k=0.048）",
+      "sourceUrl": "https://www.ti.com/lit/an/snva766/snva766.pdf",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "holeMm": 0.45,
+        "platingMm": 0.025,
+        "lengthMm": 2.4,
+        "padMm": 0.8,
+        "z0": 50,
+        "currentA": 1,
+        "rho": 1.72e-8,
+        "er": 4.2,
+        "dT": 10,
+        "riseNs": 0,
+        "freqMHz": 100
+      },
+      "expected": {
+        "areaMm2": 0.0373064,
+        "resistance": 0.00110651,
+        "currentEstimate": 2.504813,
+        "capacitancePf": 0.719433,
+        "inductanceNh": 1.94893
+      },
+      "tolerancePct": 5,
+      "notes": "0.45 mm 孔径、2.4 mm 板厚复算。"
+    },
+    {
+      "moduleId": "via",
+      "id": "via-03-35um-16mm",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 + 镀层几何/寄生公式（复算）",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "holeMm": 0.3,
+        "platingMm": 0.035,
+        "lengthMm": 1.6,
+        "padMm": 0.6,
+        "z0": 50,
+        "currentA": 1,
+        "rho": 1.72e-8,
+        "er": 4.2,
+        "dT": 10,
+        "riseNs": 0,
+        "freqMHz": 100
+      },
+      "expected": {
+        "areaMm2": 0.0368352,
+        "resistance": 0.000747112,
+        "currentEstimate": 2.481835,
+        "capacitancePf": 0.373039,
+        "inductanceNh": 1.299287
+      },
+      "tolerancePct": 5,
+      "notes": "35 µm 镀层（1 oz 级）复算。"
+    },
+    {
+      "moduleId": "via",
+      "id": "via-03-25um-32mm",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 + 镀层几何/寄生公式（复算）",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "holeMm": 0.3,
+        "platingMm": 0.025,
+        "lengthMm": 3.2,
+        "padMm": 0.7,
+        "z0": 50,
+        "currentA": 1,
+        "rho": 1.72e-8,
+        "er": 4.2,
+        "dT": 10,
+        "riseNs": 0,
+        "freqMHz": 100
+      },
+      "expected": {
+        "areaMm2": 0.0255254,
+        "resistance": 0.00215628,
+        "currentEstimate": 1.902339,
+        "capacitancePf": 0.559559,
+        "inductanceNh": 3.042188
+      },
+      "tolerancePct": 5,
+      "notes": "3.2 mm 板厚复算，用于覆盖长过孔寄生参数。"
+    },
+    {
+      "moduleId": "via",
+      "id": "via-025-20um-10mm",
+      "source": "published",
+      "sourceVersion": "IPC-2221B 表 6-1 + 镀层几何/寄生公式（复算）",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "holeMm": 0.25,
+        "platingMm": 0.02,
+        "lengthMm": 1,
+        "padMm": 0.5,
+        "z0": 50,
+        "currentA": 1,
+        "rho": 1.72e-8,
+        "er": 4.2,
+        "dT": 10,
+        "riseNs": 0,
+        "freqMHz": 100
+      },
+      "expected": {
+        "areaMm2": 0.0169646,
+        "resistance": 0.001013876,
+        "currentEstimate": 1.414658,
+        "capacitancePf": 0.23315,
+        "inductanceNh": 0.754518
+      },
+      "tolerancePct": 5,
+      "notes": "0.25 mm 孔径、20 µm 镀层、1 mm 板厚复算。"
+    },
+    {
+      "moduleId": "fuse",
+      "id": "onder-05mm-1oz-10s",
+      "source": "published",
+      "sourceVersion": "Onderdonk 熔断电流公式（Stauffacher, GE Review, 1928）",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "ambientC": 25,
+        "meltC": 1085,
+        "widthMm": 0.5,
+        "thicknessMm": 0.035,
+        "currentA": 1,
+        "timeS": 10
+      },
+      "expected": {
+        "fusingCurrentA": 1.598514
+      },
+      "tolerancePct": 15,
+      "notes": "Onderdonk 10 s 熔断电流；与绝热能量模型差约 11%。"
+    },
+    {
+      "moduleId": "fuse",
+      "id": "onder-1mm-1oz-10s",
+      "source": "published",
+      "sourceVersion": "Onderdonk 熔断电流公式（Stauffacher, GE Review, 1928）",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "ambientC": 25,
+        "meltC": 1085,
+        "widthMm": 1,
+        "thicknessMm": 0.035,
+        "currentA": 1,
+        "timeS": 10
+      },
+      "expected": {
+        "fusingCurrentA": 3.197029
+      },
+      "tolerancePct": 15,
+      "notes": "Onderdonk 10 s 熔断电流；与绝热能量模型差约 11%。"
+    },
+    {
+      "moduleId": "fuse",
+      "id": "onder-2mm-1oz-10s",
+      "source": "published",
+      "sourceVersion": "Onderdonk 熔断电流公式（Stauffacher, GE Review, 1928）",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "ambientC": 25,
+        "meltC": 1085,
+        "widthMm": 2,
+        "thicknessMm": 0.035,
+        "currentA": 1,
+        "timeS": 10
+      },
+      "expected": {
+        "fusingCurrentA": 6.394057
+      },
+      "tolerancePct": 15,
+      "notes": "Onderdonk 10 s 熔断电流；截面积加倍。"
+    },
+    {
+      "moduleId": "fuse",
+      "id": "onder-1mm-2oz-10s",
+      "source": "published",
+      "sourceVersion": "IPC-2152 附录 A（Onderdonk 常数）",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "ambientC": 25,
+        "meltC": 1085,
+        "widthMm": 1,
+        "thicknessMm": 0.07,
+        "currentA": 1,
+        "timeS": 10
+      },
+      "expected": {
+        "fusingCurrentA": 6.394057
+      },
+      "tolerancePct": 15,
+      "notes": "IPC-2152 附录 A Onderdonk 常数；铜厚加倍。"
+    },
+    {
+      "moduleId": "fuse",
+      "id": "onder-1mm-1oz-1s",
+      "source": "published",
+      "sourceVersion": "IPC-2152 附录 A（Onderdonk 常数）",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "ambientC": 25,
+        "meltC": 1085,
+        "widthMm": 1,
+        "thicknessMm": 0.035,
+        "currentA": 1,
+        "timeS": 1
+      },
+      "expected": {
+        "fusingCurrentA": 10.109892
+      },
+      "tolerancePct": 15,
+      "notes": "IPC-2152 附录 A Onderdonk 常数；1 s 熔断。"
+    },
+    {
+      "moduleId": "fuse",
+      "id": "onder-1mm-1oz-01s",
+      "source": "published",
+      "sourceVersion": "IPC-2152 附录 A（Onderdonk 常数）",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "ambientC": 25,
+        "meltC": 1085,
+        "widthMm": 1,
+        "thicknessMm": 0.035,
+        "currentA": 1,
+        "timeS": 0.1
+      },
+      "expected": {
+        "fusingCurrentA": 31.970287
+      },
+      "tolerancePct": 15,
+      "notes": "IPC-2152 附录 A Onderdonk 常数；0.1 s 熔断。"
     }
   ]
 }

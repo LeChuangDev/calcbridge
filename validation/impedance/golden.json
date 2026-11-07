@@ -57,6 +57,34 @@
       "expected": 0.34544,
       "tolerancePct": 10,
       "notes": "页面显示 50Ω 单端外层 W1=13.6 mil（0.34544 mm）；L1–L2 介质为 4.21+3.91 mil；页面未展示 Dk，按 FR-4 典型 4.2 记录，容差放宽到 10%。"
+    },
+    {
+      "id": "ipc2141-w02-h01-er45",
+      "source": "published",
+      "sourceVersion": "IPC-2141 微带线近似式复算（w/h=2，εr=4.5）",
+      "date": "2026-11-07",
+      "mode": "z0",
+      "wMm": 0.2,
+      "hMm": 0.1,
+      "tMm": 0.035,
+      "er": 4.5,
+      "expected": 40.1026,
+      "tolerancePct": 10,
+      "notes": "教科书几何复算：Z0 = 87/√(εr+1.41)·ln(5.98h/(0.8w+t))；该几何下 IPC-2141 与 Hammerstad–Jensen 相差约 8%，容差按模型分歧放宽到 10%，不是商业工具导出。"
+    },
+    {
+      "id": "ipc2141-w10-h05-er22",
+      "source": "published",
+      "sourceVersion": "IPC-2141 微带线近似式复算（w/h=2，εr=2.2）",
+      "date": "2026-11-07",
+      "mode": "z0",
+      "wMm": 1.0,
+      "hMm": 0.5,
+      "tMm": 0.035,
+      "er": 2.2,
+      "expected": 58.4089,
+      "tolerancePct": 10,
+      "notes": "低 Dk 板材几何复算；IPC-2141 与 Hammerstad–Jensen 相差约 9.6%，容差按模型分歧放宽到 10%，不是商业工具导出。"
     }
   ]
 }

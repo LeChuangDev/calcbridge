@@ -123,8 +123,8 @@ export function GalvanicPanel({ group }: { group?: string }) {
       { title: '评估结果', rows },
     ],
     assumptions: [
-      '阳极指数为常用工程参考值，表面状态、镀层、介质与温度会改变实际电位差。',
-      '环境允许差值：受控 0.60 V、一般 0.50 V、海洋 0.25 V。',
+      '阳极指数转录自 MIL-STD-889 / AZOM 公开表，表面状态、镀层、介质与温度会改变实际电位差。',
+      '环境允许差值：受控 0.50 V、一般 0.25 V、海洋 0.15 V。',
       '结果用于快速筛选，不能替代 ASTM G82、盐雾/浸泡试验或现场腐蚀评估。',
     ],
   });
@@ -285,8 +285,9 @@ export function GalvanicPanel({ group }: { group?: string }) {
           <details className="ref-block">
             <summary>数据与限制</summary>
             <p className="action-note">
-              阳极指数为常用工程参考值，不同表面状态、镀层、介质与温度会改变实际电位差；环境允许差值取受控
-              0.60 V、一般 0.50 V、海洋 0.25 V。结果用于快速筛选，不能替代 ASTM
+              阳极指数转录自 MIL-STD-889 / AZOM
+              公开表，不同表面状态、镀层、介质与温度会改变实际电位差；环境允许差值取受控 0.50
+              V、一般 0.25 V、海洋 0.15 V。结果用于快速筛选，不能替代 ASTM
               G82、盐雾/浸泡试验或现场腐蚀评估。
             </p>
           </details>
