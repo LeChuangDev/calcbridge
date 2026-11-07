@@ -71,12 +71,14 @@ export const MODULE_STANDARDS: Record<string, ModuleStandard> = {
   },
   trace_current: {
     id: 'trace_current',
-    basis: 'IPC-2221B 表 6-1 公式法 + IPC-2152 图表法（近似）',
-    clause: 'I = k × ΔT^0.44 × A^0.725（外层 k=0.048 / 内层 k=0.024）',
+    basis: 'IPC-2221B 表 6-1 公式法 + IPC-2152 保守图表（无参考平面）',
+    clause:
+      'I = k × ΔT^0.44 × A^0.725（外层 k=0.048 / 内层 k=0.024）；保守图按 4A/10°C=300 sq mil、10A/20°C=680 sq mil 校准',
     modelClass: 'empirical',
     confidence: 'estimate',
     errorBand: '±10%~20%（经验公式与图表插值）',
-    boundary: 'IPC-2152 曲线为近似数据；不含铜面散热、阻焊、气流与叠层差异。',
+    boundary:
+      'IPC-2152 采用保守图表/自由空气近似；有大面积参考平面时应按标准平面修正系数另算，本模型偏保守。不含阻焊、气流与叠层差异。',
   },
   clearance: {
     id: 'clearance',

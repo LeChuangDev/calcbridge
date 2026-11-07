@@ -10,6 +10,8 @@
   ],
   "scripts": {
     "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "coverage": "vitest run --coverage",
     "test:watch": "vitest",
     "regression": "tsx packages/cli/src/index.ts regression",
@@ -17,6 +19,7 @@
     "validate:impedance": "tsx packages/cli/src/index.ts validate-impedance validation/impedance/golden.json",
     "validate:impedance:strict": "tsx packages/cli/src/index.ts validate-impedance validation/impedance/golden.json --require-polar-sigrity",
     "dev": "npm run dev -w @calcbridge/web",
+    "preview:web": "vite preview apps/web",
     "build:web": "npm run build -w @calcbridge/web",
     "build:offline": "node scripts/build-offline.mjs",
     "size": "node scripts/check-size.mjs",
@@ -34,6 +37,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
+    "@playwright/test": "^1.65.0",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
     "@types/node": "^22.10.2",

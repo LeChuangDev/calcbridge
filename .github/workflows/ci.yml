@@ -48,7 +48,7 @@ jobs:
       - name: Bundle size gate
         run: npm run size
 
-      # 外部基准覆盖率门禁：15 个数值模块均需 ≥6 用例且 ≥2 份可追溯依据
+      # 外部基准覆盖率门禁：17 个数值模块均需 ≥6 用例且 ≥2 份可追溯依据
       - name: Benchmark coverage gate
         run: npm run benchmark:coverage:strict
 
@@ -63,3 +63,36 @@ jobs:
       # 工具链已升级到 vitest 5 / vite 8；完整审计也作为强制门禁。
       - name: Audit all dependencies
         run: npm run audit:all
+
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install (lockfile)
+        run: npm ci
+
+      # 浏览器体积较大，按 lockfile 缓存；Playwright 升级后自动失效。
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build production bundle
+        run: npm run build:web
+
+      # 关键链路冒烟：首页 → 面板、命令面板、深链与设计文件导出
+      - name: E2E smoke
+        run: npm run test:e2e

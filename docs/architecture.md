@@ -93,7 +93,8 @@ app → pages → widgets → features → entities → shared
 
 `npm run lint` 检查分层边界、类型导入风格、Hooks 规则与未使用变量；
 `npm run format:check` 保证格式统一；`npm run coverage` 对内核与求解器设置
-lines/statements/functions ≥80%、branches ≥70% 的门禁；`npm run size` 保证首屏预算；均为 CI 阻断项。
+lines/statements/functions ≥80%、branches ≥70% 的门禁；`npm run size` 保证首屏预算；
+`npm run test:e2e` 用 Playwright 覆盖首页/面板、命令面板、深链与设计文件导出；均为 CI 阻断项。
 
 计算依据与可信度由 `entities/calculator/model/standards.ts` 单一维护，页面标识条与报告导出共用；
 输入工程范围由 `VariableSpec.limits` 声明，`packages/core/src/validation/limits.ts` 统一判定，

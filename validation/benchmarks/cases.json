@@ -2296,6 +2296,65 @@
       },
       "tolerancePct": 0.01,
       "notes": "橙-橙-橙-银 = 33 kΩ ±10%。"
+    },
+    {
+      "moduleId": "trace_current",
+      "id": "ipc2152-conservative-4a-10k",
+      "model": "ipc2152_chart",
+      "source": "published",
+      "sourceVersion": "Circuits Assembly 2009 IPC-2152 保守图示例（4A/10°C=300 sq mil）",
+      "sourceUrl": "https://circuitsassembly.com/ca/editorial/menu-features/373-magazine-articles/2009-articles/17946-determining-current-carrying-capacity.html",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "I": 4,
+        "dT": 10,
+        "cu": 1
+      },
+      "expected": {
+        "wMm": 5.529
+      },
+      "tolerancePct": 3,
+      "notes": "300 sq mil × 0.00064516 = 0.1935 mm²；1oz 铜厚 1.378 mil → 宽度 5.529 mm。"
+    },
+    {
+      "moduleId": "trace_current",
+      "id": "ipc2152-conservative-10a-10k",
+      "model": "ipc2152_chart",
+      "source": "published",
+      "sourceVersion": "IPC-2152 保守图 10A/10°C 实测对照（研究引用 18.7 mm @1oz）",
+      "date": "2026-11-07",
+      "evidence": "recompute",
+      "inputs": {
+        "I": 10,
+        "dT": 10,
+        "cu": 1
+      },
+      "expected": {
+        "wMm": 18.7
+      },
+      "tolerancePct": 5,
+      "notes": "无参考平面时保守图明显大于 IPC-2221 外层公式（7.19 mm）；本模型偏保守。"
+    },
+    {
+      "moduleId": "trace_current",
+      "id": "ipc2152-conservative-10a-20k",
+      "model": "ipc2152_chart",
+      "source": "published",
+      "sourceVersion": "Circuits Assembly 2009 IPC-2152 保守图示例（10A/20°C=680 sq mil）",
+      "sourceUrl": "https://circuitsassembly.com/ca/editorial/menu-features/373-magazine-articles/2009-articles/17946-determining-current-carrying-capacity.html",
+      "date": "2026-11-07",
+      "evidence": "table",
+      "inputs": {
+        "I": 10,
+        "dT": 20,
+        "cu": 1
+      },
+      "expected": {
+        "wMm": 12.533
+      },
+      "tolerancePct": 5,
+      "notes": "680 sq mil × 0.00064516 = 0.4387 mm²；1oz → 宽度 12.533 mm。"
     }
   ]
 }

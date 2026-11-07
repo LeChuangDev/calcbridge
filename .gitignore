@@ -14,6 +14,12 @@ coverage/
 validation/benchmarks/coverage.md
 validation/benchmarks/run-report.md
 
+# Playwright 生成物
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+
 # 本地开发/工具产物，不随仓库分发
 .screenshots/
 .workbuddy/
