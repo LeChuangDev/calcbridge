@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
+import { useResultConfidence } from '@/shared/lib/providers/ResultConfidenceProvider';
 
 /* ── 输出显示 ─────────────────────────────────────────── */
 
@@ -17,6 +18,7 @@ export function OutputDisplay({
   caption: ReactNode;
 }) {
   const [copied, setCopied] = useState(false);
+  const confidence = useResultConfidence();
 
   const copyOutput = async () => {
     const text = items
@@ -38,6 +40,11 @@ export function OutputDisplay({
         <div className="output-head">
           <span className="card-title">输出显示</span>
           {badge}
+          {confidence && (
+            <span className="result-conf" title={`依据：${confidence.basis}`}>
+              {confidence.label} · 误差 {confidence.errorBand}
+            </span>
+          )}
           <button
             className="btn copy-btn"
             onClick={copyOutput}

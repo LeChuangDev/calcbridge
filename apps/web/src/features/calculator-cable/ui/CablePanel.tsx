@@ -1,5 +1,6 @@
 ﻿import { useLayoutEffect, useRef, useState } from 'react';
 import { OutputDisplay } from '@/shared/ui/OutputDisplay';
+import { checkEngineeringLimits, type VariableSpec } from '@calcbridge/core';
 import { fmtNum } from '@/shared/lib/bridge';
 import { useDraft, useDraftData } from '@/entities/draft/model/draftStore';
 import { solveCable, type CableMaterial } from '@/features/calculator-cable/model/cableSolver';
@@ -13,6 +14,38 @@ import {
   toMetres,
   type UnitSystem,
 } from '@/shared/lib/unitSystem';
+
+/** 工程建议范围：超出时提示，不阻断计算。 */
+const CABLE_LIMITS = {
+  voltage: {
+    id: 'voltage',
+    unit: 'V',
+    label: '系统电压',
+    limits: { min: 1, max: 600, note: '常见 5–48 V' },
+  },
+  drop: {
+    id: 'drop',
+    unit: '%',
+    label: '允许压降',
+    limits: { min: 0.5, max: 10, note: '常用 2–5%' },
+  },
+  current: {
+    id: 'current',
+    unit: 'A',
+    label: '负载电流',
+    limits: { min: 0.01, max: 100, note: '常见 0.1–20 A' },
+  },
+} satisfies Record<string, VariableSpec>;
+
+function FieldWarn({ value, spec }: { value: string; spec: VariableSpec }) {
+  const issue = checkEngineeringLimits(Number(value), spec);
+  if (!issue) return null;
+  return (
+    <p className={`field-warn ${issue.level}`} role="status">
+      {issue.message}
+    </p>
+  );
+}
 
 function CableArt({
   area,
@@ -227,6 +260,7 @@ export function CablePanel({ group }: { group?: string }) {
                   />
                   <span className="uc-unit">V</span>
                 </div>
+                <FieldWarn value={voltage} spec={CABLE_LIMITS.voltage} />
               </div>
               <div className="field">
                 <label htmlFor="cb-drop">允许压降</label>
@@ -240,6 +274,7 @@ export function CablePanel({ group }: { group?: string }) {
                   />
                   <span className="uc-unit">%</span>
                 </div>
+                <FieldWarn value={drop} spec={CABLE_LIMITS.drop} />
               </div>
               <div className="field">
                 <label htmlFor="cb-i">负载电流</label>
@@ -253,6 +288,7 @@ export function CablePanel({ group }: { group?: string }) {
                   />
                   <span className="uc-unit">A</span>
                 </div>
+                <FieldWarn value={current} spec={CABLE_LIMITS.current} />
               </div>
               <div className="field">
                 <label htmlFor="cb-l">单程长度</label>

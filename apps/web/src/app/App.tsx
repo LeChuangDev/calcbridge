@@ -7,6 +7,7 @@ import { ThemeToggle, UnitSwitch } from '@/widgets/display-controls';
 import { TitleBar } from '@/widgets/title-bar';
 import { TreeNav } from '@/widgets/side-nav';
 import { useUnitSystem } from '@/shared/lib/providers/UnitSystemProvider';
+import { ResultConfidenceProvider } from '@/shared/lib/providers/ResultConfidenceProvider';
 import { CONFIDENCE_LABEL, HOME_ID, groupOf, standardOf } from '@/entities/calculator';
 import {
   CalculationBasis,
@@ -192,6 +193,13 @@ export function App() {
   const group = groupOf(active) ?? groupOf(spec.id);
   const ActivePanel = PANEL_COMPONENTS[active] ?? PANEL_COMPONENTS[spec.id];
   const standard = standardOf(active);
+  const confidence = standard
+    ? {
+        label: CONFIDENCE_LABEL[standard.confidence],
+        errorBand: standard.errorBand,
+        basis: standard.basis,
+      }
+    : null;
 
   let panel;
   if (active === HOME_ID) {
@@ -266,16 +274,18 @@ export function App() {
         />
         <main className="pane" key={`${active}:${resetKey}`}>
           <CalculationBasis moduleId={active} />
-          <Suspense
-            fallback={
-              <div className="pane-loading" role="status" aria-live="polite">
-                <i aria-hidden="true" />
-                正在加载计算面板…
-              </div>
-            }
-          >
-            {panel}
-          </Suspense>
+          <ResultConfidenceProvider value={confidence}>
+            <Suspense
+              fallback={
+                <div className="pane-loading" role="status" aria-live="polite">
+                  <i aria-hidden="true" />
+                  正在加载计算面板…
+                </div>
+              }
+            >
+              {panel}
+            </Suspense>
+          </ResultConfidenceProvider>
         </main>
       </div>
       <input

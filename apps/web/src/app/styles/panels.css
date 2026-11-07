@@ -1434,6 +1434,14 @@
   gap: 8px;
   margin-bottom: 16px;
 }
+.result-conf {
+  padding: 1px 8px;
+  border: 1px solid var(--accent-line);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 11px;
+  white-space: nowrap;
+}
 .output-head .card-title {
   margin: 0;
 }

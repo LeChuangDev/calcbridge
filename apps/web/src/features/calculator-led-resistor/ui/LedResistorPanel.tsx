@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { OutputDisplay } from '@/shared/ui/OutputDisplay';
+import { checkEngineeringLimits, type EngineeringLimit } from '@calcbridge/core';
 import { fmtNum } from '@/shared/lib/bridge';
 import { mergeStringDraft, useDraft, useDraftData } from '@/entities/draft/model/draftStore';
 import { useReport } from '@/entities/report/model/reportStore';
@@ -16,6 +17,14 @@ interface Form {
   count: string;
   series: LedSeriesId;
 }
+
+/** 工程建议范围：超出时提示，不阻断计算。 */
+const LED_LIMITS: Record<string, EngineeringLimit> = {
+  vin: { min: 1, max: 48, note: '常见 3–24 V' },
+  vf: { min: 1.2, max: 5, note: '单颗 LED 常见 1.8–3.4 V' },
+  current: { min: 1, max: 100, note: '小功率 LED 常见 5–20 mA' },
+  count: { min: 1, max: 20, note: '串联颗数建议 1–20' },
+};
 
 const DEFAULTS: Form = {
   vin: '12',
@@ -243,21 +252,35 @@ export function LedResistorPanel({ group }: { group?: string }) {
                   ['current', '目标电流 If', 'mA'],
                   ['count', '串联颗数 n', '颗'],
                 ] as const
-              ).map(([key, label, unit]) => (
-                <div className="field" key={key}>
-                  <label htmlFor={`led-${key}`}>{label}</label>
-                  <div className="field-row">
-                    <input
-                      id={`led-${key}`}
-                      value={form[key]}
-                      inputMode="decimal"
-                      onFocus={(e) => e.target.select()}
-                      onChange={(e) => set(key, e.target.value)}
-                    />
-                    <span className="uc-unit">{unit}</span>
+              ).map(([key, label, unit]) => {
+                const limits: EngineeringLimit | undefined = LED_LIMITS[key];
+                const warn = checkEngineeringLimits(Number(form[key]), {
+                  id: key,
+                  unit,
+                  label,
+                  limits,
+                });
+                return (
+                  <div className="field" key={key}>
+                    <label htmlFor={`led-${key}`}>{label}</label>
+                    <div className="field-row">
+                      <input
+                        id={`led-${key}`}
+                        value={form[key]}
+                        inputMode="decimal"
+                        onFocus={(e) => e.target.select()}
+                        onChange={(e) => set(key, e.target.value)}
+                      />
+                      <span className="uc-unit">{unit}</span>
+                    </div>
+                    {warn && (
+                      <p className={`field-warn ${warn.level}`} role="status">
+                        {warn.message}
+                      </p>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </section>
 
