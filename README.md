@@ -78,6 +78,7 @@ npm run build:web    # 生产构建（面板按需分包）
 npm run size         # 首屏 JS/CSS gzip 体积门禁
 npm run benchmark:coverage        # 外部基准覆盖率报告（不阻断）
 npm run benchmark:coverage:strict # 任一模块无外部用例时非零退出
+npm run benchmark:run             # 执行已录入的外部基准用例（超出容差即失败）
 npm run lint         # ESLint：类型规范 + React 规则 + 分层依赖约束
 npm run format       # Prettier 统一格式
 npm run regression   # 仅跑算例回归

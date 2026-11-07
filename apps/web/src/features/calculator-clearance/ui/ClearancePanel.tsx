@@ -10,47 +10,10 @@ import {
 } from '@/shared/lib/unitSystem';
 import { useReport } from '@/entities/report/model/reportStore';
 import type { ReportSection } from '@/entities/report/model/report';
-
-/* ── IPC-2221 最小电气间隙表（mm） ─────────────────────── */
-
-interface GapColumn {
-  id: string;
-  short: string;
-  desc: string;
-}
-
-const COLUMNS: GapColumn[] = [
-  { id: 'B1', short: '内部导体', desc: '内部导体' },
-  { id: 'B2', short: '外部无浸渍 ≤3050m', desc: '外部导体，无浸渍处理，海拔高度 3050 米及以下' },
-  { id: 'B3', short: '外部无浸渍 >3050m', desc: '外部导体，无浸渍处理，海拔高度 3050 米以上' },
-  { id: 'B4', short: '外部永久浸渍', desc: '外部导体，永久性的聚合物浸渍处理（任何海拔高度）' },
-  { id: 'A5', short: '外部 conformal', desc: '外部导体，进行 conformal 浸渍处理（任何海拔高度）' },
-  { id: 'A6', short: '引线/缠绕 无浸渍', desc: '外部组件引线/缠绕，无浸渍处理' },
-  {
-    id: 'A7',
-    short: '引线/缠绕 conformal',
-    desc: '外部组件引线/缠绕，进行 conformal 浸渍处理（任何海拔高度）',
-  },
-];
-
-interface GapRow {
-  label: string;
-  max: number;
-  values: number[];
-}
-
-const ROWS: GapRow[] = [
-  { label: '0 – 15 V', max: 15, values: [0.05, 0.1, 0.1, 0.05, 0.13, 0.13, 0.13] },
-  { label: '16 – 30 V', max: 30, values: [0.05, 0.1, 0.1, 0.05, 0.13, 0.25, 0.13] },
-  { label: '31 – 50 V', max: 50, values: [0.1, 0.6, 0.6, 0.13, 0.13, 0.4, 0.13] },
-  { label: '51 – 100 V', max: 100, values: [0.1, 0.6, 0.6, 0.13, 0.13, 0.5, 0.13] },
-  { label: '101 – 150 V', max: 150, values: [0.2, 0.6, 3.2, 0.4, 0.4, 0.8, 0.4] },
-  { label: '151 – 170 V', max: 170, values: [0.2, 1.25, 3.2, 0.4, 0.4, 0.8, 0.4] },
-  { label: '171 – 250 V', max: 250, values: [0.2, 1.25, 6.4, 0.4, 0.4, 0.8, 0.4] },
-  { label: '251 – 300 V', max: 300, values: [0.2, 1.25, 12.5, 0.4, 0.4, 0.8, 0.8] },
-  { label: '301 – 500 V', max: 500, values: [0.25, 2.5, 12.5, 0.8, 0.8, 1.5, 0.8] },
-  { label: '> 500 V', max: Infinity, values: [0.25, 2.5, 12.5, 0.8, 0.8, 1.5, 0.8] },
-];
+import {
+  CLEARANCE_COLUMNS as COLUMNS,
+  CLEARANCE_ROWS as ROWS,
+} from '@/features/calculator-clearance/model/clearanceTable';
 
 function ClearanceArt({ gap, system }: { gap: number; system: UnitSystem }) {
   return (

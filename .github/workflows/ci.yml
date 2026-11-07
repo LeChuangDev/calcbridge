@@ -52,6 +52,10 @@ jobs:
       - name: Benchmark coverage report
         run: npm run benchmark:coverage
 
+      # 执行已录入的外部基准用例；任何一项超出容差即阻断
+      - name: Benchmark execution
+        run: npm run benchmark:run
+
       # 生产依赖必须无高危；当前为 0 漏洞。
       - name: Audit production dependencies
         run: npm run audit:prod

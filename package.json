@@ -22,6 +22,8 @@
     "size": "node scripts/check-size.mjs",
     "benchmark:coverage": "tsx scripts/benchmark-coverage.ts",
     "benchmark:coverage:strict": "tsx scripts/benchmark-coverage.ts --strict",
+    "benchmark:run": "tsx scripts/benchmark-run.ts",
+    "benchmark:run:report": "tsx scripts/benchmark-run.ts --report-only",
     "typecheck": "tsc -p tsconfig.base.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

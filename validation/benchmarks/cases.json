@@ -3,6 +3,7 @@
     {
       "moduleId": "trace_current",
       "id": "ipc2221-ext-3a-10k-1oz",
+      "model": "ipc2221_external",
       "source": "published",
       "sourceVersion": "IPC-2221B 表 6-1 公式 I = k·ΔT^0.44·A^0.725",
       "date": "2026-11-07",
@@ -14,6 +15,7 @@
     {
       "moduleId": "trace_current",
       "id": "ipc2221-ext-1a-10k-1oz",
+      "model": "ipc2221_external",
       "source": "published",
       "sourceVersion": "IPC-2221B 表 6-1 公式 I = k·ΔT^0.44·A^0.725",
       "date": "2026-11-07",
@@ -25,6 +27,7 @@
     {
       "moduleId": "trace_current",
       "id": "ipc2221-int-3a-10k-1oz",
+      "model": "ipc2221_internal",
       "source": "published",
       "sourceVersion": "IPC-2221B 表 6-1 公式（内层 k=0.024）",
       "date": "2026-11-07",
@@ -36,6 +39,7 @@
     {
       "moduleId": "trace_current",
       "id": "ipc2221-ext-10a-10k-1oz",
+      "model": "ipc2221_external",
       "source": "published",
       "sourceVersion": "rftools IPC-2221 计算示例",
       "sourceUrl": "https://rftools.io/blog/pcb-trace-width-current-capacity/",
