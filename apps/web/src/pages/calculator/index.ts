@@ -1,3 +1,4 @@
+export { CalculationBasis } from './ui/CalculationBasis';
 export {
   FALLBACK_PANEL,
   PANEL_COMPONENTS,

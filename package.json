@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "test": "vitest run",
+    "coverage": "vitest run --coverage",
     "test:watch": "vitest",
     "regression": "tsx packages/cli/src/index.ts regression",
     "demo": "tsx packages/cli/src/index.ts demo",
@@ -32,6 +33,7 @@
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
     "@types/node": "^22.10.2",
+    "@vitest/coverage-v8": "^5.1.0",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^9.1.2",
     "eslint-plugin-react-hooks": "^5.2.0",

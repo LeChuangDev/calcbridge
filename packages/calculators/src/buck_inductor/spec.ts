@@ -28,6 +28,7 @@ export const BUCK_INDUCTOR_SPEC: CalcSpec = {
       role: 'input',
       label: '输入电压',
       default: 12,
+      limits: { min: 1, max: 100, note: '常见 3–60 V' },
       description: 'Buck 输入电压',
     },
     {
@@ -36,6 +37,7 @@ export const BUCK_INDUCTOR_SPEC: CalcSpec = {
       role: 'input',
       label: '输出电压',
       default: 5,
+      limits: { min: 0.5, max: 60, note: '必须低于输入电压' },
       description: 'Buck 输出电压',
     },
     {
@@ -44,6 +46,7 @@ export const BUCK_INDUCTOR_SPEC: CalcSpec = {
       role: 'input',
       label: '输出电流',
       default: 2,
+      limits: { min: 0.01, max: 50, note: '常见 0.1–20 A' },
       description: '额定输出电流',
     },
     {
@@ -53,6 +56,7 @@ export const BUCK_INDUCTOR_SPEC: CalcSpec = {
       label: '开关频率',
       default: 500,
       domain: { min: 10, max: 5000 },
+      limits: { min: 10, max: 5000, note: '常见 100–2000 kHz' },
       description: '开关频率（公式内换算为 Hz）',
     },
     {

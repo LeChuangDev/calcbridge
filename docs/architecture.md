@@ -92,4 +92,9 @@ app → pages → widgets → features → entities → shared
 ## 可观测的约束
 
 `npm run lint` 检查分层边界、类型导入风格、Hooks 规则与未使用变量；
-`npm run format:check` 保证格式统一；`npm run size` 保证首屏预算；三者都是 CI 阻断项。
+`npm run format:check` 保证格式统一；`npm run coverage` 对内核与求解器设置
+lines/statements/functions ≥80%、branches ≥70% 的门禁；`npm run size` 保证首屏预算；均为 CI 阻断项。
+
+计算依据与可信度由 `entities/calculator/model/standards.ts` 单一维护，页面标识条与报告导出共用；
+输入工程范围由 `VariableSpec.limits` 声明，`packages/core/src/validation/limits.ts` 统一判定，
+数据驱动面板通过 `InputField` 展示黄色警告，不阻断输入。

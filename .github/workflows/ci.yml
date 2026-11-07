@@ -37,8 +37,9 @@ jobs:
       - name: Format check
         run: npm run format:check
 
-      - name: Unit tests & regression
-        run: npm test
+      # 单测 + 算例回归 + 覆盖率门禁（core/求解器 lines≥80%、branches≥70%）
+      - name: Unit tests, regression & coverage
+        run: npm run coverage
 
       - name: Production build
         run: npm run build:web

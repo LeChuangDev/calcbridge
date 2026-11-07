@@ -393,3 +393,52 @@
   background: var(--accent);
   opacity: 0.7;
 }
+
+/* 计算依据与可信度标识条 */
+.calc-basis {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  font-size: 12px;
+  color: var(--text-2);
+}
+
+.cb-chip {
+  padding: 1px 8px;
+  border: 1px solid var(--accent-line);
+  border-radius: 999px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.cb-chip.model {
+  border-color: var(--border);
+  color: var(--text-2);
+}
+
+.cb-chip.conf-estimate {
+  border-color: var(--warn-line);
+  color: var(--warn);
+}
+
+.cb-chip.conf-reference {
+  border-color: var(--border);
+  color: var(--text-2);
+}
+
+.cb-item {
+  max-width: 42ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cb-boundary {
+  margin-left: auto;
+  cursor: help;
+  text-decoration: underline dotted;
+}

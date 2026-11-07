@@ -22,7 +22,18 @@ export interface VariableSpec {
   units?: string[];
   /** 求解域（反解搜索范围） */
   domain?: { min?: number; max?: number; minExclusive?: boolean; maxExclusive?: boolean };
+  /** 工程建议范围（超出时提示或拦截，与反解搜索域分开） */
+  limits?: EngineeringLimit;
   description?: string;
+}
+
+export interface EngineeringLimit {
+  min?: number;
+  max?: number;
+  /** 超出范围时的处理级别，缺省 warning（黄色提示） */
+  level?: 'warning' | 'blocker';
+  /** 阈值来源或适用范围说明 */
+  note?: string;
 }
 
 export interface ModelSpec {

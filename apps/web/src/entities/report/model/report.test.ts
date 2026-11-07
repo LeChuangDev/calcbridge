@@ -102,6 +102,21 @@ describe('工程报告导出', () => {
     );
   });
 
+  it('报告附带计算依据与可信度分级', () => {
+    const meta = {
+      generatedAt: date,
+      standard: 'IPC-2221B 表 6-1 · I = k·ΔT^0.44·A^0.725',
+      confidence: '工程估算值（误差 ±15%）',
+    };
+    const md = buildReportMarkdown(snapshot, meta);
+    const csv = buildReportCsv(snapshot, meta);
+
+    expect(md).toContain('- 计算依据：IPC-2221B');
+    expect(md).toContain('- 可信度：工程估算值');
+    expect(csv).toContain('报告信息,计算依据,');
+    expect(csv).toContain('报告信息,可信度,工程估算值');
+  });
+
   it('日期格式补零', () => {
     expect(formatDateTime(new Date(2026, 0, 2, 3, 4))).toBe('2026-01-02 03:04');
   });

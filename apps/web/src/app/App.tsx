@@ -7,8 +7,9 @@ import { ThemeToggle, UnitSwitch } from '@/widgets/display-controls';
 import { TitleBar } from '@/widgets/title-bar';
 import { TreeNav } from '@/widgets/side-nav';
 import { useUnitSystem } from '@/shared/lib/providers/UnitSystemProvider';
-import { HOME_ID, groupOf } from '@/entities/calculator';
+import { CONFIDENCE_LABEL, HOME_ID, groupOf, standardOf } from '@/entities/calculator';
 import {
+  CalculationBasis,
   FALLBACK_PANEL,
   PANEL_COMPONENTS,
   prefetchPanel,
@@ -190,6 +191,7 @@ export function App() {
   const spec = CALCULATOR_REGISTRY[active] ?? CALCULATOR_REGISTRY['regulator_3term']!;
   const group = groupOf(active) ?? groupOf(spec.id);
   const ActivePanel = PANEL_COMPONENTS[active] ?? PANEL_COMPONENTS[spec.id];
+  const standard = standardOf(active);
 
   let panel;
   if (active === HOME_ID) {
@@ -236,6 +238,10 @@ export function App() {
             downloadReport(snapshot, format, {
               version: APP_VERSION,
               pageUrl: window.location.href,
+              standard: standard ? `${standard.basis} · ${standard.clause}` : undefined,
+              confidence: standard
+                ? `${CONFIDENCE_LABEL[standard.confidence]}（误差 ${standard.errorBand}）`
+                : undefined,
             });
           }}
           onHome={() => go(HOME_ID)}
@@ -259,6 +265,7 @@ export function App() {
           onPrefetch={prefetchPanel}
         />
         <main className="pane" key={`${active}:${resetKey}`}>
+          <CalculationBasis moduleId={active} />
           <Suspense
             fallback={
               <div className="pane-loading" role="status" aria-live="polite">

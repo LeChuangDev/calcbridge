@@ -1,11 +1,13 @@
 import { useDeferredValue, useEffect, useMemo, useState } from 'react';
 import {
   Quantity,
+  checkEngineeringLimits,
   collectVars,
   parseExpr,
   runCalculation,
   runMonteCarlo,
   type CalcSpec,
+  type LimitIssue,
   type McStats,
 } from '@calcbridge/core';
 import {
@@ -72,6 +74,23 @@ export function GenericPanel({ spec, group }: { spec: CalcSpec; group?: string }
   const namedInputs = useMemo(() => buildInputs(inputs), [inputs]);
   // 数值求解可能较慢：让输入框保持即时响应，结果按低优先级跟进。
   const calcInputs = useDeferredValue(namedInputs);
+
+  // 工程建议范围校验：只提示，不阻断计算。
+  const limitIssues = useMemo(() => {
+    const out: Record<string, LimitIssue | null> = {};
+    for (const vs of spec.variables) {
+      const raw = namedInputs[vs.id];
+      if (raw === undefined) continue;
+      const value =
+        typeof raw === 'object'
+          ? raw.to(vs.unit).value
+          : typeof raw === 'number'
+            ? raw
+            : Number(raw);
+      out[vs.id] = checkEngineeringLimits(value, vs);
+    }
+    return out;
+  }, [spec, namedInputs]);
 
   const run = useMemo<
     | { kind: 'ok'; results: ReturnType<typeof runCalculation>['results'] }
@@ -399,6 +418,7 @@ export function GenericPanel({ spec, group }: { spec: CalcSpec; group?: string }
                   id={vs.id}
                   vs={vs}
                   st={inputs[vs.id]!}
+                  warning={limitIssues[vs.id] ?? undefined}
                   onChange={(s) => setInputs((p) => ({ ...p, [vs.id]: s }))}
                 />
               ))}

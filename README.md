@@ -72,6 +72,7 @@ offline/             # 离线启动器与安装脚本（start.py / install.bat /
 npm install
 npm run dev          # 启动界面 http://localhost:5173/
 npm test             # 全量单元测试 + 算例回归
+npm run coverage     # 覆盖率门禁（core/求解器 lines≥80%、branches≥70%）
 npm run typecheck    # TypeScript 类型检查
 npm run build:web    # 生产构建（面板按需分包）
 npm run size         # 首屏 JS/CSS gzip 体积门禁
@@ -148,6 +149,7 @@ git push origin v0.5.1
 10. **输入即算**：所有计算器在输入变化时立即重算，结果一律派生（不写回输入框）；必填项未齐时不报错，避免输入过程中刷错误。
 11. **单一数据源**：工具元数据只在 `apps/web/src/entities/calculator/model/navModel.ts` 登记；localStorage 键名只在 `apps/web/src/shared/config/storageKeys.ts` 定义；颜色只在 `apps/web/src/app/styles/tokens.css` 定义。
 12. **跨层走别名**：跨目录引用统一使用 `@/` 别名，禁止三层以上的 `../../..` 相对路径。
+13. **依据可机读**：每个模块的标准依据、模型类别、可信度与误差带只在 `apps/web/src/entities/calculator/model/standards.ts` 登记，界面标识条与导出报告共用这一份数据。
 
 ## 界面能力
 

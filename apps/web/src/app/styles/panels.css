@@ -1206,6 +1206,15 @@
   display: flex;
   gap: 8px;
 }
+.field-warn {
+  margin: 6px 0 0;
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--warn);
+}
+.field-warn.blocker {
+  color: var(--bad);
+}
 .field-row input {
   flex: 1;
   min-width: 0;

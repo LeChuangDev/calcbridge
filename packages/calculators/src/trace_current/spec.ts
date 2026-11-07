@@ -45,6 +45,7 @@ export const traceCurrentSpec: CalcSpec = {
       label: '载流电流',
       default: 3,
       tolerance: { type: 'pct', value: 0.1 },
+      limits: { min: 0.05, max: 50, note: '常见 0.1–20 A' },
       description: '目标载流（FR-A-3 反向求解时可作为待求量）',
     },
     {
@@ -56,6 +57,7 @@ export const traceCurrentSpec: CalcSpec = {
       units: ['kelvin'],
       label: '允许温升 ΔT',
       domain: { min: 1, max: 100 },
+      limits: { min: 1, max: 100, note: '工程常用 10–20 K' },
       description: '相对环境温度的允许温升（温差，单位 K）',
     },
     {

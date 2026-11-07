@@ -200,3 +200,58 @@ Redis 当前不适用：应用没有服务端会话、共享缓存或计算任�
 2. 确认 CI 首次 `npm ci` 与升级后的锁文件一致。
 3. 若未来接受第三方设计文件，增加按计算器 id 的字段级 schema 校验与导入预览。
 4. 若未来上云，再按 Redis 安全与内存规则设计会话/缓存/任务队列；当前不引入。
+
+---
+
+## 2026-11-07 复审（FSD 重构 + P0 可信度基础设施）
+
+- 范围：未提交变更（FSD 六层迁移、面板懒加载、首屏体积门禁、EdgeOne 缓存与安全头、计算依据元数据、输入范围校验、覆盖率门禁）
+- 方法：对照 React / JavaScript 前端安全规范做源码检索，并执行 `npm audit`、`npm run lint`、`npm run coverage`、`npm run build:web`
+- 结论：未发现可被远程利用的新增漏洞；生产依赖 0 漏洞；源码没有危险 DOM sink、动态代码执行、`postMessage` 或第三方脚本
+
+### 检查结果
+
+| 检查项                                                                            | 结果                                                                                                                      |
+| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `dangerouslySetInnerHTML` / `innerHTML` / `insertAdjacentHTML` / `document.write` | 无匹配                                                                                                                    |
+| `eval` / `new Function` / `DOMParser` / `createContextualFragment`                | 无匹配                                                                                                                    |
+| `postMessage` / `window.open` / `location.assign` / `location.replace`            | 无匹配                                                                                                                    |
+| 密钥、令牌、`import.meta.env` / `process.env` 注入                                | 无匹配                                                                                                                    |
+| 第三方脚本与 CDN 资源                                                             | `index.html` 只加载本地构建产物                                                                                           |
+| `npm audit --omit=dev`                                                            | 0 漏洞                                                                                                                    |
+| `npm audit`                                                                       | 7 项 moderate（仅开发依赖，见 SEC-INFO-03）                                                                               |
+| CSP                                                                               | `edgeone.json`、`_headers`、Vite preview 均配置；`script-src 'self'`，`style-src` 因 React 内联样式保留 `'unsafe-inline'` |
+
+### SEC-INFO-03 开发依赖中危项（不进入浏览器产物）
+
+- 严重度：Low（对最终用户）
+- 位置：`package-lock.json`，`minimatch` 经 `@typescript-eslint/typescript-estree` 传递引入
+- 影响：仅影响 lint/类型检查工具链，不会打包进 `dist`；生产依赖审计为 0
+- 处理：CI 的 `audit:all` 以 high 为阻断线，当前不阻断；建议跟踪上游修复后随工具链升级一并消除
+
+### SEC-INFO-04 部署层安全头需在 EdgeOne 实测
+
+- 严重度：Low（配置可能不生效，而非代码漏洞）
+- 位置：`edgeone.json:7-50`、`apps/web/public/_headers:3-14`、`apps/web/vite.config.ts:9-22`
+- 现状：本轮为 EdgeOne 补充了 CSP、`X-Content-Type-Options`、`Referrer-Policy`、`Permissions-Policy`、`X-Frame-Options` 与静态资源长缓存
+- 残余风险：若边缘配置未生效，线上将缺少 CSP；仓库内配置不能证明线上响应头已下发
+- 验证：部署后在真实域名执行 `curl -I https://calc.zhangwenle.com/`，确认 `Content-Security-Policy` 存在
+
+### SEC-INFO-05 新增可信度与校验代码不扩大注入面
+
+- 位置：`apps/web/src/entities/calculator/model/standards.ts`、`apps/web/src/features/calculator-generic/ui/GenericPanel.tsx:78-89`、`apps/web/src/entities/report/model/report.ts:29-37`
+- 说明：`standards.ts` 为静态常量；输入范围警告通过 React 文本节点渲染；报告新增“计算依据/可信度”字段沿用既有 `mdCell` / `csvCell` 转义，CSV 公式注入防护未回退
+- 结论：无新增 sink 或信任边界变化
+
+### 验证记录（本轮）
+
+| 检查                    | 结果                                                                                                                  |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `npm run typecheck`     | 通过                                                                                                                  |
+| `npm run lint`          | 通过（含 FSD 分层边界）                                                                                               |
+| `npm run format:check`  | 通过                                                                                                                  |
+| `npm run coverage`      | 35 个测试文件、197 项测试通过；lines 88.76%、statements 83.73%、functions 84.41%、branches 74.18%（门禁 80/80/80/70） |
+| `npm run build:web`     | 通过                                                                                                                  |
+| `npm run size`          | 首屏 JS gzip 66.72 KB、CSS gzip 8.13 KB（预算 100/15 KB）                                                             |
+| `npm run build:offline` | 通过                                                                                                                  |
+| `npm run audit:prod`    | 0 漏洞                                                                                                                |

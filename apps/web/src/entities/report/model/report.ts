@@ -30,6 +30,10 @@ export interface ReportMeta {
   generatedAt?: Date;
   version?: string;
   pageUrl?: string;
+  /** 计算依据（标准/手册 + 条款），随报告一起归档。 */
+  standard?: string;
+  /** 可信度分级与误差带。 */
+  confidence?: string;
 }
 
 const DEFAULT_DISCLAIMER = '本报告为工程估算，非认证、非实测结论；安全相关项必须实测或送认证。';
@@ -67,6 +71,8 @@ export function buildReportMarkdown(snapshot: ReportSnapshot, meta: ReportMeta =
     `- 页面：${meta.pageUrl ?? `#/${snapshot.id}`}`,
   ];
   if (snapshot.subtitle) lines.push(`- 说明：${snapshot.subtitle}`);
+  if (meta.standard) lines.push(`- 计算依据：${meta.standard}`);
+  if (meta.confidence) lines.push(`- 可信度：${meta.confidence}`);
   lines.push('');
 
   for (const section of snapshot.sections) {
@@ -91,6 +97,8 @@ export function buildReportCsv(snapshot: ReportSnapshot, meta: ReportMeta = {}):
     ['报告信息', '应用版本', meta.version ?? APP_VERSION, ''],
     ['报告信息', '地址', meta.pageUrl ?? `#/${snapshot.id}`, ''],
   ];
+  if (meta.standard) rows.push(['报告信息', '计算依据', meta.standard, '']);
+  if (meta.confidence) rows.push(['报告信息', '可信度', meta.confidence, '']);
 
   for (const section of snapshot.sections) {
     for (const row of section.rows) {

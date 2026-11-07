@@ -1,4 +1,4 @@
-import type { VariableSpec } from '@calcbridge/core';
+import type { LimitIssue, VariableSpec } from '@calcbridge/core';
 import { compatibleUnits, type InputState } from '@/shared/lib/bridge';
 
 /* ── 输入字段（带单位切换） ─────────────────────────────── */
@@ -8,8 +8,10 @@ export function InputField(props: {
   vs: VariableSpec;
   st: InputState;
   onChange: (s: InputState) => void;
+  /** 工程建议范围校验结果（不阻断输入，只提示） */
+  warning?: LimitIssue;
 }) {
-  const { id, vs, st, onChange } = props;
+  const { id, vs, st, onChange, warning } = props;
   const units = compatibleUnits(vs);
   return (
     <div className="field">
@@ -43,6 +45,11 @@ export function InputField(props: {
           <span className="uc-unit">{units[0]?.symbol ?? vs.unit}</span>
         )}
       </div>
+      {warning && (
+        <p className={`field-warn ${warning.level}`} role="status">
+          {warning.message}
+        </p>
+      )}
     </div>
   );
 }
