@@ -1,5 +1,7 @@
 ﻿import { useLayoutEffect, useRef, useState } from 'react';
 import { OutputDisplay } from '@/shared/ui/OutputDisplay';
+import { FieldWarn } from '@/shared/ui/FieldWarn';
+import type { VariableSpec } from '@calcbridge/core';
 import { fmtNum } from '@/shared/lib/bridge';
 import { useDraft, useDraftData } from '@/entities/draft/model/draftStore';
 import { solveWaveguide } from '@/features/calculator-waveguide/model/waveguideSolver';
@@ -40,6 +42,22 @@ interface WaveguideDraft {
   freq: string;
   unitSystem?: UnitSystem;
 }
+
+/** 工程建议范围：长度按 mm 判断，避免 mm/mil 切换误报。 */
+const WG_LIMITS = {
+  a: {
+    id: 'a',
+    unit: 'mm',
+    label: '宽边 a',
+    limits: { min: 5, max: 500, note: '常见标准波导 22.86–122 mm' },
+  },
+  freq: {
+    id: 'freq',
+    unit: 'GHz',
+    label: '工作频率',
+    limits: { min: 0.1, max: 100, note: '常见 1–40 GHz' },
+  },
+} satisfies Record<string, VariableSpec>;
 
 export function WaveguidePanel({ group }: { group?: string }) {
   const { system } = useUnitSystem();
@@ -203,6 +221,10 @@ export function WaveguidePanel({ group }: { group?: string }) {
                   />
                   <span className="uc-unit">{lengthUnit(system)}</span>
                 </div>
+                <FieldWarn
+                  value={toMillimetres(Number(a), lengthUnit(system))}
+                  spec={WG_LIMITS.a}
+                />
               </div>
               <div className="field">
                 <label htmlFor="wg-f">工作频率</label>
@@ -216,6 +238,7 @@ export function WaveguidePanel({ group }: { group?: string }) {
                   />
                   <span className="uc-unit">GHz</span>
                 </div>
+                <FieldWarn value={freq} spec={WG_LIMITS.freq} />
               </div>
             </div>
             {error && <div className="error">{error}</div>}

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { OutputDisplay } from '@/shared/ui/OutputDisplay';
+import { FieldWarn } from '@/shared/ui/FieldWarn';
+import type { VariableSpec } from '@calcbridge/core';
 import { fmtNum } from '@/shared/lib/bridge';
 import { useDraft, useDraftData } from '@/entities/draft/model/draftStore';
 import { useCtrlEnter } from '@/shared/lib/hotkeys';
@@ -56,6 +58,13 @@ interface ESeriesDraft {
 }
 
 const ESERIES_IDS: ESeriesId[] = ['E1', 'E3', 'E6', 'E12', 'E24'];
+
+/** 工程建议范围：0.1 Ω–9.1 MΩ（按 kΩ 输入）。 */
+const ES_LIMITS: VariableSpec = {
+  id: 'target',
+  unit: 'kΩ',
+  limits: { min: 0.0001, max: 9100, note: '0.1 Ω–9.1 MΩ' },
+};
 
 export function ESeriesPanel({ group }: { group?: string }) {
   const draft = useDraftData<ESeriesDraft>('e_series');
@@ -301,6 +310,7 @@ export function ESeriesPanel({ group }: { group?: string }) {
                   />
                   <span className="uc-unit">kΩ</span>
                 </div>
+                <FieldWarn value={target} spec={{ ...ES_LIMITS, label: '所需电阻' }} />
               </div>
               <div className="field">
                 <label htmlFor="es-ex1">排除值 1（可选）</label>
@@ -318,6 +328,7 @@ export function ESeriesPanel({ group }: { group?: string }) {
                   />
                   <span className="uc-unit">kΩ</span>
                 </div>
+                <FieldWarn value={ex1} spec={{ ...ES_LIMITS, label: '排除值 1' }} />
               </div>
               <div className="field">
                 <label htmlFor="es-ex2">排除值 2（可选）</label>
@@ -335,6 +346,7 @@ export function ESeriesPanel({ group }: { group?: string }) {
                   />
                   <span className="uc-unit">kΩ</span>
                 </div>
+                <FieldWarn value={ex2} spec={{ ...ES_LIMITS, label: '排除值 2' }} />
               </div>
             </div>
             {error && <div className="error">{error}</div>}

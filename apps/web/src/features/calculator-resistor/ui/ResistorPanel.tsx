@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
-import { Quantity, runCalculation, type NamedInputs } from '@calcbridge/core';
+import { Quantity, runCalculation, type NamedInputs, type VariableSpec } from '@calcbridge/core';
 import { RESISTOR_SPEC } from '@calcbridge/calculators';
 import { AssumptionsPanel } from '@/shared/ui/AssumptionsPanel';
+import { FieldWarn } from '@/shared/ui/FieldWarn';
 import { OutputDisplay } from '@/shared/ui/OutputDisplay';
 import { ResistorFigure } from '@/shared/ui/figures/ResistorFigure';
 import { draftInput, fmtNum, type InputState } from '@/shared/lib/bridge';
@@ -45,6 +46,21 @@ function ohmParts(v: number): { value: string; unit: string } {
   if (v >= 1e3) return { value: fmtNum(v / 1e3), unit: 'kΩ' };
   return { value: fmtNum(v), unit: 'Ω' };
 }
+
+/** 工程建议范围：按基础单位判断，避免 kΩ/MΩ 切换时误报。 */
+const OHM_FACTOR: Record<string, number> = { ohm: 1, kohm: 1e3, Mohm: 1e6 };
+
+const RES_LIMITS: VariableSpec = {
+  id: 'r',
+  unit: 'Ω',
+  limits: { min: 0.01, max: 1e9, note: '常见 1 Ω–10 MΩ' },
+};
+
+const VIN_LIMITS: VariableSpec = {
+  id: 'vin',
+  unit: 'V',
+  limits: { min: 0.001, max: 1000, note: '常见 1–48 V' },
+};
 
 export function ResistorPanel({ group }: { group?: string }) {
   const draft = useDraftData<ResistorDraft>(RESISTOR_SPEC.id);
@@ -219,6 +235,10 @@ export function ResistorPanel({ group }: { group?: string }) {
                     <option value="Mohm">MΩ</option>
                   </select>
                 </div>
+                <FieldWarn
+                  value={Number(r1.v) * OHM_FACTOR[r1.unit]}
+                  spec={{ ...RES_LIMITS, label: '电阻 R1' }}
+                />
               </div>
               <div className="field">
                 <label>电阻 R2</label>
@@ -235,6 +255,10 @@ export function ResistorPanel({ group }: { group?: string }) {
                     <option value="Mohm">MΩ</option>
                   </select>
                 </div>
+                <FieldWarn
+                  value={Number(r2.v) * OHM_FACTOR[r2.unit]}
+                  spec={{ ...RES_LIMITS, label: '电阻 R2' }}
+                />
               </div>
               {mode === 'divider' && (
                 <div className="field">
@@ -254,6 +278,10 @@ export function ResistorPanel({ group }: { group?: string }) {
                       <option value="mV">mV</option>
                     </select>
                   </div>
+                  <FieldWarn
+                    value={Number(vin.v) * (vin.unit === 'mV' ? 1e-3 : 1)}
+                    spec={VIN_LIMITS}
+                  />
                 </div>
               )}
             </div>

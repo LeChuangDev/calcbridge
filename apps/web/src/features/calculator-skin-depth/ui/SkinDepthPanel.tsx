@@ -1,5 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { OutputDisplay } from '@/shared/ui/OutputDisplay';
+import { FieldWarn } from '@/shared/ui/FieldWarn';
+import type { VariableSpec } from '@calcbridge/core';
 import { useUnitSystem } from '@/shared/lib/providers/UnitSystemProvider';
 import { fmtNum } from '@/shared/lib/bridge';
 import { mergeStringDraft, useDraft, useDraftData } from '@/entities/draft/model/draftStore';
@@ -60,6 +62,34 @@ function SkinArt({ ratio }: { ratio: number }) {
     </svg>
   );
 }
+
+/** 工程建议范围：长度按 mm 判断，避免 mm/mil 切换误报。 */
+const SKIN_LIMITS: Partial<Record<'freq' | 'thickness' | 'width' | 'temp', VariableSpec>> = {
+  freq: {
+    id: 'freq',
+    unit: 'MHz',
+    label: '频率',
+    limits: { min: 0.001, max: 10000, note: '常见 1–1000 MHz' },
+  },
+  thickness: {
+    id: 'thickness',
+    unit: 'mm',
+    label: '铜厚',
+    limits: { min: 0.005, max: 1, note: '常见 0.017–0.105 mm（0.5–3 oz）' },
+  },
+  width: {
+    id: 'width',
+    unit: 'mm',
+    label: '线宽',
+    limits: { min: 0.01, max: 20, note: '常见 0.1–10 mm' },
+  },
+  temp: {
+    id: 'temp',
+    unit: '°C',
+    label: '温度',
+    limits: { min: -60, max: 300, note: '常见 -40–125 °C' },
+  },
+};
 
 export function SkinDepthPanel({ group }: { group?: string }) {
   const { system } = useUnitSystem();
@@ -229,21 +259,29 @@ export function SkinDepthPanel({ group }: { group?: string }) {
                   ['width', '线宽', lengthSym],
                   ['temp', '温度', '°C'],
                 ] as const
-              ).map(([key, label, unit]) => (
-                <div className="field" key={key}>
-                  <label htmlFor={`skin-${key}`}>{label}</label>
-                  <div className="field-row">
-                    <input
-                      id={`skin-${key}`}
-                      value={form[key]}
-                      inputMode="decimal"
-                      onFocus={(e) => e.target.select()}
-                      onChange={(e) => set(key, e.target.value)}
-                    />
-                    <span className="uc-unit">{unit}</span>
+              ).map(([key, label, unit]) => {
+                const spec = SKIN_LIMITS[key];
+                const value =
+                  key === 'thickness' || key === 'width'
+                    ? toMillimetres(Number(form[key]), lengthSym)
+                    : form[key];
+                return (
+                  <div className="field" key={key}>
+                    <label htmlFor={`skin-${key}`}>{label}</label>
+                    <div className="field-row">
+                      <input
+                        id={`skin-${key}`}
+                        value={form[key]}
+                        inputMode="decimal"
+                        onFocus={(e) => e.target.select()}
+                        onChange={(e) => set(key, e.target.value)}
+                      />
+                      <span className="uc-unit">{unit}</span>
+                    </div>
+                    {spec && <FieldWarn value={value} spec={spec} />}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </section>
 
