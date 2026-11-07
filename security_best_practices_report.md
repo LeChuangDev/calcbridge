@@ -33,10 +33,10 @@ Redis 当前不适用：应用没有服务端会话、共享缓存或计算任�
 - 规则：OWASP CSV Injection / 输出编码
 - 严重度：Medium（导出文件被其他用户用 Excel/WPS 打开时可升级为 High）
 - 位置：
-  - 修复实现：`apps/web/src/csv.ts:10-18`
-  - 报告导出使用：`apps/web/src/report.ts:108`（`buildReportCsv` 内逐单元格调用 `csvCell`）
-  - 参数文件导出使用：`apps/web/src/regulatorData.ts:476-482`
-- 原问题证据（改动前 `apps/web/src/report.ts:86-89`）：
+  - 修复实现：`apps/web/src/shared/lib/csv.ts:10-18`
+  - 报告导出使用：`apps/web/src/entities/report/model/report.ts:108`（`buildReportCsv` 内逐单元格调用 `csvCell`）
+  - 参数文件导出使用：`apps/web/src/entities/regulator/model/regulatorData.ts:476-482`
+- 原问题证据（改动前 `apps/web/src/entities/report/model/report.ts:86-89`）：
 
   ```ts
   function csvCell(value: string): string {
@@ -49,7 +49,7 @@ Redis 当前不适用：应用没有服务端会话、共享缓存或计算任�
 
 - 影响：备注、型号名或导入数据若以公式开头，导出 CSV 后在 Excel/WPS 中可能被当作公式执行（例如 `=HYPERLINK(...)`），造成钓鱼链接、数据外泄或本机命令执行。
 - 修复：新增 `csvCell`，对危险前缀加 `'` 文本前缀；纯数字（含负数、科学计数法）保持原样，避免工程数值变成文本。
-- 验证：`apps/web/src/csv.test.ts` 覆盖 `= + @ \t`、公式加逗号、负数与科学计数法；`apps/web/src/report.test.ts` 覆盖报告导出。
+- 验证：`apps/web/src/shared/lib/csv.test.ts` 覆盖 `= + @ \t`、公式加逗号、负数与科学计数法；`apps/web/src/entities/report/model/report.test.ts` 覆盖报告导出。
 - 残余说明：CSV 公式防护只解决“导出后打开”的注入面，不替代对导出文件接收方的信任管理。
 
 ### SEC-02 设计文件/参数文件导入（已加固）
@@ -57,13 +57,13 @@ Redis 当前不适用：应用没有服务端会话、共享缓存或计算任�
 - 规则：React File Upload / 不可信输入 / 原型污染防护
 - 严重度：Medium（若直接信任 JSON 并合并到对象，可导致存储污染、界面崩溃或后续逻辑被绕过）
 - 位置：
-  - 设计文件解析：`apps/web/src/designFile.ts:153-211`
-  - 递归净化与原型污染键拒绝：`apps/web/src/designFile.ts:80-106`
-  - 草稿数量/体积限制：`apps/web/src/designFile.ts:108-136`
-  - 稳压器字段校验：`apps/web/src/regulatorData.ts:126-193`
-  - 稳压器列表重名/上限：`apps/web/src/regulatorData.ts:196-214`
-  - 文件选择与覆盖确认：`apps/web/src/App.tsx:91-134`、`apps/web/src/desktop.tsx:673-713`
-  - 草稿 id 白名单、危险键拒绝与导入回滚：`apps/web/src/draftStore.ts:134-214`
+  - 设计文件解析：`apps/web/src/features/design-file/model/designFile.ts:153-211`
+  - 递归净化与原型污染键拒绝：`apps/web/src/features/design-file/model/designFile.ts:80-106`
+  - 草稿数量/体积限制：`apps/web/src/features/design-file/model/designFile.ts:108-136`
+  - 稳压器字段校验：`apps/web/src/entities/regulator/model/regulatorData.ts:126-193`
+  - 稳压器列表重名/上限：`apps/web/src/entities/regulator/model/regulatorData.ts:196-214`
+  - 文件选择与覆盖确认：`apps/web/src/app/App.tsx:91-134`、`apps/web/src/desktop.tsx:673-713`
+  - 草稿 id 白名单、危险键拒绝与导入回滚：`apps/web/src/entities/draft/model/draftStore.ts:134-214`
 - 证据（关键限制）：
 
   ```ts

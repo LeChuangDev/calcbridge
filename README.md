@@ -42,14 +42,13 @@ packages/
 validation/
 └─ impedance/      # Polar / Sigrity / 场解算 / coupon 对照数据与校验说明
 apps/
-└─ web/src/
-   ├─ app/         # 应用外壳：路由、标题栏、菜单栏、导航树、命令面板、弹窗
-   ├─ providers/   # 全局状态：单位制、主题
-   ├─ features/    # 业务领域：每个计算器一个目录（面板 + 求解器 + 测试）
-   ├─ components/  # 共享 UI 原语（无业务语义）
-   ├─ lib/         # 基础设施：草稿、报告、文件、单位、CSV、下载、偏好
-   ├─ data/        # 静态元数据：工具目录（分类 / 说明 / 关键词）
-   └─ styles/      # 令牌 → 基础 → 外壳 → 面板 → 控件 → 首页 → 响应式
+└─ web/src/                    # Feature-Sliced Design 六层
+   ├─ app/                     # 应用入口与外壳：main.tsx、App.tsx、全局样式
+   ├─ pages/                   # 页面组合：home（工具目录）、calculator（面板路由与懒加载）
+   ├─ widgets/                 # 独立界面块：标题栏、菜单栏、导航树、命令面板、弹窗
+   ├─ features/                # 业务切片：19 个计算器（ui + model + index）、设计文件导入导出
+   ├─ entities/                # 领域数据：工具目录、草稿、稳压器、报告、收藏
+   └─ shared/                  # 无业务语义的基础设施：ui / lib / config
 ```
 
 仓库根目录还包含：
@@ -63,8 +62,8 @@ offline/             # 离线启动器与安装脚本（start.py / install.bat /
 
 分层约束与新增计算器的步骤见 `docs/architecture.md`，且由 `npm run lint` 强制检查。
 
-设计文件、稳压器参数文件与安全审查说明分别见 `apps/web/src/designFile.ts`、
-`apps/web/src/regulatorData.ts`、`security_best_practices_report.md`；生产安全头与部署说明见
+设计文件、稳压器参数文件与安全审查说明分别见 `apps/web/src/features/design-file/model/designFile.ts`、
+`apps/web/src/entities/regulator/model/regulatorData.ts`、`security_best_practices_report.md`；生产安全头与部署说明见
 `deploy/README.md`。
 
 ## 快速开始
@@ -74,7 +73,8 @@ npm install
 npm run dev          # 启动界面 http://localhost:5173/
 npm test             # 全量单元测试 + 算例回归
 npm run typecheck    # TypeScript 类型检查
-npm run build:web    # 生产构建
+npm run build:web    # 生产构建（面板按需分包）
+npm run size         # 首屏 JS/CSS gzip 体积门禁
 npm run lint         # ESLint：类型规范 + React 规则 + 分层依赖约束
 npm run format       # Prettier 统一格式
 npm run regression   # 仅跑算例回归
@@ -99,9 +99,10 @@ $env:CALCBRIDGE_DEV_HOST='0.0.0.0'; npm run dev
 - Nginx：参考 `deploy/nginx-calcbridge.conf`。
 - Vercel：参考 `deploy/README.md` 中的 headers / rewrites 配置。
 - 本地验证安全头：`npm run preview` 后执行 `curl -I http://127.0.0.1:4173/`。
-- 测试分三层：`packages/*` 的内核与算例回归、`features/*/xxxSolver.test.ts` 的纯函数校验、
-  `app/App.test.tsx` 与 `features/panels.smoke.test.tsx` 的 jsdom 组件冒烟（路由、命令面板、主题、新面板）。
-- CI：`.github/workflows/ci.yml` 使用 `npm ci`，依次执行 typecheck、测试、构建、生产依赖审计与全量依赖审计（均为阻断项）。
+- 性能：计算器面板全部动态加载，首屏只含外壳/首页/React（约 64 KB gzip JS）；React 单独分包长期缓存，`npm run size` 对首屏体积做门禁。
+- 测试分三层：`packages/*` 的内核与算例回归、`features/*/model/xxxSolver.test.ts` 的纯函数校验、
+  `app/App.test.tsx` 与 `pages/calculator/ui/panels.smoke.test.tsx` 的 jsdom 组件冒烟（路由、命令面板、主题、新面板）。
+- CI：`.github/workflows/ci.yml` 使用 `npm ci`，依次执行 typecheck、lint、format:check、测试、构建、首屏体积门禁与依赖审计（均为阻断项）。
 - 工具链：Vite 8 / Vitest 5；升级记录与后续维护见 `docs/toolchain-upgrade-plan.md`。
 
 ## 离线版（Windows / Linux）
@@ -145,7 +146,7 @@ git push origin v0.5.1
 8. **设计文件可携带**：`文件 → 导出设计文件（JSON）` 会打包各页面草稿、单位制、当前页面与自定义稳压器；导入前严格校验大小、版本、字段白名单、条目数与原型污染键，并提示覆盖本机草稿。
 9. **参数文件可交换**：稳压器页支持 JSON/CSV 参数文件导入导出；CSV 仅接受 `name`、`vref_*`、`iadj_*` 等已知列，导入会替换自定义项，内置型号不可覆盖。
 10. **输入即算**：所有计算器在输入变化时立即重算，结果一律派生（不写回输入框）；必填项未齐时不报错，避免输入过程中刷错误。
-11. **单一数据源**：工具元数据只在 `apps/web/src/data/navModel.ts` 登记；localStorage 键名只在 `apps/web/src/lib/storageKeys.ts` 定义；颜色只在 `apps/web/src/styles/tokens.css` 定义。
+11. **单一数据源**：工具元数据只在 `apps/web/src/entities/calculator/model/navModel.ts` 登记；localStorage 键名只在 `apps/web/src/shared/config/storageKeys.ts` 定义；颜色只在 `apps/web/src/app/styles/tokens.css` 定义。
 12. **跨层走别名**：跨目录引用统一使用 `@/` 别名，禁止三层以上的 `../../..` 相对路径。
 
 ## 界面能力

@@ -1,29 +1,33 @@
-import { useCallback, useEffect, useRef, useState, type ChangeEvent } from 'react';
+import { Suspense, useCallback, useEffect, useRef, useState, type ChangeEvent } from 'react';
 import { CALCULATOR_REGISTRY } from '@calcbridge/calculators';
-import { AboutDialog } from './AboutDialog';
-import { CommandPalette } from './CommandPalette';
-import { MenuBar } from './MenuBar';
-import { ThemeToggle } from './ThemeToggle';
-import { TitleBar } from './TitleBar';
-import { TreeNav } from './TreeNav';
-import { UnitSwitch } from './UnitSwitch';
-import { useUnitSystem } from '@/providers/UnitSystemProvider';
-import { HOME_ID, groupOf } from '@/data/navModel';
-import { FALLBACK_PANEL, PANEL_COMPONENTS } from '@/features/registry';
-import { HomePanel } from '@/features/home/HomePanel';
-import { clearCustomRegulators } from '@/lib/regulatorsStore';
-import { clearAllDrafts, clearPanelDrafts } from '@/lib/draftStore';
-import { getCurrentReport } from '@/lib/reportStore';
-import { downloadReport } from '@/lib/report';
-import { pushRecent } from '@/lib/prefsStore';
-import { APP_VERSION } from '@/lib/constants';
+import { AboutDialog } from '@/widgets/about-dialog';
+import { CommandPalette } from '@/widgets/command-palette';
+import { MenuBar } from '@/widgets/menu-bar';
+import { ThemeToggle, UnitSwitch } from '@/widgets/display-controls';
+import { TitleBar } from '@/widgets/title-bar';
+import { TreeNav } from '@/widgets/side-nav';
+import { useUnitSystem } from '@/shared/lib/providers/UnitSystemProvider';
+import { HOME_ID, groupOf } from '@/entities/calculator';
+import {
+  FALLBACK_PANEL,
+  PANEL_COMPONENTS,
+  prefetchPanel,
+  prefetchWhenIdle,
+} from '@/pages/calculator';
+import { HomePanel } from '@/pages/home';
+import { clearCustomRegulators } from '@/entities/regulator/model/regulatorsStore';
+import { clearAllDrafts, clearPanelDrafts } from '@/entities/draft/model/draftStore';
+import { getCurrentReport } from '@/entities/report/model/reportStore';
+import { downloadReport } from '@/entities/report/model/report';
+import { pushRecent } from '@/entities/preferences/model/prefsStore';
+import { APP_VERSION } from '@/shared/config/constants';
 import {
   ACTIVE_KEY,
   MAX_DESIGN_FILE_BYTES,
   applyDesignFile,
   downloadDesignFile,
   parseDesignFile,
-} from '@/lib/designFile';
+} from '@/features/design-file';
 
 function validPanelId(id: string | null | undefined): id is string {
   return !!id && (id === HOME_ID || !!CALCULATOR_REGISTRY[id] || !!groupOf(id));
@@ -166,6 +170,11 @@ export function App() {
     };
   }, []);
 
+  // 首屏渲染后空闲预取常用面板，首次切换不再等待。
+  useEffect(() => {
+    prefetchWhenIdle(['regulator_3term', 'resistor_calc', 'via', 'led_resistor']);
+  }, []);
+
   // Ctrl / Cmd + K 打开命令面板；输入态同样可用，故不走 TreeNav 的 "/" 逻辑。
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -243,9 +252,23 @@ export function App() {
         </div>
       </header>
       <div className="win-body">
-        <TreeNav active={active} onPick={go} favoritesTick={favoritesTick} />
+        <TreeNav
+          active={active}
+          onPick={go}
+          favoritesTick={favoritesTick}
+          onPrefetch={prefetchPanel}
+        />
         <main className="pane" key={`${active}:${resetKey}`}>
-          {panel}
+          <Suspense
+            fallback={
+              <div className="pane-loading" role="status" aria-live="polite">
+                <i aria-hidden="true" />
+                正在加载计算面板…
+              </div>
+            }
+          >
+            {panel}
+          </Suspense>
         </main>
       </div>
       <input

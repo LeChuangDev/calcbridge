@@ -1,9 +1,9 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { ThemeProvider } from '@/providers/ThemeProvider';
-import { UnitSystemProvider } from '@/providers/UnitSystemProvider';
-import { App } from './App';
+import { ThemeProvider } from '@/shared/lib/providers/ThemeProvider';
+import { UnitSystemProvider } from '@/shared/lib/providers/UnitSystemProvider';
+import { App } from '@/app/App';
 
 /** 应用外壳冒烟测试：路由、导航、命令面板、主题切换。 */
 function renderApp() {
@@ -56,7 +56,7 @@ describe('应用外壳', () => {
     renderApp();
     fireEvent.click(screen.getByRole('button', { name: /^过孔参数$/ }));
     await waitFor(() => expect(window.location.hash).toBe('#/via'));
-    expect(screen.getByRole('heading', { name: '过孔参数' })).toBeTruthy();
+    expect(await screen.findByRole('heading', { name: '过孔参数' })).toBeTruthy();
   });
 
   it('命令面板：Ctrl+K 打开，输入关键词回车直达工具', async () => {
@@ -66,6 +66,7 @@ describe('应用外壳', () => {
     fireEvent.change(input, { target: { value: '阻抗' } });
     fireEvent.keyDown(input, { key: 'Enter' });
     await waitFor(() => expect(window.location.hash).toBe('#/impedance_microstrip'));
+    expect(await screen.findByRole('heading', { name: /阻抗/ })).toBeTruthy();
   });
 
   it('主题开关写入 data-theme 并持久化', async () => {

@@ -48,4 +48,17 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['@calcbridge/core', '@calcbridge/calculators'],
   },
+  build: {
+    // 计算器面板已经是动态 import；这里再把 React 单独分包，利用长期缓存。
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('scheduler')) return 'react-vendor';
+          }
+          return undefined;
+        },
+      },
+    },
+  },
 });

@@ -43,6 +43,10 @@ jobs:
       - name: Production build
         run: npm run build:web
 
+      # 首屏 JS/CSS 体积门禁，防止懒加载退化或误引入大依赖
+      - name: Bundle size gate
+        run: npm run size
+
       # 生产依赖必须无高危；当前为 0 漏洞。
       - name: Audit production dependencies
         run: npm run audit:prod

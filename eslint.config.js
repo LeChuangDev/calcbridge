@@ -67,15 +67,15 @@ export default tseslint.config(
     },
   },
   {
-    files: ['apps/web/src/lib/**/*.{ts,tsx}'],
+    files: ['apps/web/src/shared/**/*.{ts,tsx}'],
     rules: {
       'no-restricted-imports': [
         'error',
         {
           patterns: [
             {
-              group: ['@/app/**', '@/features/**', '@/components/**', '@/providers/**'],
-              message: 'lib 层是基础设施，不得反向依赖 app / features / components / providers。',
+              group: ['@/app/**', '@/pages/**', '@/widgets/**', '@/features/**', '@/entities/**'],
+              message: 'shared 是最底层，不得依赖任何上层（app/pages/widgets/features/entities）。',
             },
           ],
         },
@@ -83,7 +83,56 @@ export default tseslint.config(
     },
   },
   {
-    files: ['apps/web/src/features/*/**/*.{ts,tsx}'],
+    files: ['apps/web/src/entities/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/app/**', '@/pages/**', '@/widgets/**', '@/features/**'],
+              message: 'entities 只能向下依赖 shared。',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['apps/web/src/features/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/app/**', '@/pages/**', '@/widgets/**'],
+              message:
+                'features 只能依赖 entities、shared 与本切片内部模块，不得引用 app/pages/widgets。',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['apps/web/src/widgets/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/app/**', '@/pages/**'],
+              message: 'widgets 只能依赖 features / entities / shared。',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['apps/web/src/pages/**/*.{ts,tsx}'],
     rules: {
       'no-restricted-imports': [
         'error',
@@ -91,7 +140,7 @@ export default tseslint.config(
           patterns: [
             {
               group: ['@/app/**'],
-              message: 'feature 不得依赖应用外壳 app/（全局状态请用 @/providers/*）。',
+              message: 'pages 不得依赖 app 层，页面组合由 app 负责。',
             },
           ],
         },
@@ -107,7 +156,7 @@ export default tseslint.config(
   },
   {
     // Provider 与 hook 同文件导出是 React 通用模式
-    files: ['apps/web/src/providers/**/*.tsx'],
+    files: ['apps/web/src/shared/lib/providers/**/*.tsx'],
     rules: { 'react-refresh/only-export-components': 'off' },
   },
   {
