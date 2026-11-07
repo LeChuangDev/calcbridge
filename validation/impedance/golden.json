@@ -42,6 +42,21 @@
       "expected": 0.34,
       "tolerancePct": 5,
       "notes": "用于校验框架反向求解冒烟；不是 Polar/Sigrity 实测数据。"
+    },
+    {
+      "id": "jlc-4l-3313a-50ohm-width",
+      "source": "jlc",
+      "sourceVersion": "嘉立创阻抗计算器 · JLC04161H-3313A · 查询 2026-11-07",
+      "date": "2026-11-07",
+      "mode": "width",
+      "wMm": 0.34544,
+      "hMm": 0.206248,
+      "tMm": 0.035,
+      "er": 4.2,
+      "targetOhm": 50,
+      "expected": 0.34544,
+      "tolerancePct": 10,
+      "notes": "页面显示 50Ω 单端外层 W1=13.6 mil（0.34544 mm）；L1–L2 介质为 4.21+3.91 mil；页面未展示 Dk，按 FR-4 典型 4.2 记录，容差放宽到 10%。"
     }
   ]
 }

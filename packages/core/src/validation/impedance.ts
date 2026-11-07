@@ -11,6 +11,7 @@ export type ImpedanceValidationSource =
   | 'sigrity'
   | 'field-solver'
   | 'test-coupon'
+  | 'jlc'
   | 'published'
   | 'template'
   | 'unknown';
@@ -122,6 +123,7 @@ function normSource(raw: unknown): ImpedanceValidationSource {
     return 'field-solver';
   }
   if (text === 'testcoupon' || text === 'coupon' || text === 'measurement') return 'test-coupon';
+  if (text === 'jlc' || text === 'jlcpcb' || text === 'jialichuang') return 'jlc';
   if (text === 'published' || text === 'textbook' || text === 'paper') return 'published';
   if (text === 'template') return 'template';
   return 'unknown';

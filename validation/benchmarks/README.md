@@ -31,7 +31,7 @@
 | --- | --- |
 | `moduleId` | 计算器 id，必须与导航目录一致 |
 | `id` | 用例唯一 id（同一模块内不得重复） |
-| `source` | `polar` / `sigrity` / `field-solver` / `test-coupon` / `published` |
+| `source` | `polar` / `sigrity` / `field-solver` / `test-coupon` / `jlc` / `published` |
 | `sourceVersion` | 软件版本或手册版本、导出批次 |
 | `sourceUrl` | 可选：公开来源链接（商业工具导出时留空） |
 | `date` | 数据采集日期 `YYYY-MM-DD` |
@@ -49,7 +49,7 @@
 
 状态定义：
 
-- **达标**：用例数 ≥ 10，且至少 2 个不同工具来源（`polar` / `sigrity` / `field-solver` / `test-coupon`）
+- **达标**：用例数 ≥ 10，且至少 2 个不同工具来源（`polar` / `sigrity` / `field-solver` / `test-coupon` / `jlc`）
 - **部分**：有任意用例或来源，但未满足达标条件
 - **缺失**：没有任何外部用例
 

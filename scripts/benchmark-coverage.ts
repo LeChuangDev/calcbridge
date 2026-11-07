@@ -20,7 +20,7 @@ const goldenFile = join(root, 'validation', 'impedance', 'golden.json');
 const reportFile = join(root, 'validation', 'benchmarks', 'coverage.md');
 const strict = process.argv.includes('--strict');
 
-const TOOL_SOURCES = new Set(['polar', 'sigrity', 'field-solver', 'test-coupon']);
+const TOOL_SOURCES = new Set(['polar', 'sigrity', 'field-solver', 'test-coupon', 'jlc']);
 const KNOWN_SOURCES = new Set([...TOOL_SOURCES, 'published']);
 
 const modules = new Map<string, string>();
